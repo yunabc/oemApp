@@ -10,7 +10,7 @@
 			<router-link class="fr" to="/register">注册账号</router-link>
 		</div>
 	</div>
-	<view-router></view-router>
+	
 </template>
 <script>
 export default {
