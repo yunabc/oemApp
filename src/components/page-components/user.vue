@@ -103,12 +103,15 @@
          }
         &.invite{
           background: url("../../common/img/invite.png") left center no-repeat;
+          background-size: .42666667rem .58666667rem/* 44px */;
          }
          &.performance{
             background: url("../../common/img/performance.png") left center no-repeat;
+            background-size: .57333333rem .58666667rem;
           }
          &.logs{
            background: url("../../common/img/logs.png") left center no-repeat;
+           background-size: .61333333rem .61333333rem;
            position:relative;
             &.down,&.up{
               &:after{
@@ -139,6 +142,7 @@
          }
          &.manage{
            background: url("../../common/img/manage.png") left center no-repeat;
+           background-size: .58666667rem .58666667rem;
          }
 
 
