@@ -18,26 +18,25 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/login',
       name: 'login',
       component: login,
-      children:[
-        {
-          path:'/lostpassword',
-          name:'lostpassword',
-          component:lostpassword
-        },
-        {
-          path:'/register',
-          name:'register',
-          component:register,
-          children:[{
-            path:'/next',
-            name:'registernext',
-            component:registernext
-          }]
-        }
-      ]
+      
+    },
+    {
+      path:'/lostpassword',
+      name:'lostpassword',
+      component:lostpassword
+    },
+    {
+      path:'/register',
+      name:'register',
+      component:register
+      
+    },{
+      path:'/next',
+      name:'registernext',
+      component:registernext
     },
     {
       path:'/home',
