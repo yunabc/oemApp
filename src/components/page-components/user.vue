@@ -2,7 +2,9 @@
 <div id="user">
   <div v-if="vip" class="userHeader">
     <div class="moneyNum">1,111.00</div>
-    <p>累计佣金(元)</p>
+    <router-link to="/login">
+      <p>累计佣金(元)</p>
+    </router-link>
   </div>
   <ul class="userCenterList">
     <li class="invite userCenterItem userItemLine">
@@ -20,9 +22,10 @@
         <a href="" class="logsItem">绿地金服投资</a>
       </div>
     </li>
-    <li class="manage userCenterItem userItemLine">
+    <router-link to="/account" class="manage userCenterItem userItemLine">
+
       <p class="text">账户管理</p>
-    </li>
+    </router-link>
   </ul>
   <foot-nav></foot-nav>
 </div>
@@ -63,35 +66,38 @@
       align-items:center;
       justify-content:center;
       flex-flow: column;
-      height: 384px;
-      margin-bottom: 20px;
+      height: 5.12rem/* 384px */;
+      margin-bottom: .26666667rem;
       background-color: @color;
       color: #fff;
-      font-size:20px;
+      font-size:.26666667rem;
       .moneyNum{
-        font-size: 60px;
-        line-height: 68px;
+        font-size: .8rem;
+        line-height: .90666667rem;
+      }
+      p{
+        color: #fff;
       }
 
     }
     .userCenterList{
       background-color: #fff;
-      font-size: 24px;
-      padding:0 30px;
+      font-size: .32rem;
+      padding:0 .4rem;
       .userCenterItem{
-        border-bottom: 1px solid @lineGrayColor;
+        border-bottom: .01333333rem solid @lineGrayColor;
         .logsList{
-          padding-left: 77px;
+          padding-left: 1.02666667rem/* 77px */;
           .logsItem{
             color: #818181;
             border-bottom: none;
-            height: 52px;
+            height: .69333333rem/* 52px */;
           }
         }
       }
       .userItemLine{
-        line-height: 104px;
-        padding-left:77px;
+        line-height: 1.38666667rem/* 104px */;
+        padding-left:1.02666667rem;
         &:last-child{
            border-bottom:none;
          }
@@ -118,16 +124,16 @@
              }
             &.down{
               &:after{
-                 border-top: 10px solid #000;
-                 border-left: 10px solid transparent;
-                 border-right: 10px solid transparent;
+                 border-top: .13333333rem solid #000;
+                 border-left: .13333333rem solid transparent;
+                 border-right: .13333333rem solid transparent;
                }
              }
             &.up{
               &:after{
-                 border-bottom: 10px solid #000;
-                 border-left: 10px solid transparent;
-                 border-right: 10px solid transparent;
+                 border-bottom: .13333333rem solid #000;
+                 border-left: .13333333rem solid transparent;
+                 border-right: .13333333rem solid transparent;
                }
             }
          }

@@ -44,14 +44,14 @@
   @import '../../common/style/commoncolor.less';
 
   #lowerPerformance{
-  padding:80px 50px;
+  padding:1.06666667rem .66666667rem;
   .chooseCondition{
-    margin-bottom: 20px;
+    margin-bottom: .26666667rem;
     .chooseMonth{
-      font-size: 24px;
-      border-bottom: 1px solid @lineGrayColor;
-      padding: 5px;
-      margin-left: 30px;
+      font-size: .32rem;
+      border-bottom: .01333333rem solid @lineGrayColor;
+      padding: .06666667rem;
+      margin-left: .4rem;
     }
   }
 }

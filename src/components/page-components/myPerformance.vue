@@ -36,7 +36,7 @@
 
 <style lang="less" rel="stylesheet/less">
 #myPerformance{
-  padding: 80px 50px;
+  padding: 1.06666667rem .66666667rem;
 }
 
 </style>

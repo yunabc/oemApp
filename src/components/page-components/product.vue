@@ -54,68 +54,68 @@
     display: flex;
     flex-flow:column;
     align-items:center;
-    padding: 40px 0;
+    padding: .53333333rem 0;
     background-color: #fff;
-    margin-bottom: 20px;
+    margin-bottom: .26666667rem;
     div{
-      margin-bottom: 40px;
+      margin-bottom: .53333333rem;
     }
     .title{
-      font-size: 28px;
-      line-height: 28px;
+      font-size: .37333333rem;
+      line-height: .37333333rem;
     }
     .profit{
-      font-size: 48px;
-      line-height: 48px;
-      margin-bottom: 20px;
+      font-size: .64rem;
+      line-height: .64rem;
+      margin-bottom: .26666667rem;
     }
     .times{
-      font-size: 20px;
+      font-size: .26666667rem;
       .days{
-        font-size: 24px;
+        font-size: .32rem;
         color: red;
       }
     }
     .buyBtn{
-      width: 480px;
-      height: 68px;
-      border: 3px solid @color;
+      width: 6.4rem;
+      height: .90666667rem;
+      border: .04rem solid @color;
       text-align: center;
-      font-size: 28px;
+      font-size: .37333333rem;
       color: @color;
-      line-height: 68px;
-      border-radius: 34px;
+      line-height: .90666667rem;
+      border-radius: .45333333rem/* 34px */;
     }
   }
   .clockHint{
     display: flex;
     display: none;
     background-color: #fff;
-    padding:22px 50px;
+    padding:.29333333rem .66666667rem;
     img{
-      margin-top: 4px;
-      margin-right: 30px;
+      margin-top: .05333333rem;
+      margin-right: .4rem;
     }
     .desc{
-      font-size: 24px;
-      line-height: 28px;
+      font-size: .32rem;
+      line-height: .37333333rem;
       flex: 1;
       color: #666666;
     }
   }
   .productList{
-    padding: 0 20px;
+    padding: 0 .26666667rem;
     .productItem{
-      margin-top: 20px;
-      padding: 30px;
-      border-radius: 15px;
+      margin-top: .26666667rem;
+      padding: .4rem;
+      border-radius: .2rem;
       background-color: #fff;
       color:#666666;
-      font-size:20px;
+      font-size:.26666667rem;
       .itemTitle{
-        font-size: 24px;
-        line-height: 24px;
-        margin-bottom: 26px;
+        font-size: .32rem;
+        line-height: .32rem;
+        margin-bottom: .34666667rem/* 26px */;
         color: #333333;
         font-weight: bold;
       }
@@ -125,27 +125,27 @@
         justify-content:space-between;
         .profit{
           .profitNum{
-            font-size: 36px;
+            font-size: .48rem;
             color: red;
-            line-height: 42px;
+            line-height: .56rem/* 42px */;
           }
         }
         .times{
           text-align: center;
           .timesDay{
-            font-size: 28px;
+            font-size: .37333333rem;
             color: @color;
-            line-height: 38px;
+            line-height: .50666667rem;
           }
         }
         .buyBtn{
-          width: 180px;
-          height: 48px;
+          width: 2.4rem/* 180px */;
+          height: .64rem;
           background-color: @color;
           color: #fff;
           text-align: center;
-          line-height: 48px;
-          border-radius: 24px;
+          line-height: .64rem;
+          border-radius: .32rem;
         }
       }
 

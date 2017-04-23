@@ -57,76 +57,76 @@
     background-color: @backGrayColor;
     height: 100%;
     .home-content{
-      padding: 0 30px;
+      padding: 0 .4rem;
       .investLi{
         background-color: #fff;
-        margin-top: 30px;
-        border-radius:10px;
+        margin-top: .4rem;
+        border-radius:.13333333rem;
         &:active{
           background-color: @backGrayColor;
          }
         .infoDesc{
           display:flex;
-          padding: 38px 50px 30px;
+          padding: .50666667rem .66666667rem .4rem;
           img{
-            width: 59px;
-            height: 58px;
-            margin-top: 16px;
+            width: .78666667rem;
+            height: .77333333rem;
+            margin-top: .21333333rem;
           }
           .desc{
-            margin-left:48px;
+            margin-left:.64rem;
             .title{
-              font-size: 32px;
-              line-height: 36px;
+              font-size: .42666667rem;
+              line-height: .48rem;
               font-weight: bold;
-              margin-bottom: 24px;
+              margin-bottom: .32rem;
             }
             .subtitle{
-              font-size: 24px;
-              line-height: 30px;
+              font-size: .32rem;
+              line-height: .4rem;
               color: #666666;
             }
           }
         }
         .deviLine{
-          border-top: 1px solid @backGrayColor;
+          border-top: .01333333rem solid @backGrayColor;
           position:relative;
-          margin:5px 0;
+          margin:.06666667rem 0;
           &:before,&:after{
-             display:block;
-             content:"";
-             position:absolute;
-            width: 10px;
-            height: 20px;
+            display:block;
+            content:"";
+            position:absolute;
+            width: .13333333rem;
+            height: .26666667rem;
             background-color: @backGrayColor;
-            top:-10px
+            top:-.13333333rem;
           }
           &:before{
             left: 0;
-             border-radius: 0 10px 10px 0;
+             border-radius: 0 .13333333rem .13333333rem 0;
           }
           &:after{
              right: 0;
-             border-radius: 10px 0 0 10px;
+             border-radius: .13333333rem 0 0 .13333333rem;
            }
         }
         .infoCharge{
           display: flex;
-          padding: 17px 50px;
+          padding: .22666667rem .66666667rem;
           justify-content:space-between;
-          line-height:48px;
+          line-height:.64rem;
           .name{
-            font-size: 24px;
+            font-size: .32rem;
             color: #333333;
           }
           .profit{
-            font-size: 32px;
+            font-size: .42666667rem;
             color: @color;
           }
           .buyBtn{
-            width: 120px;
-            height: 48px;
-            border-radius: 24px;
+            width: 1.6rem;
+            height: .64rem;
+            border-radius: .32rem;
             text-align: center;
             color: #fff;
             background-color: @color;
