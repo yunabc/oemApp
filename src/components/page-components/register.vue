@@ -1,16 +1,17 @@
 <template>
 	<div class="login">
 		<div class="inputbox">
-			<input type="password" name="password" placeholder="请输入手机号">
+			<input type="text" name="phone" placeholder="请输入手机号">
+			<input type="password" name="password" placeholder="请输入密码">
+			<input type="password" name="password2" placeholder="请确认密码">
 			<div class="send-code">
-				<input type="text" name="phone" placeholder="请输入手机号">
+				<input type="text" name="code" placeholder="请输入验证码">
 				<span class="send">发送验证码</span>
 			</div>
 			<div class="read-checkbox">
 				<label for="checkread">
 					<input id="checkread" type="checkbox">
-					<span>我已阅读并同意</span>
-					<a href="" class="xieyi">《平台协议》</a>
+					<span>我已阅读并同意</span><a href="" class="xieyi">《平台协议》</a>
 				</label>
 			</div>
 		</div>
@@ -42,6 +43,7 @@ export default {
 			vertical-align: middle;
 		}
 		a{
+			display: inline;;
 			vertical-align: middle;
 			color: @color;
 		}

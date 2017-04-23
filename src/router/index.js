@@ -11,6 +11,8 @@ import lowerPerformance from 'components/page-components/lowerPerformance'
 import lostpassword from 'components/page-components/lostpassword'
 import register from 'components/page-components/register'
 import registernext from 'components/page-components/registernext'
+import account from 'components/page-components/account'
+import changePassword from 'components/page-components/changePassword'
 
 
 Vue.use(Router)
@@ -87,6 +89,14 @@ export default new Router({
           component:lowerPerformance
         }
       ]
+    },{
+      path: '/account',
+      name: 'account',
+      component: account
+    },{
+      path: '/changePassword',
+      name: 'changePassword',
+      component: changePassword
     }
   ],
   linkActiveClass: 'active'

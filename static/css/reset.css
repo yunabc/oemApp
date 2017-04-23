@@ -90,3 +90,6 @@ body {
 .fr{
   float:right;
 }
+input:-webkit-input-placeholder{
+    color: #9a9a9a;opacity:1;
+}
