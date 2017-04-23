@@ -1,26 +1,26 @@
 <template>
 <div id="user">
-  <div class="userHeader">
+  <div v-if="vip" class="userHeader">
     <div class="moneyNum">1,111.00</div>
     <p>累计佣金(元)</p>
   </div>
   <ul class="userCenterList">
-    <li class="invite userCenterItem">
+    <li class="invite userCenterItem userItemLine">
       <p class="text">邀请新用户</p>
     </li>
-    <li class="scale userCenterItem">
+    <router-link to="/user/performance" v-if="vip" class="performance userCenterItem userItemLine">
       <p class="text">规模绩效</p>
-    </li>
-    <li class="">
-      <div class="logs userCenterItem down">
+    </router-link>
+    <li class="userCenterItem">
+      <div class="logs  userItemLine down">
         <p class="text">投资记录</p>
       </div>
-      <ul class="logsList">
-        <li>360财富投资</li>
-        <li>绿地金融投资</li>
-      </ul>
+      <div class="logsList">
+        <a class="logsItem">360财富投资</a>
+        <a class="logsItem">绿地金服投资</a>
+      </div>
     </li>
-    <li class="manage userCenterItem">
+    <li class="manage userCenterItem userItemLine">
       <p class="text">账户管理</p>
     </li>
   </ul>
@@ -32,7 +32,9 @@
   import footNav from 'components/common-components/footNav';
   export default {
         data () {
-            return {}
+            return {
+              vip:true
+            }
         },
       components:{
         footNav
@@ -65,19 +67,19 @@
       background-color: #fff;
       font-size: 24px;
       padding:0 30px;
-      li{
+      .userCenterItem{
         border-bottom: 1px solid @lineGrayColor;
         .logsList{
           display: none;
           padding-left: 77px;
-          color: #818181;
-          li{
+          .logsItem{
+            color: #818181;
             border-bottom: none;
             height: 52px;
           }
         }
       }
-      .userCenterItem{
+      .userItemLine{
         line-height: 104px;
         padding-left:77px;
         &:last-child{
@@ -86,8 +88,8 @@
         &.invite{
           background: url("../../common/img/invite.png") left center no-repeat;
          }
-         &.scale{
-            background: url("../../common/img/scale.png") left center no-repeat;
+         &.performance{
+            background: url("../../common/img/performance.png") left center no-repeat;
           }
          &.logs{
            background: url("../../common/img/logs.png") left center no-repeat;

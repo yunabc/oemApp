@@ -8,7 +8,7 @@
         <div class="infoDesc">
           <img src="../../common/img/current.png" alt="" >
           <div class="desc">
-            <div class="title">活期理财</div>
+            <a href="" class="title">活期理财</a>
             <div class="subtitle">随存随取 复利计息</div>
           </div>
         </div>
@@ -16,14 +16,14 @@
         <div class="infoCharge">
           <div class="name">360金融.活期-20170101</div>
           <div class="profit">4.5%</div>
-          <div class="buyBtn">购买</div>
+          <router-link to="/invest/current" class="buyBtn">购买</router-link>
         </div>
       </li>
       <li class="currentInvest investLi">
         <div class="infoDesc">
           <img src="../../common/img/regular.png" alt="">
           <div class="desc">
-            <div class="title">定期理财</div>
+            <a href="" class="title">定期理财</a>
             <div class="subtitle">限期丰富 还可转让变活</div>
           </div>
         </div>
@@ -31,7 +31,7 @@
         <div class="infoCharge">
           <div class="name">360金融.活期-20170101</div>
           <div class="profit">4.5%</div>
-          <div class="buyBtn">购买</div>
+          <router-link to="/invest/regular" class="buyBtn">购买</router-link>
         </div>
       </li>
     </ul>
@@ -61,6 +61,10 @@
       .investLi{
         background-color: #fff;
         margin-top: 30px;
+        border-radius:10px;
+        &:active{
+          background-color: @backGrayColor;
+         }
         .infoDesc{
           display:flex;
           padding: 38px 50px 30px;

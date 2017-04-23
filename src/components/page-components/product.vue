@@ -23,7 +23,7 @@
             <p>预期年化利率</p>
           </div>
           <div class="verticalLine"></div>
-          <div class="times">
+          <div v-if="time" class="times">
             <p><span class="timesDay">233</span>天</p>
             <p>期限</p>
           </div>
@@ -39,7 +39,9 @@
     export default {
       name:'product',
       data () {
-            return {}
+            return {
+              time:true
+            }
         }
     }
 </script>
@@ -87,6 +89,7 @@
   }
   .clockHint{
     display: flex;
+    display: none;
     background-color: #fff;
     padding:22px 50px;
     img{
