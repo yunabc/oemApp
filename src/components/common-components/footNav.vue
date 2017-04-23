@@ -1,6 +1,6 @@
 <template>
   <div class="footNav">
-    <router-link to="/home" class="home footNavItem active">首页</router-link>
+    <router-link to="/home" class="home footNavItem">首页</router-link>
     <router-link to="/invest" class="invest footNavItem">投资</router-link>
     <router-link to="/user" class="user footNavItem">我的</router-link>
   </div>
