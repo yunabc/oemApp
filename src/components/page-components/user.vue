@@ -12,12 +12,12 @@
       <p class="text">规模绩效</p>
     </router-link>
     <li class="userCenterItem">
-      <div class="logs  userItemLine down">
+      <div class="logs  userItemLine" :class="logsList" @click="toggleList">
         <p class="text">投资记录</p>
       </div>
-      <div class="logsList">
-        <a class="logsItem">360财富投资</a>
-        <a class="logsItem">绿地金服投资</a>
+      <div class="logsList" v-show="logsList == 'up'">
+        <a href="" class="logsItem">360财富投资</a>
+        <a href="" class="logsItem">绿地金服投资</a>
       </div>
     </li>
     <li class="manage userCenterItem userItemLine">
@@ -33,11 +33,22 @@
   export default {
         data () {
             return {
-              vip:true
+              vip:true,
+              logsList:"down"
             }
         },
       components:{
         footNav
+      },
+      methods:{
+        toggleList(){
+         // this.logsList = this.logsList == "down" ? "down" : "up";
+          if(this.logsList == 'down'){
+            this.logsList = 'up'
+          }else{
+            this.logsList = 'down'
+          }
+        }
       }
     }
 </script>
@@ -70,7 +81,6 @@
       .userCenterItem{
         border-bottom: 1px solid @lineGrayColor;
         .logsList{
-          display: none;
           padding-left: 77px;
           .logsItem{
             color: #818181;
