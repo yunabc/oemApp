@@ -1,14 +1,10 @@
 <template>
 	<div class="login">
 		<div class="inputbox">
-			<input type="text" name="phone" placeholder="请输入手机号">
-			<input type="password" name="password" placeholder="请输入手机号">
+			<input type="text" name="phone" placeholder="请输入密码">
 		</div>
-		<button class="btn submit-btn">登录</button>
-		<div class="register-forget clearfix">
-			<router-link class="fl" to="/goods">忘记密码</router-link>
-			<router-link class="fr" to="/goods">注册账号</router-link>
-		</div>
+		<button class="btn submit-btn">下一步</button>
+		
 	</div>
 </template>
 <script>
