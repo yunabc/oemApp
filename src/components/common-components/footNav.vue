@@ -1,17 +1,8 @@
 <template>
   <div class="footNav">
-    <div class="home">
-      <i><img src="../../common/img/home.png" alt=""> </i>
-      <span>首页</span>
-    </div>
-    <div class="invest">
-      <i><img src="../../common/img/invest.png" alt=""> </i>
-      <span>首页</span>
-    </div>
-    <div class="user">
-      <i><img src="../../common/img/user.png" alt=""> </i>
-      <span>首页</span>
-    </div>
+    <router-link to="/home" class="home footNavItem active">首页</router-link>
+    <router-link to="/invest" class="invest footNavItem">投资</router-link>
+    <router-link to="/user" class="user footNavItem">我的</router-link>
   </div>
 </template>
 
@@ -24,7 +15,8 @@
 </script>
 
 <style lang="less" rel="stylesheet/less">
-.footNav{
+  @import '../../common/style/commoncolor.less';
+  .footNav{
   position: fixed;
   left: 0;
   bottom: 0;
@@ -33,11 +25,34 @@
   background-color: #fff;
   display: flex;
   z-index: 100;
-  div{
+  .footNavItem{
     flex: 1;
-    text-align: center;
     display: flex;
-    flex-flow:column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    padding-top: 55px;
+    &.home{
+      background: url("../../common/img/home.png") center 13px no-repeat;
+      &.active{
+        background: url("../../common/img/home.png") center 13px no-repeat;
+        color: @color;
+       }
+     }
+     &.invest{
+      background: url("../../common/img/invite.png") center 13px no-repeat;
+      &.active{
+         background: url("../../common/img/home.png") center 13px no-repeat;
+         color: @color;
+       }
+      }
+     &.user{
+        background: url("../../common/img/user.png") center 13px no-repeat;
+        &.active{
+           background: url("../../common/img/home.png") center 13px no-repeat;
+           color: @color;
+         }
+      }
   }
 }
 

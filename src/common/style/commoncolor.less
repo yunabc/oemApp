@@ -1,1 +1,59 @@
 @color: rgb(248,142,45);
+@backGrayColor: #f0f1f2;
+@lineGrayColor:#d7d6dc;
+a{
+  display: block;
+  color: #000;
+}
+.verticalLine{
+  height: 36px;
+  margin: auto 0;
+  border-right:  1px solid @lineGrayColor;
+}
+/*头部nav*/
+.tabNav{
+  display: flex;
+  background-color: #fff;
+  .navItem{
+    padding: 27px 0;
+    flex: 1;
+    text-align: center;
+    color: #000;
+    font-size:28px;
+    line-height:40px;
+    border-bottom: 1px solid @lineGrayColor;
+    font-weight:bold;
+    &.active{
+      border-bottom: 4px solid @color;
+      color: @color;
+    }
+  }
+}
+/*绩效表格*/
+.performanceDetail{
+  width: 100%;
+  border: 1px solid @lineGrayColor;
+  thead,tbody{
+    tr{
+      display: flex;
+      line-height: 80px;
+      td{
+        flex: 1;
+        border-bottom: 1px solid @lineGrayColor;
+        border-right: 1px solid @lineGrayColor;
+        text-align: center;
+      }
+    }
+  }
+  thead{
+    background-color: @color;
+  }
+  tbody{
+    tr{
+      &:active{
+        background-color: @backGrayColor;
+      }
+    }
+  }
+}
+
