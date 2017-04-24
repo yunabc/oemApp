@@ -84,7 +84,7 @@
     background-color: @backGrayColor;
     height: 100%;
     .home-banner{
-      height: 360px;
+      height: 4.8rem;
       /*.swiper-slide{
         img{
           width: 100%;
