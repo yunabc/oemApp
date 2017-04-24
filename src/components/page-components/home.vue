@@ -68,6 +68,7 @@
          loop: true,
          autoplay:'3000',
          pagination: '.swiper-pagination',
+         paginationClickable :true,
          nextButton: '.swiper-button-next',
          prevButton: '.swiper-button-prev'
        })
@@ -171,6 +172,14 @@
 
       }
 
+    }
+    .swiper-pagination-bullet{
+      height: 0.2rem;
+      width: 0.2rem;
+      margin: 0 0.15rem;
+    }
+    .swiper-pagination-bullet-active{
+      background: @color;
     }
   }
 
