@@ -1,0 +1,36 @@
+{
+  "status": "0",
+  "errorMsg": null,
+  "result": [
+    {
+      "proId": "PI6f6691978f614ccd954806f976635385",
+      "proName": "小火宝",
+      "proRate": "4.00",
+      "proRateTips": "昨日年化",
+      "proProspectiveEarn": "1.0750",
+      "proProspectiveEarnText": "万份收益",
+      "proProspectiveEarnStart": "2017-04-24",
+      "proType": "活期"
+    },
+    {
+      "proId": "PI6f6691978f614ccd954806f976635385",
+      "proName": "火宝",
+      "proRate": "4.00",
+      "proRateTips": "昨日年化",
+      "proProspectiveEarn": "1.0750",
+      "proProspectiveEarnText": "2017-04-24",
+      "proProspectiveEarnStart": "万份收益",
+      "proType": "活期"
+    },
+    {
+      "proId": "PI757899b5e67d42058c5ba26f42b4ea94",
+      "proName": "小活宝",
+      "proRate": "4.00",
+      "proRateTips": "昨日年化",
+      "proProspectiveEarn": "1.0750",
+      "proProspectiveEarnText": "2017-04-24",
+      "proProspectiveEarnStart": "万份收益",
+      "proType": "活期"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 <template>
-<div id="user">
+<div id="user" class="stageScreen">
   <div v-if="vip" class="userHeader">
     <div class="moneyNum">1,111.00</div>
     <router-link to="/login">
@@ -45,7 +45,7 @@
       },
       methods:{
         toggleList(){
-         // this.logsList = this.logsList == "down" ? "down" : "up";
+          //this.logsList = this.logsList == "down" ? "down" : "up";
           if(this.logsList == 'down'){
             this.logsList = 'up'
           }else{
@@ -59,8 +59,6 @@
 <style lang="less" rel="stylesheet/less">
   @import '../../common/style/commoncolor.less';
   #user{
-    height:100%;
-    background-color:@backGrayColor;
     .userHeader{
       display: flex;
       align-items:center;

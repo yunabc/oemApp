@@ -1,5 +1,5 @@
 <template>
-  <div id="invest">
+  <div id="invest" class="stageScreen">
     <div class="tabNav">
       <router-link to="/invest/regular" class="regularProduct navItem" @click="">定期</router-link>
       <div class="verticalLine"></div>
@@ -13,23 +13,21 @@
 
 <script>
   import footNav from 'components/common-components/footNav';
+
   export default {
-        data () {
-            return {}
-        },
-      components:{
-        footNav
-      }
+    data () {
+      return {}
+    },
+    components: {
+      footNav
+    },
+    created() {
+
     }
+  }
 </script>
 
 <style lang="less" rel="stylesheet/less">
   @import '../../common/style/commoncolor.less';
-
-#invest{
-  height:100%;
-  background-color:@backGrayColor;
-
-}
 
 </style>

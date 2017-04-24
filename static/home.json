@@ -1,0 +1,56 @@
+{
+  "status": "0",
+  "errorMsg": null,
+  "result": {
+    "productDqViews": [
+      {
+        "proId": "PI2bd21a2c6c934d9c8ed8501d6179fc1f",
+        "proName": "小活宝Plus-25天（新手专享）",
+        "proRate": "10.5%",
+        "rateTips": "预期年化",
+        "proDayLimit": "25天",
+        "isTrans": "",
+        "proType": "定期"
+      },
+      {
+        "proId": "PI14d23b8572274098a55ef00c996bae05",
+        "proName": "小定宝-尊享48H3M-VIP1K期",
+        "proRate": "5.4%",
+        "rateTips": "预期年化",
+        "proDayLimit": "87天",
+        "isTrans": "可转让",
+        "proType": "定期"
+      },
+      {
+        "proId": "PI9960741c81f146b7a1aa0afd8f79d4a8",
+        "proName": "小定宝-尊享50H6M-VIP1G期",
+        "proRate": "5.8%",
+        "rateTips": "预期年化",
+        "proDayLimit": "170天",
+        "isTrans": "可转让",
+        "proType": "定期"
+      },
+      {
+        "proId": "PIa1201024c6f14470849a35e0a5e8b7d2",
+        "proName": "小定宝-尊享53H12M-VIP1K期",
+        "proRate": "6.2%",
+        "rateTips": "预期年化",
+        "proDayLimit": "359天",
+        "isTrans": "可转让",
+        "proType": "定期"
+      }
+    ],
+    "productHqViews": [
+      {
+        "proName": "小活宝",
+        "proRate": "4.00",
+        "proRateTips": "昨日年化",
+        "proProspectiveEarn": "1.0750",
+        "proProspectiveEarnText": "万份收益",
+        "proProspectiveEarnStart": "2017-04-24",
+        "proType": "活期"
+      }
+    ]
+  }
+}
+
