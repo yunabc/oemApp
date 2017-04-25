@@ -37,7 +37,7 @@
 
 <script>
   import axios from 'axios';
-
+  import BScroll from 'better-scroll';
   export default {
     data () {
       return {

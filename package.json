@@ -10,6 +10,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "better-scroll": "^0.1.15",
     "swiper": "^3.4.2",
     "vue": "^2.2.6",
     "vue-router": "^2.3.1"

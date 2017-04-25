@@ -1,9 +1,10 @@
 <template>
   <div id="product">
-    <div class="investHeader" >
+    <div class="investHeader">
       <div class="title">{{currentDataHot.proName}}<!--360金融.活期-20170101--></div>
       <div class="profit">{{currentDataHot.proRate}}%</div>
-      <div class="times">{{currentDataHot.proProspectiveEarnText}}<!--期限--><span class="days">{{currentDataHot.proProspectiveEarn}}</span><!--天--></div>
+      <div class="times">{{currentDataHot.proProspectiveEarnText}}<!--期限--><span class="days">{{currentDataHot.proProspectiveEarn}}</span>
+        <!--天--></div>
       <div class="buyBtn">立即购买</div>
     </div>
     <div class="clockHint">
@@ -14,30 +15,32 @@
       </div>
       <div class="swichBtn"><img src="../../common/img/clock.png" alt=""></div>
     </div>
-    <ul v-for="item in currentData" class="productList">
-      <li class="productItem">
-        <div class="itemTitle">{{item.proName}}<!--360金融.活期-20170101--></div>
-        <div class="itemInfo">
-          <div class="profit">
-            <p class="profitNum">{{item.proRate}}%</p>
-            <p>{{item.proRateTips}}<!--预期年化利率--></p>
+    <div ref="listWrapper" class="list-wrapper  list-wrapper-hook">
+      <ul  class="productList list-content  list-content-hook" ref="listContent">
+        <li v-for="item in currentData" class="productItem list-item">
+          <div class="itemTitle">{{item.proName}}<!--360金融.活期-20170101--></div>
+          <div class="itemInfo">
+            <div class="profit">
+              <p class="profitNum">{{item.proRate}}%</p>
+              <p>{{item.proRateTips}}<!--预期年化利率--></p>
+            </div>
+            <div class="verticalLine"></div>
+            <div v-if="time" class="times">
+              <p><span class="timesDay">{{item.proProspectiveEarn}}</span><!--天--></p>
+              <p>{{item.proProspectiveEarnText}}期限</p>
+            </div>
+            <div class="buyBtn">立即购买</div>
           </div>
-          <div class="verticalLine"></div>
-          <div v-if="time" class="times">
-            <p><span class="timesDay">{{item.proProspectiveEarn}}</span><!--天--></p>
-            <p>{{item.proProspectiveEarnText}}期限</p>
-          </div>
-          <div class="buyBtn">立即购买</div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
   </div>
 
 </template>
 
 <script>
   import axios from 'axios';
-
+ import BScroll from 'better-scroll';
   export default {
     data () {
       return {
@@ -58,12 +61,55 @@
         } else {
           console.log(data.errorMsg)
         }
-
       }).catch(function (error) {
         console.log(error);
       });
+    },
+    mounted(){
+      this.$nextTick(function () {
+        // 代码保证 this.$el 在 document 中
+        this._initScroll();
+      });
+    },
+    methods:{
+      _initScroll() {
+
+        if (!this.scroll) {
+          this.scroll = new BScroll(this.$refs.listWrapper, {
+            probeType: 1,
+            click:true
+          });
+          this.scroll.on('touchend',  (pos) => {
+            console.log(pos)
+            let listContent = this.$refs.listContent;
+            let contentH = listContent.offsetHeight;
+            let screenH = document.documentElement.clientHeight;
+            if (-pos.y + screenH > contentH + 50 ) {
+              setTimeout(() => {
+                this.reloadData();
+                this.scroll.refresh()
+                listContent.style.transform = "translate(0,"+ pos.y +"px)"
+              }, 1000)
+            }
+          })
+        }else {
+          // 未取到数据,所以不能滚动
+          this.scroll.refresh();
+        }
+      },
+      reloadData(){
+        console.log(2)
+      }
     }
   }
+
+
+
+
+
+
+
+
 </script>
 
 <style lang="less" rel="stylesheet/less">
@@ -123,7 +169,7 @@
         color: #666666;
       }
     }
-    .productList {
+    .productList{
       padding: 0 .26666667rem;
       .productItem {
         margin-top: .26666667rem;
