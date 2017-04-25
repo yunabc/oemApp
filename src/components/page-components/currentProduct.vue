@@ -33,6 +33,34 @@
           </div>
         </li>
       </ul>
+      <div class="loading-wrapper">
+        <div class='uil-default-css' style='transform:scale(0.15);'>
+          <div
+            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(0deg) translate(0,-60px);transform:rotate(0deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+          <div
+            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(30deg) translate(0,-60px);transform:rotate(30deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+          <div
+            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(60deg) translate(0,-60px);transform:rotate(60deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+          <div
+            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(90deg) translate(0,-60px);transform:rotate(90deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+          <div
+            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(120deg) translate(0,-60px);transform:rotate(120deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+          <div
+            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(150deg) translate(0,-60px);transform:rotate(150deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+          <div
+            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(180deg) translate(0,-60px);transform:rotate(180deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+          <div
+            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(210deg) translate(0,-60px);transform:rotate(210deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+          <div
+            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(240deg) translate(0,-60px);transform:rotate(240deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+          <div
+            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(270deg) translate(0,-60px);transform:rotate(270deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+          <div
+            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(300deg) translate(0,-60px);transform:rotate(300deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+          <div
+            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(330deg) translate(0,-60px);transform:rotate(330deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -44,6 +72,7 @@
   export default {
     data () {
       return {
+        page:1,
         time: true,
         currentDataHot:{},
         currentData:[]
@@ -53,27 +82,16 @@
 
     },
     created(){
-      axios.get('../../../static/currentInvest.json').then((res) => {
-        let data = res.data;
-        if (data.status == 0) {
-          this.currentDataHot = data.result[0];
-          this.currentData = data.result.splice(1);
-        } else {
-          console.log(data.errorMsg)
-        }
-      }).catch(function (error) {
-        console.log(error);
-      });
+      this._getData();
     },
     mounted(){
-      this.$nextTick(function () {
+      this.$nextTick(() => {
         // 代码保证 this.$el 在 document 中
         this._initScroll();
       });
     },
     methods:{
       _initScroll() {
-
         if (!this.scroll) {
           this.scroll = new BScroll(this.$refs.listWrapper, {
             probeType: 1,
@@ -86,9 +104,9 @@
             let screenH = document.documentElement.clientHeight;
             if (-pos.y + screenH > contentH + 50 ) {
               setTimeout(() => {
-                this.reloadData();
+                this._getData();
                 this.scroll.refresh()
-                listContent.style.transform = "translate(0,"+ pos.y +"px)"
+                //listContent.style.transform = "translate(0,"+ pos.y +"px)"
               }, 1000)
             }
           })
@@ -97,8 +115,21 @@
           this.scroll.refresh();
         }
       },
-      reloadData(){
-        console.log(2)
+      _getData(){
+        let page = this.page;
+        axios.get('../../../static/currentInvest.json',{page:page}).then((res) => {
+          let data = res.data;
+          if (data.status == 0) {
+            this.currentDataHot = data.result[0];
+            this.currentData = data.result.splice(1);
+            this.page ++
+            console.log(this.page)
+          } else {
+            console.log(data.errorMsg)
+          }
+        }).catch(function (error) {
+          console.log(error);
+        });
       }
     }
   }
