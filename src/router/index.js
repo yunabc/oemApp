@@ -4,7 +4,8 @@ import login from 'components/page-components/login'
 import home from 'components/page-components/home'
 import invest from 'components/page-components/invest'
 import user from 'components/page-components/user'
-import product from 'components/page-components/product'
+import regularProduct from 'components/page-components/regularProduct'
+import currentProduct from 'components/page-components/currentProduct'
 import performance from 'components/page-components/performance'
 import myPerformance from 'components/page-components/myPerformance'
 import lowerPerformance from 'components/page-components/lowerPerformance'
@@ -23,7 +24,7 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: login,
-      
+
     },
     {
       path:'/lostpassword',
@@ -34,7 +35,7 @@ export default new Router({
       path:'/register',
       name:'register',
       component:register
-      
+
     },{
       path:'/next',
       name:'registernext',
@@ -61,11 +62,11 @@ export default new Router({
         },
         {
           path:'/invest/regular',
-          component:product
+          component:regularProduct
         },
         {
           path:'/invest/current',
-          component:product
+          component:currentProduct
         }
       ]
     },
