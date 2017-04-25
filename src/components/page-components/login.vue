@@ -1,8 +1,8 @@
 <template>
 	<div class="login">
 		<div class="inputbox">
-			<input type="text" name="phone" placeholder="请输入手机号" @keydown="inputval(this)">
-			<input type="password" name="password" placeholder="请输入密码" @keydown="inputval(this)">
+			<input type="text" v-model="phone"  placeholder="请输入手机号" >
+			<input type="password" v-model="password" placeholder="请输入密码" >
 		</div>
 		<div v-if="loginTimes > 3" class="stage">
 			<div class="slider" id="slider">
@@ -39,8 +39,10 @@ export default {
 			loginTimes: 0,
 			phone: '',
 			password: '',
+			moveBlock: false,
+			moveBlockCb: false,
 			msg:'测试提示文案测试提示文案测试提示文案测试提示文案测试提示文案',
-			openWindow: true
+			openWindow: false
 
 		}
 	},
@@ -50,15 +52,55 @@ export default {
 	methods: {
 		checkInfo() {
 			//登录 判断情况
-			if(this.loginTimes <= 3) {
-				axios.post( this.domain + 'x-service/user/record.htm').then((res) => {
-					if(res.status == 1){
-						// 用户名密码错误
-						this.msg = res.errorMsg;
-
-					}
-				})
+			if(this.loginTimes > 3) {
+				this.moveBlock = true;
 			}
+			console.log(111)
+			this.checkinput();
+			
+		},
+		checkinput() {
+			let flag = true;
+			let reg = /^1(3[0-9]|4[57]|5[0-35-9]|8[0-9]|7[780])\d{8}$/;
+			let regp = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
+			console.log(this.phone == '',this.password != null)
+			if(this.phone != "" & this.password != ""){
+				console.log(222)
+				if(reg.test(this.phone)){
+					if(regp.test(this.password)){
+						if(this.moveBlock){
+							if(this.moveBlockCb){
+								this.upLoad();
+								return ;
+							}
+							this.msg = '解锁失败';
+							this.openWindow = true;
+							return ;
+						}
+						this.upLoad();
+						return;
+					}
+					this.msg = '密码格式不对';
+					this.openWindow = true;
+					return ;
+				}
+				this.msg = '手机号格式不对';
+				this.openWindow = true;
+				return;
+			}
+			this.msg = '手机号和密码不能为空';
+			this.openWindow = true;
+			return ;
+		},
+		upLoad() {
+			/*axios.post( this.domain + 'x-service/user/record.htm').then((res) => {
+				let data =res.data;
+				if(data.status == 1){
+					// 用户名密码错误
+					this.msg = res.errorMsg;
+					this.openWindow = true;
+				}
+			})*/
 		},
 		closeWindow(bool) {
 			this.openWindow = bool; 

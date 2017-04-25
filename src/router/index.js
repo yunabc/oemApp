@@ -45,7 +45,11 @@ export default new Router({
       name:'home',
       component:home
     },
-
+    {
+      path:'/',
+      name:'home',
+      component:home
+    },
     {
       path:'/invest',
       name:'invest',

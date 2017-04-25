@@ -41,9 +41,23 @@
 
 <script>
   import footNav from 'components/common-components/footNav';
+  import axios from 'axios';
   export default {
     data () {
-      return {}
+      return {
+        userId: ""
+      }
+    },
+    props: {
+      domain: String
+    },
+    created() {
+      /*axios.post(this.domain + 'x-service/user/info.htm').then((res) => {
+        let response = res.data,result = response.result;
+        if(response.status == 0){
+          this.userId = result.userId;
+        }
+      })*/
     },
     components:{
       footNav
