@@ -68,7 +68,7 @@
 
 <script>
   import axios from 'axios';
- import BScroll from 'better-scroll';
+  import BScroll from 'better-scroll';
   export default {
     data () {
       return {
@@ -98,6 +98,7 @@
             click:true
           });
           this.scroll.on('touchend',  (pos) => {
+            //条件判断有误
             console.log(pos)
             let listContent = this.$refs.listContent;
             let contentH = listContent.offsetHeight;
@@ -117,13 +118,16 @@
       },
       _getData(){
         let page = this.page;
-        axios.get('../../../static/currentInvest.json',{page:page}).then((res) => {
+        axios.get('../../../static/currentInvest.json').then((res) => {
           let data = res.data;
           if (data.status == 0) {
-            this.currentDataHot = data.result[0];
-            this.currentData = data.result.splice(1);
-            this.page ++
-            console.log(this.page)
+            if(this.page === 1){
+              this.currentDataHot = data.result[0];
+              this.currentData = data.result.splice(1);
+              this.page ++
+            }else{
+              this.currentData = this.currentData.concat(data.result)
+            }
           } else {
             console.log(data.errorMsg)
           }

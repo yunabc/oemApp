@@ -1,0 +1,30 @@
+{
+  "status": "0",
+  "errorMsg": null,
+  "result": [
+    {
+      "curMonthTime": "2017.1",
+      "curPersonCount": "5",
+      "curMonthTotalMoney": "5020",
+      "curMonthComm": "220",
+      "userId": "1",
+      "userName": "1hh"
+    },
+    {
+      "curMonthTime": "2017.2",
+      "curPersonCount": "6",
+      "curMonthTotalMoney": "5040",
+      "curMonthComm": "240",
+      "userId": "2",
+      "userName": "2hh"
+    },
+    {
+      "curMonthTime": "2017.3",
+      "curPersonCount": "7",
+      "curMonthTotalMoney": "5060",
+      "curMonthComm": "260",
+      "userId": "3",
+      "userName": "3hh"
+    }
+  ]
+}

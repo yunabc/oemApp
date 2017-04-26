@@ -1,6 +1,6 @@
 <template>
 <div id="myPerformance">
-  <table class="performanceDetail">
+  <table v-if="data.length" class="performanceDetail">
     <thead>
       <tr>
         <td>时间</td>
@@ -10,26 +10,39 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>2017.1</td>
-        <td>15</td>
-        <td>1000.00</td>
-        <td>200.00</td>
+      <tr v-for="item in data">
+        <td>{{item.curMonthTime}}</td>
+        <td>{{item.curPersonCount}}</td>
+        <td>{{item.curMonthTotalMoney}}</td>
+        <td>{{item.curMonthComm}}</td>
       </tr>
     </tbody>
   </table>
+  <div class="noContent" v-else>暂无数据</div>
 </div>
 </template>
 
 <script>
   import footNav from 'components/common-components/footNav';
-
+  import axios from 'axios';
   export default {
         data () {
-            return {}
+            return {
+              data:[]
+            }
         },
         components:{
           footNav
+        },
+        created(){
+          axios.get('../../../static/myPerformance.json').then((res) => {
+             let data = res.data;
+              if (data.status == 0) {
+                 this.data = data.result;
+              }else{
+                 console.log(data.errorMsg)
+              }
+          })
         }
     }
 </script>

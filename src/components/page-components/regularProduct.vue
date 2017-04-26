@@ -34,13 +34,13 @@
   </div>
 
 </template>
-
 <script>
   import axios from 'axios';
-  import BScroll from 'better-scroll';
+ import BScroll from 'better-scroll';
   export default {
     data () {
       return {
+        page:1,
         time: true,
         regularDataHot:{},
         regularData:[]
@@ -50,18 +50,59 @@
 
     },
     created(){
-      axios.get('../../../static/regularInvest.json').then((res) => {
-        let data = res.data;
-        if (data.status == 0) {
-          this.regularDataHot = data.result[1];
-          this.regularData = data.result.splice(1);
-        } else {
-          console.log(data.errorMsg)
-        }
-
-      }).catch(function (error) {
-        console.log(error);
+      this._getData();
+    },
+    mounted(){
+      this.$nextTick(() => {
+        // 代码保证 this.$el 在 document 中
+        this._initScroll();
       });
+    },
+    methods:{
+      _initScroll() {
+        if (!this.scroll) {
+          this.scroll = new BScroll(this.$refs.listWrapper, {
+            probeType: 1,
+            click:true
+          });
+          this.scroll.on('touchend',  (pos) => {
+            //条件判断有误
+            console.log(pos)
+            let listContent = this.$refs.listContent;
+            let contentH = listContent.offsetHeight;
+            let screenH = document.documentElement.clientHeight;
+            if (-pos.y + screenH > contentH + 50 ) {
+              setTimeout(() => {
+                this._getData();
+                this.scroll.refresh()
+                //listContent.style.transform = "translate(0,"+ pos.y +"px)"
+              }, 1000)
+            }
+          })
+        }else {
+          // 未取到数据,所以不能滚动
+          this.scroll.refresh();
+        }
+      },
+      _getData(){
+        let page = this.page;
+        axios.get('../../../static/regularInvest.json').then((res) => {
+          let data = res.data;
+          if (data.status == 0) {
+            if(this.page === 1){
+              this.regularDataHot = data.result[0];
+              this.regularData = data.result.splice(1);
+              this.page ++
+            }else{
+              this.regularData = this.regularData.concat(data.result)
+            }
+          } else {
+            console.log(data.errorMsg)
+          }
+        }).catch(function (error) {
+          console.log(error);
+        });
+      }
     }
   }
 </script>

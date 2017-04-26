@@ -1,15 +1,13 @@
 <template>
 <div id="lowerPerformance">
   <div class="chooseCondition">
-    <label for="">月份:</label>
-    <select class="chooseMonth">
-      <option value="1">2017.1</option>
-      <option value="2">2017.2</option>
-      <option value="3">2017.3</option>
-      <option value="4">2017.4</option>
+    <label>月份:</label>
+    <select  class="chooseMonth" v-model="selectMonth">
+      <option v-for="item in months" :value="item">{{item}}</option>
     </select>
+    <button class="search" @click="select()">查询</button>
   </div>
-  <table class="performanceDetail">
+  <table v-if="data.length" class="performanceDetail">
     <thead>
       <tr>
         <td>推广人ID</td>
@@ -20,22 +18,62 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>1111</td>
-        <td>张三</td>
-        <td>15</td>
-        <td>1000.00</td>
-        <td>2000.00</td>
+      <tr v-for="item in data">
+        <td>{{item.userId}}</td>
+        <td>{{item.userName}}</td>
+        <td>{{item.curPersonCount}}</td>
+        <td>{{item.curMonthTotalMoney}}</td>
+        <td>{{item.curMonthComm}}</td>
       </tr>
     </tbody>
   </table>
+  <div class="noContent" v-else>暂无数据</div>
 </div>
 </template>
 
 <script>
-    export default {
+  import footNav from 'components/common-components/footNav';
+  import axios from 'axios';
+  export default {
         data () {
-            return {}
+            return {
+              selectMonth:'',
+              data:[],
+              months:[]
+            }
+        },
+        components:{
+          footNav
+        },
+        created(){
+          this.getData()
+          this.months = this.getMonth();
+        },
+        methods:{
+            getMonth(){
+              let monthsArr = [];
+              let nowTime = new Date();
+              let nowYear = nowTime.getFullYear();
+              let nowMonth = nowTime.getMonth() + 1
+              for(var i = 1;i<nowMonth;i++){
+                monthsArr.push(nowYear+ '.'+ i)
+              }
+              return monthsArr
+            },
+            getData(monthNum){
+              axios.get('../../../static/lowerPerformance.json').then((res) => {
+                  let data = res.data;
+                  if (data.status == 0) {
+                    this.data = data.result;
+                  }else{
+                     console.log(data.errorMsg)
+                  }
+              })
+            },
+            select(){
+              let monthNum = (this.selectMonth);
+              this.getData(monthNum)
+            }
         }
     }
 </script>
@@ -52,6 +90,10 @@
       border-bottom: .01333333rem solid @lineGrayColor;
       padding: .06666667rem;
       margin-left: .4rem;
+    }
+    .search{
+      font-size: .32rem;
+      float: right;
     }
   }
 }
