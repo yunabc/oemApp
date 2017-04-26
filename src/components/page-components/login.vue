@@ -47,7 +47,7 @@ export default {
 		}
 	},
 	created() {
-
+		console.log(this.$router)
 	},
 	methods: {
 		checkInfo() {
@@ -93,14 +93,35 @@ export default {
 			return ;
 		},
 		upLoad() {
-			/*axios.post( this.domain + 'x-service/user/record.htm').then((res) => {
+			// axios.post( this.domain + 'x-service/user/login.htm',{
+			axios.get( '../../../static/login.json',{
+				mobile:this.phone,
+				pwd:this.password
+			}).then((res) => {
 				let data =res.data;
-				if(data.status == 1){
-					// 用户名密码错误
-					this.msg = res.errorMsg;
-					this.openWindow = true;
+				switch(data.status){
+					case 1:
+					  // 失败
+						this.msg = res.errorMsg;
+						this.openWindow = true;
+						break;
+					case 0:
+						// 登陆成功
+						alert(1);
+						this.$router.go(-1);
+						break;
+					case 2:
+						// 登陆未绑定客户信息
+						this.$router.go(-1);
+						break;
+					case -1:	
+					// 未登录
+						this.msg = res.errorMsg;
+						this.openWindow = true;
+						break;
 				}
-			})*/
+				
+			})
 		},
 		closeWindow(bool) {
 			this.openWindow = bool; 
