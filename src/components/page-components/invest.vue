@@ -1,9 +1,9 @@
 <template>
   <div id="invest" class="stageScreen">
     <div class="tabNav">
-      <router-link to="/invest/regular" class="regularProduct navItem" @click="">定期</router-link>
+      <router-link to="/regular" class="regularProduct navItem" @click="">定期</router-link>
       <div class="verticalLine"></div>
-      <router-link to="/invest/current" class="currentProduct navItem">活期</router-link>
+      <router-link to="/current" class="currentProduct navItem">活期</router-link>
     </div>
     <router-view ></router-view>
     <foot-nav></foot-nav>
