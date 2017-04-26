@@ -7,7 +7,7 @@
     <li class="account-li"><i class="fa fa-phone" aria-hidden="true"></i><span>银行预留手机号：{{bankcardphone}}</span></li>
     
   </ul>
-  <router-link class="change-btn" to="/changePassword">修改密码</router-link> 
+  <router-link class="change-btn" :realname="realname" idcode="idcode" bankcardphone="bankcardphone" bankcard="bankcard" to="/changePassword">修改密码</router-link> 
   <!-- <button class="change-btn">修改密码</button> -->
   <foot-nav></foot-nav>
 </div>
@@ -19,8 +19,8 @@
   export default {
     data () {
       return {
-        realname: '',
-        idcode: '',
+        realname: '张三',
+        idcode: '123123123',
         bankcard: '62343434343434',
         bankcardphone: '155555555',
 

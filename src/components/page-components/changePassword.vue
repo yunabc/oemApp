@@ -6,7 +6,8 @@
     <li class="account-li"><span class="key">确认密码:</span><input type="text" v-model="newpassword2"></li>
     
   </ul>
-  <button class="change-btn">保存</button>
+  <button class="change-btn" @click="checkinput">保存</button>
+  <v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert> 
   <foot-nav></foot-nav>
 </div>
 </template>
@@ -31,11 +32,7 @@
     },
     porps:{
       domain:String,
-      userId:String,
-      phone:Number,
-      realName:String,
-      idNo:Number,
-      bankCode:Number
+      
     },
     methods: {
       checkinput() {
@@ -81,14 +78,14 @@
         
       },
       upload() {
-        axios.post(this.domain + "/x-service/user/regInfo.htm",{
+        axios.post(this.domain + "x-service/user/modify.htm",{
           userId:this.userId,
-          bankTel:this.phone,
-          pwd:this.password,
-          rePwd:this.password2,
-          code:this.code
+          originalPwd:this.oldpassword,
+          newPwd:this.newpassword,
+          conPwd:this.newpassword2
         }).then((res) => {
           var data = res.data;
+          
 
         })
       },

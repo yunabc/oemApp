@@ -16,13 +16,17 @@
 
   export default {
     data () {
-      return {}
+      return {
+        userId:"",
+      }
+    },
+    props: {
     },
     components: {
       footNav
     },
     created() {
-
+      this.userId = this.$route.query.userId;
     }
   }
 </script>

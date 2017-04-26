@@ -98,6 +98,7 @@ export default {
 				mobile:this.phone,
 				pwd:this.password
 			}).then((res) => {
+				console.log(res);
 				let data =res.data;
 				switch(data.status){
 					case 1:
@@ -105,9 +106,9 @@ export default {
 						this.msg = res.errorMsg;
 						this.openWindow = true;
 						break;
-					case 0:
+					case "0":
 						// 登陆成功
-						alert(1);
+						console.log(1);
 						this.$router.go(-1);
 						break;
 					case 2:

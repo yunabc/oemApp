@@ -41,7 +41,7 @@
         <div class="infoCharge">
           <div class="name">{{item.proName}}</div>
           <div class="profit">{{item.proRate}}</div>
-          <router-link to="/invest/regular" class="buyBtn">购买</router-link>
+          <router-link :to="{ path: 'regular', query: { userId: userId }}"  class="buyBtn">购买</router-link>
         </div>
       </li>
     </ul>
@@ -58,7 +58,7 @@
       return {
         productDqViews: [],
         productHqViews: [],
-        userId: ""
+        userId: "00"
       }
 
     },
