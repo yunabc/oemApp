@@ -42,7 +42,8 @@ export default {
 			moveBlock: false,
 			moveBlockCb: false,
 			msg:'测试提示文案测试提示文案测试提示文案测试提示文案测试提示文案',
-			openWindow: false
+			openWindow: false,
+			userId: ""
 
 		}
 	},
@@ -99,9 +100,9 @@ export default {
 				pwd:this.password
 			}).then((res) => {
 				console.log(res);
-				let data =res.data;
+				let data =res.data,result = data.result;
 				switch(data.status){
-					case 1:
+					case "1":
 					  // 失败
 						this.msg = res.errorMsg;
 						this.openWindow = true;
@@ -109,13 +110,15 @@ export default {
 					case "0":
 						// 登陆成功
 						console.log(1);
+						this.userId = result.userId;
 						this.$router.go(-1);
+
 						break;
-					case 2:
+					case "2":
 						// 登陆未绑定客户信息
 						this.$router.go(-1);
 						break;
-					case -1:	
+					case "-1":	
 					// 未登录
 						this.msg = res.errorMsg;
 						this.openWindow = true;
