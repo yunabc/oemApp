@@ -101,8 +101,9 @@
             //条件判断有误
             console.log(pos)
             let listContent = this.$refs.listContent;
+            let listWrapper = this.$refs.listWrapper;
             let contentH = listContent.offsetHeight;
-            let screenH = document.documentElement.clientHeight;
+            let screenH = listWrapper.clientHeight;
             if (-pos.y + screenH > contentH + 50 ) {
               setTimeout(() => {
                 this._getData();
@@ -137,14 +138,6 @@
       }
     }
   }
-
-
-
-
-
-
-
-
 </script>
 
 <style lang="less" rel="stylesheet/less">
