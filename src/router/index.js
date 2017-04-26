@@ -46,26 +46,21 @@ export default new Router({
       name:'home',
       component:home
     },
-    {
-      path:'/',
-      name:'home',
-      component:home
-    },
+
     {
       path:'/invest',
-      name:'invest',
       component:invest,
       children:[
         {
           path:'/',
-          redirect:'/invest/current'
+          redirect:'/current'
         },
         {
-          path:'/invest/regular',
+          path:'/regular',
           component:regularProduct
         },
         {
-          path:'/invest/current',
+          path:'/current',
           component:currentProduct
         }
       ]
@@ -77,20 +72,19 @@ export default new Router({
       component:user
     },
     {
-      path:'/user/performance',
-      name:'performance',
+      path:'/performance',
       component:performance,
       children:[
         {
           path:'/',
-          redirect:'/user/myPerformance'
+          redirect:'/myPerformance'
         },
         {
-          path:'/user/myPerformance',
+          path:'/myPerformance',
           component:myPerformance
         },
         {
-          path:'/user/lowerPerformance',
+          path:'/lowerPerformance',
           component:lowerPerformance
         }
       ]

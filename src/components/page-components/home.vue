@@ -1,9 +1,8 @@
 <template>
   <div id="home" class="stageScreen">
-    <div class="swiper-container home-banner">
+    <div  class="swiper-container home-banner" v-if="bannerImgs.length">
       <div class="swiper-wrapper">
-        <a href="" class="swiper-slide"><img src="../../common/img/banner.jpg" alt="" width="100%"></a>
-        <a href="" class="swiper-slide"><img class="imgload" src="http://mooc.inxedu.com/images/upload/image/20151026/1446026905031.jpg" alt="首页banner图片02"></a>
+        <a v-for="item in bannerImgs" :href="item.triggerType?item.triggerUrl:noUrl" class="swiper-slide"><img :src="item.bannerUrl" alt="" width="100%"></a>
       </div>
       <!-- 如果需要分页器 -->
       <div class="swiper-pagination"></div>
@@ -11,6 +10,9 @@
       <!-- 如果需要导航按钮 -->
       <!-- <div class="swiper-button-prev"></div>
        <div class="swiper-button-next"></div>-->
+    </div>
+    <div class="home-banner" v-else>
+      <a  href="" class="swiper-slide"><img src="../../common/img/banner.jpg" alt="" width="100%"></a>
     </div>
     <ul class="home-content">
 
@@ -26,7 +28,7 @@
         <div class="infoCharge">
           <div class="name">{{item.proName}}</div>
           <div class="profit">{{item.proProspectiveEarn}}%</div>
-          <router-link to="/invest/current" class="buyBtn">购买</router-link>
+          <router-link to="/current" class="buyBtn">购买</router-link>
         </div>
       </li>
       <li v-for="(item,index) in productDqViews" class="regularInvest investLi">
@@ -41,7 +43,7 @@
         <div class="infoCharge">
           <div class="name">{{item.proName}}</div>
           <div class="profit">{{item.proRate}}</div>
-          <router-link to="/invest/regular" class="buyBtn">购买</router-link>
+          <router-link to="/regular" class="buyBtn">购买</router-link>
         </div>
       </li>
     </ul>
@@ -58,7 +60,9 @@
       return {
         productDqViews: [],
         productHqViews: [],
-        userId: ""
+        userId: "",
+        bannerImgs:[],
+        noUrl:"javascript:void(0)"
       }
 
     },
@@ -88,6 +92,18 @@
           this.userId = result.userId;
         }
       })*/
+      axios.get('../../../static/banner.json').then((res) => {
+        let data = res.data;
+        if (data.status == 0) {
+          this.bannerImgs = data.result;
+          console.log(this.bannerImgs)
+        } else {
+          console.log(data.errorMsg)
+        }
+
+      }).catch(function (error) {
+        console.log(error);
+      });
     },
     mounted () {
       let mySwiper = new Swiper('.swiper-container', {
@@ -111,11 +127,12 @@
   #home {
     .home-banner {
       height: 4.8rem;
-      /*.swiper-slide{
+      .swiper-slide{
         img{
           width: 100%;
+          height: 100%;
         }
-      }*/
+      }
     }
 
     .home-content {
