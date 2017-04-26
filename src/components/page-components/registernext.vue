@@ -93,7 +93,21 @@ export default {
 				bankCode:this.bankcard
 			}).then((res) => {
 				var data = res.data;
-
+				switch(data.status){
+					case 1:
+					  // 失败
+						this.msg = res.errorMsg;
+						this.openWindow = true;
+						break;
+					case 0:
+						// 登陆
+						this.$router.go(-2);
+					case -1:	
+					// 未登录
+						this.msg = res.errorMsg;
+						this.openWindow = true;
+						break;
+				}
 			})
 		},
 		sendCode() {

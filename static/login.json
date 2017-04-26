@@ -1,0 +1,11 @@
+{
+  "status": "0",
+  "errorMsg": null,
+  "result": {
+    "userId": "20170425213749892", 
+    "signFlag": "00", 
+    "totalMoney": "0.00", 
+    "totalMoneyText": "累计佣金(元)"
+  }
+
+}
