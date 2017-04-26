@@ -1,0 +1,11 @@
+{
+  "status": "0",
+  "errorMsg": null,
+  "result": {
+    "code": "UIc7018efc90704b18b11902be40713c40",
+    "t": "1492846332",
+    "sign": "1caa95e5f811fa81d40dbc51e228a95c",
+    "returnUrl": "链接地址",
+    "redirectUrl": "链接地址"
+  }
+}

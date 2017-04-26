@@ -43,10 +43,12 @@ export default new Router({
     },
     {
       path:'/home',
-      name:'home',
       component:home
     },
-
+    {
+      path:'/',
+      component:home
+    },
     {
       path:'/invest',
       component:invest,

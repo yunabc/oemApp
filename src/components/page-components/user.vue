@@ -14,11 +14,11 @@
       <p class="text">规模绩效</p>
     </router-link>
     <li class="userCenterItem">
-      <div class="logs  userItemLine" :class="logsList" @click="toggleList">
+      <div class="logs  userItemLine" :class="logsStatus" @click="toggleList">
         <p class="text">投资记录</p>
       </div>
-      <div class="logsList" v-show="logsList == 'up'">
-        <a href="" class="logsItem">360财富投资</a>
+      <div class="logsList" v-show="logsStatus == 'up'">
+        <a v-for="item in logsList" href="" class="logsItem">360财富投资</a>
         <a href="" class="logsItem">绿地金服投资</a>
       </div>
     </li>
@@ -33,11 +33,14 @@
 
 <script>
   import footNav from 'components/common-components/footNav';
+  import axios from 'axios';
+
   export default {
         data () {
             return {
               vip:true,
-              logsList:"down"
+              logsStatus:"down",
+              logsList:[]
             }
         },
       components:{
@@ -46,18 +49,32 @@
       methods:{
         toggleList(){
           //this.logsList = this.logsList == "down" ? "down" : "up";
-          if(this.logsList == 'down'){
-            this.logsList = 'up'
+          if(this.logsStatus == 'down'){
+            this.logsStatus = 'up'
           }else{
-            this.logsList = 'down'
+            this.logsStatus = 'down'
           }
         }
+      },
+      created(){
+        axios.get('../../../static/record.json').then((res) => {
+          let data = res.data;
+          if (data.status == 0) {
+             this.logsList = data.result;
+          } else {
+            console.log(data.errorMsg)
+          }
+
+        }).catch(function (error) {
+          console.log(error);
+        });
       }
     }
 </script>
 
 <style lang="less" rel="stylesheet/less">
   @import '../../common/style/commoncolor.less';
+
   #user{
     .userHeader{
       display: flex;
