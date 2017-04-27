@@ -16,7 +16,7 @@
     </div>
     <ul class="home-content">
 
-      <li v-if="productHqViews.length" class="currentInvest investLi" v-for="item in productHqViews" data-id="item.proId">
+      <li  class="currentInvest investLi">
         <div class="infoDesc">
           <img src="../../common/img/current.png" alt="">
           <div class="desc">
@@ -26,12 +26,12 @@
         </div>
         <div class="deviLine"></div>
         <div class="infoCharge">
-          <div class="name">{{item.proName}}</div>
-          <div class="profit">{{item.proProspectiveEarn}}%</div>
-          <router-link to="/current" class="buyBtn">购买</router-link>
+          <div class="name">名字</div>
+          <div class="profit">4.5%</div>
+          <router-link to="/invest/current" class="buyBtn">购买</router-link>
         </div>
       </li>
-      <li v-for="(item,index) in productDqViews" class="regularInvest investLi">
+      <li  class="regularInvest investLi">
         <div class="infoDesc">
           <img src="../../common/img/regular.png" alt="">
           <div class="desc">
@@ -41,9 +41,9 @@
         </div>
         <div class="deviLine"></div>
         <div class="infoCharge">
-          <div class="name">{{item.proName}}</div>
-          <div class="profit">{{item.proRate}}</div>
-          <router-link :to="{ path: '/regular', query: { userId: userId }}"  class="buyBtn">购买</router-link>
+          <div class="name">名字</div>
+          <div class="profit">7.0%</div>
+          <router-link :to="{ path: '/invest/regular', query: { userId: userId }}"  class="buyBtn">购买</router-link>
         </div>
       </li>
     </ul>
@@ -58,9 +58,6 @@
   export default {
     data () {
       return {
-        productDqViews: [],
-        productHqViews: [],
-
         userId: "00",
         bannerImgs:[],
         noUrl:"javascript:void(0)"
@@ -74,7 +71,7 @@
       footNav
     },
     created(){
-      axios.get('../../../static/home.json').then((res) => {
+      /*axios.get('../../../static/home.json').then((res) => {
         let data = res.data;
         if (data.status == 0) {
           let result = data.result;
@@ -87,7 +84,7 @@
       }).catch(function (error) {
         console.log(error);
       });
-      /*axios.post(this.domain + 'x-service/user/info.htm').then((res) => {
+      axios.post(this.domain + 'x-service/user/info.htm').then((res) => {
         let response = res.data,result = response.result;
         if(response.status == 0){
           this.userId = result.userId;
@@ -97,7 +94,6 @@
         let data = res.data;
         if (data.status == 0) {
           this.bannerImgs = data.result;
-          console.log(this.bannerImgs)
         } else {
           console.log(data.errorMsg)
         }

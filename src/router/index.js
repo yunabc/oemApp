@@ -55,14 +55,14 @@ export default new Router({
       children:[
         {
           path:'/',
-          redirect:'/current'
+          redirect:'/invest/current'
         },
         {
-          path:'/regular',
+          path:'/invest/regular',
           component:regularProduct
         },
         {
-          path:'/current',
+          path:'/invest/current',
           component:currentProduct
         }
       ]
