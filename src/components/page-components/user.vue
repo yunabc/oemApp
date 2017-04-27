@@ -7,7 +7,7 @@
     </router-link>
   </div>
   <ul class="userCenterList">
-    <li class="invite userCenterItem userItemLine">
+    <li class="invite userCenterItem userItemLine" @click="share()">
       <p class="text">邀请新用户</p>
     </li>
     <router-link to="/user/performance" v-if="vip" class="performance userCenterItem userItemLine">
@@ -33,27 +33,18 @@
 <script>
   import footNav from 'components/common-components/footNav';
   import axios from 'axios';
-
+  import {wxShare} from '../../common/js/wxShare'
   export default {
         data () {
             return {
               vip:true,
               logsStatus:"down",
-              logsList:[]
+              logsList:[],
+              option:{}
             }
         },
       components:{
         footNav
-      },
-      methods:{
-        toggleList(){
-          //this.logsList = this.logsList == "down" ? "down" : "up";
-          if(this.logsStatus == 'down'){
-            this.logsStatus = 'up'
-          }else{
-            this.logsStatus = 'down'
-          }
-        }
       },
       created(){
         axios.get('../../../static/record.json').then((res) => {
@@ -67,6 +58,19 @@
         }).catch(function (error) {
           console.log(error);
         });
+      },
+      methods:{
+        toggleList(){
+          //this.logsList = this.logsList == "down" ? "down" : "up";
+          if(this.logsStatus == 'down'){
+            this.logsStatus = 'up'
+          }else{
+            this.logsStatus = 'down'
+          }
+        },
+        share(){
+          wxShare(this.option)
+        }
       }
     }
 </script>
