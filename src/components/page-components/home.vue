@@ -43,7 +43,7 @@
         <div class="infoCharge">
           <div class="name">名字</div>
           <div class="profit">7.0%</div>
-          <router-link :to="{ path: '/invest/regular', query: { userId: userId }}"  class="buyBtn">购买</router-link>
+          <router-link :to="{ path: '/invest/regular', query: userInfo }"  class="buyBtn">购买</router-link>
         </div>
       </li>
     </ul>
@@ -58,7 +58,7 @@
   export default {
     data () {
       return {
-        userId: "00",
+        userInfo:{},
         bannerImgs:[],
         noUrl:"javascript:void(0)"
       }

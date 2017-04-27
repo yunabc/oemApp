@@ -43,12 +43,11 @@ export default {
 			moveBlockCb: false,
 			msg:'测试提示文案测试提示文案测试提示文案测试提示文案测试提示文案',
 			openWindow: false,
-			userId: ""
-
+			from: "",
 		}
 	},
 	created() {
-		console.log(this.$router)
+		console.log(this.$route,this.$router)
 	},
 	methods: {
 		checkInfo() {
@@ -93,6 +92,7 @@ export default {
 			this.openWindow = true;
 			return ;
 		},
+
 		upLoad() {
 			// axios.post( this.domain + 'x-service/user/login.htm',{
 			axios.get( '../../../static/login.json',{
@@ -100,7 +100,8 @@ export default {
 				pwd:this.password
 			}).then((res) => {
 				console.log(res);
-				let data =res.data,result = data.result;
+				let data =res.data;
+				let result = data.result;
 				switch(data.status){
 					case "1":
 					  // 失败
@@ -109,9 +110,9 @@ export default {
 						break;
 					case "0":
 						// 登陆成功
-						console.log(1);
-						this.userId = result.userId;
-						this.$router.go(-1);
+						console.log(result);
+						
+						this.$router.push({ name: this.from, params: result})
 
 						break;
 					case "2":
@@ -127,6 +128,7 @@ export default {
 				
 			})
 		},
+
 		closeWindow(bool) {
 			this.openWindow = bool; 
 			
@@ -139,6 +141,12 @@ export default {
 		aaa() {
 
 		}
+	},
+	beforeRouteEnter(to, from, next){
+		next(vm => {
+        vm.from=from.name;
+        // console.log(from);
+    })
 	},
 	components: {
 		'v-alert': alert

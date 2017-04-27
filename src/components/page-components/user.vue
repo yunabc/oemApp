@@ -35,44 +35,46 @@
   import axios from 'axios';
   import {wxShare} from '../../common/js/wxShare'
   export default {
-        data () {
-            return {
-              vip:true,
-              logsStatus:"down",
-              logsList:[],
-              option:{}
-            }
-        },
-      components:{
-        footNav
-      },
-      created(){
-        axios.get('../../../static/record.json').then((res) => {
-          let data = res.data;
-          if (data.status == 0) {
-             this.logsList = data.result;
-          } else {
-            console.log(data.errorMsg)
-          }
-
-        }).catch(function (error) {
-          console.log(error);
-        });
-      },
-      methods:{
-        toggleList(){
-          //this.logsList = this.logsList == "down" ? "down" : "up";
-          if(this.logsStatus == 'down'){
-            this.logsStatus = 'up'
-          }else{
-            this.logsStatus = 'down'
-          }
-        },
-        share(){
-          wxShare(this.option)
+    data () {
+        return {
+          vip:true,
+          logsStatus:"down",
+          logsList:[],
+          option:{},
+          userInfo:{},
         }
+    },
+    components:{
+      footNav
+    },
+    created(){
+      axios.get('../../../static/record.json').then((res) => {
+        let data = res.data;
+        if (data.status == 0) {
+           this.logsList = data.result;
+        } else {
+          console.log(data.errorMsg)
+        }
+
+      }).catch(function (error) {
+        console.log(error);
+      });
+      this.userInfo = this.$route.params;
+    },
+    methods:{
+      toggleList(){
+        //this.logsList = this.logsList == "down" ? "down" : "up";
+        if(this.logsStatus == 'down'){
+          this.logsStatus = 'up'
+        }else{
+          this.logsStatus = 'down'
+        }
+      },
+      share(){
+        wxShare(this.option)
       }
     }
+  }
 </script>
 
 <style lang="less" rel="stylesheet/less">
