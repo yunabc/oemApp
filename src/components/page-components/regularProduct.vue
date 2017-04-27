@@ -14,23 +14,25 @@
       </div>
       <div class="swichBtn"><img src="../../common/img/clock.png" alt=""></div>
     </div>
-    <ul class="productList">
-      <li class="productItem">
-        <div class="itemTitle">360金融.活期-20170101</div>
-        <div class="itemInfo">
-          <div class="profit">
-            <p class="profitNum">6.5%</p>
-            <p>预期年化利率</p>
+    <div ref="listWrapper" class="list-wrapper  list-wrapper-hook">
+      <ul class="productList list-content  list-content-hook" ref="listContent">
+        <li class="productItem">
+          <div class="itemTitle">360金融.活期-20170101</div>
+          <div class="itemInfo">
+            <div class="profit">
+              <p class="profitNum">6.5%</p>
+              <p>预期年化利率</p>
+            </div>
+            <div class="verticalLine"></div>
+            <div v-if="time" class="times">
+              <p><span class="timesDay">233</span>天</p>
+              <p>期限</p>
+            </div>
+            <div class="buyBtn">立即购买</div>
           </div>
-          <div class="verticalLine"></div>
-          <div v-if="time" class="times">
-            <p><span class="timesDay">233</span>天</p>
-            <p>期限</p>
-          </div>
-          <div class="buyBtn">立即购买</div>
-        </div>
-      </li>
-    </ul>
+        </li>
+      </ul>
+    </div>
   </div>
 
 </template>
@@ -105,6 +107,7 @@
       }
     }
   }
+
 </script>
 
 <style lang="less" rel="stylesheet/less">
