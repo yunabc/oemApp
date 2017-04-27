@@ -96,7 +96,6 @@
       p{
         color: #fff;
       }
-
     }
     .userCenterList{
       background-color: #fff;

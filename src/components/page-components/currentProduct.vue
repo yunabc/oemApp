@@ -103,8 +103,9 @@
             let listWrapper = this.$refs.listWrapper;
             let contentH = listContent.offsetHeight;
             let screenH = listWrapper.clientHeight;
-            console.log(contentH,screenH)
-            if (-pos.y + screenH > contentH + 50 ) {
+            let scrollTop = listContent.scrollTop
+            console.log(contentH,screenH,scrollTop)
+            if (-pos.y + contentH > screenH + scrollTop - 50 ) {
               setTimeout(() => {
                 this._getData();
                 this.scroll.refresh()
