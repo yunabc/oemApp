@@ -23,7 +23,6 @@
       </div>
     </li>
     <router-link to="/account" class="manage userCenterItem userItemLine">
-
       <p class="text">账户管理</p>
     </router-link>
   </ul>

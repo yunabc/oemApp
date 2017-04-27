@@ -1,7 +1,7 @@
 <template>
   <div id="product">
     <div class="investHeader">
-      <div class="title">{{currentDataHot.proName}}<!--360金融.活期-20170101--></div>
+      <div class="title">360金融·{{currentDataHot.proName}}<!--360金融.活期-20170101--></div>
       <div class="profit">{{currentDataHot.proRate}}%</div>
       <div class="times">{{currentDataHot.proProspectiveEarnText}}<span class="days">{{currentDataHot.proProspectiveEarn}}</span>
         <!--天--></div>
@@ -18,7 +18,7 @@
     <div ref="listWrapper" class="list-wrapper  list-wrapper-hook">
       <ul  class="productList list-content  list-content-hook" ref="listContent">
         <li v-for="item in currentData" class="productItem list-item" :data-id="item.proId">
-          <div class="itemTitle">{{item.proName}}<!--360金融.活期-20170101--></div>
+          <div class="itemTitle">360金融·{{item.proName}}<!--360金融.活期-20170101--></div>
           <div class="itemInfo">
             <div class="profit">
               <p class="profitNum">{{item.proRate}}%</p>
