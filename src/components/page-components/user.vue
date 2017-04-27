@@ -10,7 +10,7 @@
     <li class="invite userCenterItem userItemLine">
       <p class="text">邀请新用户</p>
     </li>
-    <router-link to="/performance" v-if="vip" class="performance userCenterItem userItemLine">
+    <router-link to="/user/performance" v-if="vip" class="performance userCenterItem userItemLine">
       <p class="text">规模绩效</p>
     </router-link>
     <li class="userCenterItem">

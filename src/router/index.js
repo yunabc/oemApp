@@ -74,19 +74,19 @@ export default new Router({
       component:user
     },
     {
-      path:'/performance',
+      path:'/user/performance',
       component:performance,
       children:[
         {
           path:'/',
-          redirect:'/myPerformance'
+          redirect:'/user/myPerformance'
         },
         {
-          path:'/myPerformance',
+          path:'/user/myPerformance',
           component:myPerformance
         },
         {
-          path:'/lowerPerformance',
+          path:'/user/lowerPerformance',
           component:lowerPerformance
         }
       ]
