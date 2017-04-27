@@ -5,7 +5,8 @@
     <select  class="chooseMonth" v-model="selectMonth">
       <option v-for="item in months" :value="item">{{item}}</option>
     </select>
-    <button class="search" @click="select()">查询</button>
+    <button class="refresh performanceBtn" @click="select()">刷新</button>
+    <button class="search performanceBtn" @click="select()">查询</button>
   </div>
   <table v-if="data.length" class="performanceDetail">
     <thead>
@@ -90,10 +91,6 @@
       border-bottom: .01333333rem solid @lineGrayColor;
       padding: .06666667rem;
       margin-left: .4rem;
-    }
-    .search{
-      font-size: .32rem;
-      float: right;
     }
   }
 }

@@ -1,25 +1,26 @@
 <template>
-<div id="myPerformance">
-  <table v-if="data.length" class="performanceDetail">
-    <thead>
+  <div id="myPerformance">
+    <button class="refresh performanceBtn" @click="reflesh()">刷新</button>
+    <table v-if="data.length" class="performanceDetail">
+      <thead>
       <tr>
         <td>时间</td>
         <td>累计人数</td>
         <td>累计规模</td>
         <td>累计佣金</td>
       </tr>
-    </thead>
-    <tbody>
+      </thead>
+      <tbody>
       <tr v-for="item in data">
         <td>{{item.curMonthTime}}</td>
         <td>{{item.curPersonCount}}</td>
         <td>{{item.curMonthTotalMoney}}</td>
         <td>{{item.curMonthComm}}</td>
       </tr>
-    </tbody>
-  </table>
-  <div class="noContent" v-else>暂无数据</div>
-</div>
+      </tbody>
+    </table>
+    <div class="noContent" v-else>暂无数据</div>
+  </div>
 </template>
 
 <script>
@@ -35,21 +36,34 @@
           footNav
         },
         created(){
-          axios.get('../../../static/myPerformance.json').then((res) => {
-             let data = res.data;
-              if (data.status == 0) {
-                 this.data = data.result;
-              }else{
-                 console.log(data.errorMsg)
-              }
-          })
+          this.getData()
+        },
+        methods:{
+          reflesh(){
+            this.getData()
+          },
+          getData(){
+            axios.get('../../../static/myPerformance.json').then((res) => {
+               let data = res.data;
+                if (data.status == 0) {
+                   this.data = data.result;
+                }else{
+                   console.log(data.errorMsg)
+                }
+            })
+          }
         }
     }
+
+
 </script>
 
 <style lang="less" rel="stylesheet/less">
-#myPerformance{
-  padding: 1.06666667rem .66666667rem;
-}
+  #myPerformance {
+    padding: 1.06666667rem .66666667rem;
+    .performanceBtn {
+      margin-bottom: .26666667rem;
+    }
+  }
 
 </style>
