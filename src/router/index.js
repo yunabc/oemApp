@@ -47,7 +47,7 @@ export default new Router({
     },
     {
       path:'/',
-      redirect:home
+      component:home
     },
     {
       path:'/invest',
