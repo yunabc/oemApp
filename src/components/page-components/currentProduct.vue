@@ -3,7 +3,7 @@
     <div class="investHeader">
       <div class="title">{{currentDataHot.proName}}<!--360金融.活期-20170101--></div>
       <div class="profit">{{currentDataHot.proRate}}%</div>
-      <div class="times">{{currentDataHot.proProspectiveEarnText}}<!--期限--><span class="days">{{currentDataHot.proProspectiveEarn}}</span>
+      <div class="times">{{currentDataHot.proProspectiveEarnText}}<span class="days">{{currentDataHot.proProspectiveEarn}}</span>
         <!--天--></div>
       <div class="buyBtn">立即购买</div>
     </div>
@@ -17,17 +17,17 @@
     </div>
     <div ref="listWrapper" class="list-wrapper  list-wrapper-hook">
       <ul  class="productList list-content  list-content-hook" ref="listContent">
-        <li v-for="item in currentData" class="productItem list-item">
+        <li v-for="item in currentData" class="productItem list-item" :data-id="item.proId">
           <div class="itemTitle">{{item.proName}}<!--360金融.活期-20170101--></div>
           <div class="itemInfo">
             <div class="profit">
               <p class="profitNum">{{item.proRate}}%</p>
-              <p>{{item.proRateTips}}<!--预期年化利率--></p>
+              <p>{{item.rateTips}}<!--预期年化利率--></p>
             </div>
             <div class="verticalLine"></div>
-            <div v-if="time" class="times">
+            <div class="times">
               <p><span class="timesDay">{{item.proProspectiveEarn}}</span><!--天--></p>
-              <p>{{item.proProspectiveEarnText}}期限</p>
+              <p>{{item.proProspectiveEarnText}}</p>
             </div>
             <div class="buyBtn">立即购买</div>
           </div>
@@ -73,7 +73,6 @@
     data () {
       return {
         page:1,
-        time: true,
         currentDataHot:{},
         currentData:[]
       }

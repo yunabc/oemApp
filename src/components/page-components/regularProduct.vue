@@ -1,9 +1,9 @@
 <template>
   <div id="product">
     <div class="investHeader">
-      <div class="title">360金融.活期-20170101</div>
-      <div class="profit">7.0%</div>
-      <div class="times">期限<span class="days">242</span>天</div>
+      <div class="title">360金融·{{regularDataHot.proName}}</div>
+      <div class="profit">{{regularDataHot.proRate}}%</div>
+      <div class="times">期限<span class="days">{{regularDataHot.proDayLimit}}</span>天</div>
       <div class="buyBtn">立即购买</div>
     </div>
     <div class="clockHint">
@@ -16,16 +16,16 @@
     </div>
     <div ref="listWrapper" class="list-wrapper  list-wrapper-hook">
       <ul class="productList list-content  list-content-hook" ref="listContent">
-        <li class="productItem">
-          <div class="itemTitle">360金融.活期-20170101</div>
+        <li class="productItem" v-for="item in regularData">
+          <div class="itemTitle">360金融·{{item.proName}}</div>
           <div class="itemInfo">
             <div class="profit">
-              <p class="profitNum">6.5%</p>
+              <p class="profitNum">{{item.proRate}}%</p>
               <p>预期年化利率</p>
             </div>
             <div class="verticalLine"></div>
             <div v-if="time" class="times">
-              <p><span class="timesDay">233</span>天</p>
+              <p><span class="timesDay">{{item.proDayLimit}}</span>天</p>
               <p>期限</p>
             </div>
             <div class="buyBtn">立即购买</div>
@@ -38,7 +38,7 @@
 </template>
 <script>
   import axios from 'axios';
- import BScroll from 'better-scroll';
+  import BScroll from 'better-scroll';
   export default {
     data () {
       return {
