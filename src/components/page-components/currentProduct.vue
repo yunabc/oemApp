@@ -104,6 +104,7 @@
             let listWrapper = this.$refs.listWrapper;
             let contentH = listContent.offsetHeight;
             let screenH = listWrapper.clientHeight;
+            console.log(contentH,screenH)
             if (-pos.y + screenH > contentH + 50 ) {
               setTimeout(() => {
                 this._getData();
