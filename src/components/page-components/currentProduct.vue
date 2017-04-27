@@ -33,32 +33,32 @@
           </div>
         </li>
       </ul>
-      <div class="loading-wrapper">
+      <div v-if="flag" class="loading-wrapper">
         <div class='uil-default-css' style='transform:scale(0.15);'>
           <div
-            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(0deg) translate(0,-60px);transform:rotate(0deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(0deg) translate(0,-60px);transform:rotate(0deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
           <div
-            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(30deg) translate(0,-60px);transform:rotate(30deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(30deg) translate(0,-60px);transform:rotate(30deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
           <div
-            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(60deg) translate(0,-60px);transform:rotate(60deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(60deg) translate(0,-60px);transform:rotate(60deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
           <div
-            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(90deg) translate(0,-60px);transform:rotate(90deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(90deg) translate(0,-60px);transform:rotate(90deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
           <div
-            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(120deg) translate(0,-60px);transform:rotate(120deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(120deg) translate(0,-60px);transform:rotate(120deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
           <div
-            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(150deg) translate(0,-60px);transform:rotate(150deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(150deg) translate(0,-60px);transform:rotate(150deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
           <div
-            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(180deg) translate(0,-60px);transform:rotate(180deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(180deg) translate(0,-60px);transform:rotate(180deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
           <div
-            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(210deg) translate(0,-60px);transform:rotate(210deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(210deg) translate(0,-60px);transform:rotate(210deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
           <div
-            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(240deg) translate(0,-60px);transform:rotate(240deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(240deg) translate(0,-60px);transform:rotate(240deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
           <div
-            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(270deg) translate(0,-60px);transform:rotate(270deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(270deg) translate(0,-60px);transform:rotate(270deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
           <div
-            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(300deg) translate(0,-60px);transform:rotate(300deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(300deg) translate(0,-60px);transform:rotate(300deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
           <div
-            style='top:80px;left:93px;width:14px;height:40px;background:#00b2ff;-webkit-transform:rotate(330deg) translate(0,-60px);transform:rotate(330deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
+            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(330deg) translate(0,-60px);transform:rotate(330deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
         </div>
       </div>
     </div>
@@ -74,7 +74,9 @@
       return {
         page:1,
         currentDataHot:{},
-        currentData:[]
+        currentData:[],
+        flag:true,
+        singleNum:6//每页加载的条数
       }
     },
     props:{
@@ -103,7 +105,7 @@
             let listWrapper = this.$refs.listWrapper;
             let contentH = listContent.offsetHeight;
             let screenH = listWrapper.clientHeight;
-            let scrollTop = listContent.scrollTop
+            let scrollTop = listContent.offsetTop;
             console.log(contentH,screenH,scrollTop)
             if (-pos.y + contentH > screenH + scrollTop - 50 ) {
               setTimeout(() => {
@@ -120,22 +122,27 @@
       },
       _getData(){
         let page = this.page;
-        axios.get('../../../static/currentInvest.json').then((res) => {
-          let data = res.data;
-          if (data.status == 0) {
-            if(this.page === 1){
-              this.currentDataHot = data.result[0];
-              this.currentData = data.result.splice(1);
-              this.page ++
-            }else{
-              this.currentData = this.currentData.concat(data.result)
+        if(this.flag){
+          axios.get('../../../static/currentInvest.json').then((res) => {
+            let data = res.data;
+            if (data.status == 0) {
+              if(this.page === 1){
+                this.currentDataHot = data.result[0];
+                this.currentData = data.result.splice(1);
+                this.page ++
+              }else{
+                this.currentData = this.currentData.concat(data.result)
+              }
+              if(data.result.length < this.singleNum || data.result.length === 0){
+                this.flag = false
+              }
+            } else {
+              console.log(data.errorMsg)
             }
-          } else {
-            console.log(data.errorMsg)
-          }
-        }).catch(function (error) {
-          console.log(error);
-        });
+          }).catch(function (error) {
+            console.log(error);
+          });
+        }
       }
     }
   }
