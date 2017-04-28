@@ -23,6 +23,7 @@
         url:'../../../static/regularInvest.json',
         regularDataHot:{},
         regularData:[],
+        flag:true
       }
     },
     props:{
@@ -34,6 +35,7 @@
     },
     created(){
        let dataObj = getData({url:this.url,page:1});
+       console.log(dataObj)
        this.regularDataHot = dataObj.dataHot;
        this.regularData = dataObj.dataList;
     }

@@ -2,23 +2,32 @@
  * Created by Administrator on 2017/4/28.
  */
 import axios from 'axios';
-let page=2, flag=true, singleNum=6,DataObj={};//合并数据，以及确定范围export？export default
-export function getData(url,beforeData,page){
-  if(flag){
-    axios.get(url).then((res) => {
+let initObj = {
+  page:2,
+  flag:true,
+  singleNum:6
+};
+let dataObj={};//合并数据，以及确定范围export？export default
+export function getData(passObj){
+  let obj = Object.assign({},initObj,passObj);
+  console.log("getDataFunction"); 
+  if(obj.flag){
+    axios.get(obj.url).then((res) => {
+      console.log("axios")
       let data = res.data;
       if (data.status == 0) {
-        if(page === 1){
-          DataObj.regularDataHot = data.result[0];
-          DataObj.regularData = data.result.slice(1);
-          page ++
+        if(obj.page === 1){
+          dataObj.regularDataHot = data.result[0];
+          dataObj.regularData = data.result.slice(1);
+          obj.page ++
         }else{
-          beforeData?DataObj.regularData = beforeData.concat(data.result):DataObj.regularData=data.result;
+          beforeData?dataObj.regularData = beforeData.concat(data.result):dataObj.regularData=data.result;
         }
-        if(data.result.length < singleNum || data.result.length === 0){
-          console.log(false)
+        if(data.result.length < obj.singleNum || data.result.length === 0){
+          dataObj.flag = false
         }
-        return DataObj;
+        console.log(dataObj)
+        return dataObj;
       } else {
         console.log(data.errorMsg)
       }
