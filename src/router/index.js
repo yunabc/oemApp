@@ -23,8 +23,7 @@ export default new Router({
     {
       path: '/login',
       name: 'login',
-      component: login,
-
+      component: login
     },
     {
       path:'/lostpassword',
@@ -43,11 +42,12 @@ export default new Router({
     },
     {
       path:'/home',
+      name:'home',
       component:home
     },
     {
       path:'/',
-      component:home
+      redirect:home
     },
     {
       path:'/invest',
