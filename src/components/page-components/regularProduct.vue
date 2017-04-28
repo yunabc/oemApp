@@ -1,11 +1,6 @@
 <template>
   <div id="product">
-    <div class="investHeader">
-      <div class="title">360金融·{{regularDataHot.proName}}</div>
-      <div class="profit">{{regularDataHot.proRate}}%</div>
-      <div class="times">期限<span class="days">{{regularDataHot.proDayLimit}}</span>天</div>
-      <div class="buyBtn">立即购买</div>
-    </div>
+    <invest-header :dataHot="regularDataHot"></invest-header>
     <div class="clockHint">
       <i class="clockImg"><img src="../../common/img/clock.png" alt=""></i>
       <div class="desc">
@@ -68,6 +63,8 @@
 <script>
   import axios from 'axios';
   import BScroll from 'better-scroll';
+  import investHeader from 'components/common-components/investHeader';
+  import investList from 'components/common-components/investList';
   export default {
     data () {
       return {
@@ -80,6 +77,10 @@
     },
     props:{
 
+    },
+    components:{
+      investHeader,
+      investList
     },
     created(){
       this._getData();
