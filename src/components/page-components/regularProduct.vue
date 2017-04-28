@@ -1,11 +1,6 @@
 <template>
   <div id="product">
-    <div class="investHeader">
-      <div class="title">360金融·{{regularDataHot.proName}}</div>
-      <div class="profit">{{regularDataHot.proRate}}%</div>
-      <div class="times">期限<span class="days">{{regularDataHot.proDayLimit}}</span>天</div>
-      <div class="buyBtn">立即购买</div>
-    </div>
+    <invest-header :dataHot="regularDataHot"></invest-header>
     <div class="clockHint">
       <i class="clockImg"><img src="../../common/img/clock.png" alt=""></i>
       <div class="desc">
@@ -14,134 +9,33 @@
       </div>
       <div class="swichBtn"><img src="../../common/img/clock.png" alt=""></div>
     </div>
-    <div ref="listWrapper" class="list-wrapper  list-wrapper-hook">
-      <ul class="productList list-content  list-content-hook" ref="listContent">
-        <li class="productItem" v-for="item in regularData">
-          <div class="itemTitle">360金融·{{item.proName}}</div>
-          <div class="itemInfo">
-            <div class="profit">
-              <p class="profitNum">{{item.proRate}}%</p>
-              <p>预期年化利率</p>
-            </div>
-            <div class="verticalLine"></div>
-            <div  class="times">
-              <p><span class="timesDay">{{item.proDayLimit}}</span>天</p>
-              <p>期限</p>
-            </div>
-            <div class="buyBtn">立即购买</div>
-          </div>
-        </li>
-      </ul>
-      <div v-if="flag" class="loading-wrapper">
-        <div class='uil-default-css' style='transform:scale(0.15);'>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(0deg) translate(0,-60px);transform:rotate(0deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(30deg) translate(0,-60px);transform:rotate(30deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(60deg) translate(0,-60px);transform:rotate(60deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(90deg) translate(0,-60px);transform:rotate(90deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(120deg) translate(0,-60px);transform:rotate(120deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(150deg) translate(0,-60px);transform:rotate(150deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(180deg) translate(0,-60px);transform:rotate(180deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(210deg) translate(0,-60px);transform:rotate(210deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(240deg) translate(0,-60px);transform:rotate(240deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(270deg) translate(0,-60px);transform:rotate(270deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(300deg) translate(0,-60px);transform:rotate(300deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(330deg) translate(0,-60px);transform:rotate(330deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-        </div>
-      </div>
-
-    </div>
+    <invest-list :dataList="regularData" :flag="flag" :url="url"></invest-list>
   </div>
 
 </template>
 <script>
-  import axios from 'axios';
-  import BScroll from 'better-scroll';
+  import investHeader from 'components/common-components/investHeader';
+  import investList from 'components/common-components/investList';
+  import {getData} from '../../common/js/investListGetData';
   export default {
     data () {
       return {
-        page:1,
+        url:'../../../static/regularInvest.json',
         regularDataHot:{},
         regularData:[],
-        flag:true,
-        singleNum:6//每页加载的条数
       }
     },
     props:{
 
     },
+    components:{
+      investHeader,
+      investList
+    },
     created(){
-      this._getData();
-    },
-    mounted(){
-      this.$nextTick(() => {
-        // 代码保证 this.$el 在 document 中
-        this._initScroll();
-      });
-    },
-    methods:{
-      _initScroll() {
-        if (!this.scroll) {
-          this.scroll = new BScroll(this.$refs.listWrapper, {
-            probeType: 1,
-            click:true
-          });
-          this.scroll.on('touchend',  (pos) => {
-            //条件判断有误,第一次移动不了
-            console.log(pos)
-            let listContent = this.$refs.listContent;
-            let listWrapper = this.$refs.listWrapper;
-            let contentH = listContent.offsetHeight;
-            let screenH = listWrapper.clientHeight;
-            let scrollTop = Number(listContent.style.transform.replace(/[^\d\.px]/g,'').split('px')[1]);
-            if (-pos.y + contentH > screenH + scrollTop - 50 ) {
-                console.log(-pos.y , contentH,screenH + scrollTop - 50);
-              setTimeout(() => {
-                this._getData();
-                this.scroll.refresh()
-              }, 1000)
-            }
-          })
-        }else {
-          // 未取到数据,所以不能滚动
-          this.scroll.refresh();
-        }
-      },
-      _getData(){
-        let page = this.page;
-        if(this.flag){
-          axios.get('../../../static/regularInvest.json').then((res) => {
-            let data = res.data;
-            if (data.status == 0) {
-              if(this.page === 1){
-                this.regularDataHot = data.result[0];
-                this.regularData = data.result.slice(1);
-                this.page ++
-              }else{
-                this.regularData = this.regularData.concat(data.result)
-              }
-              if(data.result.length < this.singleNum || data.result.length === 0){
-                this.flag = false
-              }
-            } else {
-              console.log(data.errorMsg)
-            }
-          }).catch(function (error) {
-            console.log(error);
-          });
-        }
-      }
+       let dataObj = getData({url:this.url,page:1});
+       this.regularDataHot = dataObj.dataHot;
+       this.regularData = dataObj.dataList;
     }
   }
 
@@ -149,45 +43,7 @@
 
 <style lang="less" rel="stylesheet/less">
   @import '../../common/style/commoncolor.less';
-
   #product {
-    .investHeader {
-      display: flex;
-      flex-flow: column;
-      align-items: center;
-      padding: .53333333rem 0;
-      background-color: #fff;
-      margin-bottom: .26666667rem;
-      div {
-        margin-bottom: .53333333rem;
-      }
-      .title {
-        font-size: .37333333rem;
-        line-height: .37333333rem;
-      }
-      .profit {
-        font-size: .64rem;
-        line-height: .64rem;
-        margin-bottom: .26666667rem;
-      }
-      .times {
-        font-size: .26666667rem;
-        .days {
-          font-size: .32rem;
-          color: red;
-        }
-      }
-      .buyBtn {
-        width: 6.4rem;
-        height: .90666667rem;
-        border: .04rem solid @color;
-        text-align: center;
-        font-size: .37333333rem;
-        color: @color;
-        line-height: .90666667rem;
-        border-radius: .45333333rem /* 34px */;
-      }
-    }
     .clockHint {
       display: flex;
       display: none;
@@ -204,56 +60,6 @@
         color: #666666;
       }
     }
-    .productList {
-      padding: 0 .26666667rem;
-      .productItem {
-        margin-top: .26666667rem;
-        padding: .4rem;
-        border-radius: .2rem;
-        background-color: #fff;
-        color: #666666;
-        font-size: .26666667rem;
-        .itemTitle {
-          font-size: .32rem;
-          line-height: .32rem;
-          margin-bottom: .34666667rem /* 26px */;
-          color: #333333;
-          font-weight: bold;
-        }
-        .itemInfo {
-          display: flex;
-          line-height: 1.5;
-          justify-content: space-between;
-          .profit {
-            .profitNum {
-              font-size: .48rem;
-              color: red;
-              line-height: .56rem /* 42px */;
-            }
-          }
-          .times {
-            text-align: center;
-            .timesDay {
-              font-size: .37333333rem;
-              color: @color;
-              line-height: .50666667rem;
-            }
-          }
-          .buyBtn {
-            width: 2.4rem /* 180px */;
-            height: .64rem;
-            background-color: @color;
-            color: #fff;
-            text-align: center;
-            line-height: .64rem;
-            border-radius: .32rem;
-          }
-        }
-
-      }
-
-    }
-
   }
 
 </style>
