@@ -1,61 +1,78 @@
 @import "commoncolor.less";
 	.login{
-		padding: .8rem .53333333rem;
-		.inputbox{
-			padding-bottom: .4rem;
-			input{
-				display: inline-block;
-				width: 100%;
-				border: .01333333rem solid #c9c9c9;
-				height: .88rem;
-				line-height: .88rem;
-				font-size: .32rem;
-				color: #000;
-				padding: .22rem .26666667rem;
-				margin-bottom: .4rem;
-				box-sizing: border-box;
-			}
-			.send-code{
-				display: flex;
-				position: relative;
+		position: fixed;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		z-index: 101;
+		background-color: #fff;
+		
+		.log,.register,.registernext,.lostpassword{
+			height: 100%;
+			padding: .8rem .53333333rem;
+			position: absolute;
+			box-sizing: border-box;
+			left: 0;
+			top: 0;
+			width: 100%;
+			background-color: #fff;
+			.inputbox{
+				padding-bottom: .4rem;
 				input{
-					flex: 1;
-					margin-right: .13333333rem;
-				}
-				.send{
+					display: inline-block;
+					width: 100%;
+					border: .01333333rem solid #c9c9c9;
 					height: .88rem;
 					line-height: .88rem;
-					display: inline-block;
-					background-color: @color;
-					padding: 0 .2rem;
-					color: #fff;
-					width: 2.0rem;
-					text-align: center;
-					&.sended{
-						background-color: #ccc;
+					font-size: .32rem;
+					color: #000;
+					padding: .22rem .26666667rem;
+					margin-bottom: .4rem;
+					box-sizing: border-box;
+				}
+				.send-code{
+					display: flex;
+					position: relative;
+					input{
+						flex: 1;
+						margin-right: .13333333rem;
+					}
+					.send{
+						height: .88rem;
+						line-height: .88rem;
+						display: inline-block;
+						background-color: @color;
+						padding: 0 .2rem;
+						color: #fff;
+						width: 2.0rem;
+						text-align: center;
+						&.sended{
+							background-color: #ccc;
+						}
 					}
 				}
 			}
-		}
-		.btn{
-			display: inline-block;
-			width: 100%;
-			border:none;
-			margin-bottom: .4rem;
-			background-color: @color;
-			color: #fff;
-			font-size: .37333333rem;
-			line-height: .90666667rem;
-			line-height: .90666667rem;
-			text-align: center;
-		}
-		.register-forget{
-			padding: 0 .06666667rem;
-			a{
-				color: @color;
-				font-size: .29333333rem;
+			.btn{
+				display: inline-block;
+				width: 100%;
+				border:none;
+				margin-bottom: .4rem;
+				background-color: @color;
+				color: #fff;
+				font-size: .37333333rem;
+				line-height: .90666667rem;
+				line-height: .90666667rem;
+				text-align: center;
+			}
+			.register-forget{
+				padding: 0 .06666667rem;
+				span{
+					color: @color;
+					font-size: .29333333rem;
 
 
+				}
 			}
 		}
 	}

@@ -48,11 +48,13 @@
       </li>
     </ul>
     <foot-nav></foot-nav>
+    <login v-if="loginShow"></login>
   </div>
 </template>
 
 <script>
   import footNav from 'components/common-components/footNav';
+  import login from 'components/common-components/login';
   import axios from 'axios';
   import Swiper from 'swiper';
   export default {
@@ -60,7 +62,8 @@
       return {
         userInfo:{},
         bannerImgs:[],
-        noUrl:"javascript:void(0)"
+        noUrl:"javascript:void(0)",
+        loginShow:false
       }
 
     },
@@ -68,7 +71,8 @@
       domain: String
     },
     components: {
-      footNav
+      footNav,
+      login
     },
     created(){
       /*axios.get('../../../static/home.json').then((res) => {

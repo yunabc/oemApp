@@ -1,11 +1,12 @@
 <template>
   <div id="invest" class="stageScreen">
     <div class="tabNav">
-      <router-link to="/invest/regular" class="regularProduct navItem" @click="">定期</router-link>
+      <router-link to="regular" class="regularProduct navItem">定期</router-link>
       <div class="verticalLine"></div>
-      <router-link to="/invest/current" class="currentProduct navItem">活期</router-link>
+      <router-link to="current" class="currentProduct navItem">活期</router-link>
     </div>
-    <router-view ></router-view>
+    <router-view :userInfo="userInfo" ></router-view>
+    <login v-if="loginShow"></login>
     <foot-nav></foot-nav>
   </div>
 
@@ -13,20 +14,24 @@
 
 <script>
   import footNav from 'components/common-components/footNav';
-
+  import login from 'components/common-components/login';
   export default {
     data () {
       return {
         userId:"",
+        loginShow:false,
+        userInfo:{}
       }
     },
     props: {
     },
     components: {
-      footNav
+      footNav,login
     },
     created() {
-      this.userId = this.$route.query.userId;
+      this.userId = {userId:234324};
+      console.log(this.userInfo);
+      this.$router.push({name:'current',params:this.userInfo});
     }
   }
 </script>

@@ -1,32 +1,39 @@
 <template>
 	<div class="login">
-		<div class="inputbox">
-			<input type="text" v-model="phone"  placeholder="请输入手机号" >
-			<input type="password" v-model="password" placeholder="请输入密码" >
-		</div>
-		<div v-if="loginTimes > 3" class="stage">
-			<div class="slider" id="slider">
-				<div class="label">向右滑动验证</div>
-				<div class="track" id="track">
-					<div id="callBack" class="bg-green"></div>
-				</div>
-				<div class="button" id="btn">
-					<div class="icon" id="icon"></div>
-					<div class="spinner" id="spinner"></div>
+		<div class="log">
+			<div class="inputbox">
+				<input type="text" v-model="phone"  placeholder="请输入手机号" >
+				<input type="password" v-model="password" placeholder="请输入密码" >
+			</div>
+			<div v-if="loginTimes > 3" class="stage">
+				<div class="slider" id="slider">
+					<div class="label">向右滑动验证</div>
+					<div class="track" id="track">
+						<div id="callBack" class="bg-green"></div>
+					</div>
+					<div class="button" id="btn">
+						<div class="icon" id="icon"></div>
+						<div class="spinner" id="spinner"></div>
+					</div>
 				</div>
 			</div>
-		</div>
-		<button class="btn submit-btn" @click="checkInfo">登录</button>
-		<div class="register-forget clearfix">
-			<router-link class="fl" to="/lostpassword">忘记密码</router-link>
-			<router-link class="fr" to="/register">注册账号</router-link>
+			<button class="btn submit-btn" @click="checkInfo">登录</button>
+			<div class="register-forget clearfix">
+				<span class="fl" @click="handlerLost">忘记密码</span>
+				<span class="fr" @click="handlerReg">注册账号</span>
+			</div>
 		</div>
 		<v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>	
+		<v-register v-if="openRegister" @close="closeRegister"></v-register>
+		<v-lostpassword v-if="openPassword" @close="closePassword"></v-lostpassword>
+		<v-registernext v-if="openRegNext" @close="closeRegNext"></v-registernext>
 	</div>
-	
 </template>
 <script>
 import alert from '../common-components/alert.vue' 
+import register from '../common-components/register.vue' 
+import lostpassword from '../common-components/lostpassword.vue' 
+import registernext from '../common-components/registernext.vue' 
 import axios from 'axios';
 
 export default {
@@ -44,12 +51,21 @@ export default {
 			msg:'测试提示文案测试提示文案测试提示文案测试提示文案测试提示文案',
 			openWindow: false,
 			from: "",
+			openRegister:false,
+			openPassword:false,
+			openRegNext:false,
 		}
 	},
 	created() {
 		console.log(this.$route,this.$router)
 	},
 	methods: {
+		handlerLost() {
+			this.openPassword = !this.openPassword
+		},
+		handlerReg() {
+			this.openRegister = !this.openRegister
+		},
 		checkInfo() {
 			//登录 判断情况
 			if(this.loginTimes > 3) {
@@ -70,14 +86,14 @@ export default {
 					if(regp.test(this.password)){
 						if(this.moveBlock){
 							if(this.moveBlockCb){
-								this.upLoad();
+								this.upload();
 								return ;
 							}
 							this.msg = '解锁失败';
 							this.openWindow = true;
 							return ;
 						}
-						this.upLoad();
+						this.upload();
 						return;
 					}
 					this.msg = '密码格式不对';
@@ -93,7 +109,7 @@ export default {
 			return ;
 		},
 
-		upLoad() {
+		upload() {
 			// axios.post( this.domain + 'x-service/user/login.htm',{
 			axios.get( '../../../static/login.json',{
 				mobile:this.phone,
@@ -111,13 +127,14 @@ export default {
 					case "0":
 						// 登陆成功
 						console.log(result);
-						
-						this.$router.push({ name: this.from, params: result})
+						this.$emit("userInfo",result);
+						// this.$router.push({ name: this.from, params: result})
 
 						break;
 					case "2":
 						// 登陆未绑定客户信息
-						this.$router.go(-1);
+						// this.$router.go(-1);
+						this.openRegNext=true;
 						break;
 					case "-1":	
 					// 未登录
@@ -131,6 +148,18 @@ export default {
 
 		closeWindow(bool) {
 			this.openWindow = bool; 
+			
+		},
+		closeRegister(bool) {
+			this.openRegister = bool; 
+			
+		},
+		closePassword(bool) {
+			this.openPassword = bool; 
+			
+		},
+		closeRegNext(bool) {
+			this.openRegNext = bool; 
 			
 		},
 		inputval(context) {
@@ -149,7 +178,10 @@ export default {
     })
 	},
 	components: {
-		'v-alert': alert
+		'v-alert': alert,
+		'v-register':register,
+		'v-lostpassword':lostpassword,
+		'v-registernext':registernext
 	}
 }
 </script> 

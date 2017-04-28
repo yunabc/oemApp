@@ -1,5 +1,5 @@
 <template>
-	<div class="login">
+	<div class="register">
 		<div class="inputbox">
 			<input type="text" v-model="phone" placeholder="请输入手机号">
 			<input type="password" v-model="password" placeholder="请输入密码">
@@ -25,7 +25,7 @@ import alert from '../common-components/alert.vue';
 import axios from 'axios';
 
 export default {
-	name: 'lostpassword',
+	name: 'register',
 	data (){
 		return {
 			phone: '',
@@ -79,6 +79,8 @@ export default {
 				this.openWindow = true;
 				return;
 			}else{
+				// this.upload();
+
 				let msg = this.blank();
 				this.msg = msg;
 				this.openWindow = true;
@@ -107,16 +109,16 @@ export default {
 			
 		},
 		upload() {
-			axios.post(this.domain + "x-service/user/reg.htm",{
+			/*axios.post(this.domain + "x-service/user/reg.htm",{
 				userInviterId:this.userInviterId,
 				tel:this.phone,
 				pwd:this.password,
 				rePwd:this.password2,
 				code:this.code
 			}).then((res) => {
-				var data = res.data;
-
-			})
+				var data = res.data;*/
+				this.$emit('close',false)
+			// })
 		},
 		sendCode() {
 			if(this.count.indexOf('发送') > -1){

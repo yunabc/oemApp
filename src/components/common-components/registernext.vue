@@ -1,6 +1,6 @@
 <template>
 	<div class="login">
-		<div class="inputbox">
+		<div class="registernext">
 			<input type="text" v-model="name" placeholder="请输入真实姓名">
 			<input type="text" v-model="idcard" placeholder="请输入身份证号">
 			<input type="text" v-model="bankcard" placeholder="请输入银行卡号">
@@ -15,7 +15,7 @@ import alert from '../common-components/alert.vue';
 import axios from 'axios';
 
 export default {
-	name: 'lostpassword',
+	name: 'registernext',
 	data (){
 		return {
 			name: '',
@@ -60,6 +60,7 @@ export default {
 				this.openWindow = true;
 				return;
 			}else{
+				this.upload();
 				let msg = this.blank();
 				this.msg = msg;
 				this.openWindow = true;
@@ -85,7 +86,7 @@ export default {
 			
 		},
 		upload() {
-			axios.post(this.domain + "x-service/user/regInfo.htm",{
+			/*axios.post(this.domain + "x-service/user/regInfo.htm",{
 				userId:this.userId,
 				bankTel:this.bankcardphone,
 				realName:this.name,
@@ -108,7 +109,8 @@ export default {
 						this.openWindow = true;
 						break;
 				}
-			})
+			})*/
+			this.$emit('close',false)
 		},
 		sendCode() {
 			if(this.count.indexOf('发送') > -1){
