@@ -76,7 +76,7 @@
       }
     },
     props:{
-
+      userInfo: Object,
     },
     components:{
       investHeader,
@@ -84,6 +84,7 @@
     },
     created(){
       this._getData();
+      console.log(this.userInfo);
     },
     mounted(){
       this.$nextTick(() => {

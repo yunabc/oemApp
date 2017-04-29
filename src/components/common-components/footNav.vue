@@ -4,15 +4,32 @@
       <i class="fa fa-home" aria-hidden="true"></i>首页
     </router-link>
     <router-link to="/invest" class="invest footNavItem"><i class="fa fa-bank" aria-hidden="true"></i>投资</router-link>
-    <router-link to="/user" class="user footNavItem"><i class="fa fa-user-o" aria-hidden="true"></i>我的</router-link>
+    <a class="user footNavItem"><i class="fa fa-user-o" aria-hidden="true" @click="checkInfo"></i>我的</a>
   </div>
 </template>
 
 <script>
     export default {
         data () {
-            return {}
+            return {
+            }
+        },
+        props: {
+          userInfo: Object,
+        },
+        methods: {
+          checkInfo() {
+            console.log(this.userInfo);
+            
+            if(this.userInfo.userId && this.userInfo.userId !=''){
+              this.$router.push('/user');
+            }else{
+              this.$router.push({path:"/login",query:{topage:"/user"}});
+            }
+          }
         }
+        
+
     }
 </script>
 

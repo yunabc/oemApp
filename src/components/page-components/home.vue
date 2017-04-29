@@ -60,7 +60,8 @@
       return {
         userInfo:{},
         bannerImgs:[],
-        noUrl:"javascript:void(0)"
+        noUrl:"javascript:void(0)",
+        userInfo:{},
       }
 
     },
@@ -71,6 +72,7 @@
       footNav
     },
     created(){
+      this.userInfo = this.$store.state.personalInfo;
       /*axios.get('../../../static/home.json').then((res) => {
         let data = res.data;
         if (data.status == 0) {
@@ -101,6 +103,10 @@
       }).catch(function (error) {
         console.log(error);
       });
+      
+    },
+    methods:{
+      
     },
     mounted () {
       let mySwiper = new Swiper('.swiper-container', {
@@ -112,7 +118,8 @@
         nextButton: '.swiper-button-next',
         prevButton: '.swiper-button-prev'
       })
-    }
+    },
+    
   }
 
 </script>

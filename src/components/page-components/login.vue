@@ -55,9 +55,7 @@ export default {
 			if(this.loginTimes > 3) {
 				this.moveBlock = true;
 			}
-			console.log(111)
 			this.checkinput();
-			
 		},
 		checkinput() {
 			let flag = true;
@@ -70,14 +68,14 @@ export default {
 					if(regp.test(this.password)){
 						if(this.moveBlock){
 							if(this.moveBlockCb){
-								this.upLoad();
+								this.upload();
 								return ;
 							}
 							this.msg = '解锁失败';
 							this.openWindow = true;
 							return ;
 						}
-						this.upLoad();
+						this.upload();
 						return;
 					}
 					this.msg = '密码格式不对';
@@ -93,7 +91,7 @@ export default {
 			return ;
 		},
 
-		upLoad() {
+		upload() {
 			// axios.post( this.domain + 'x-service/user/login.htm',{
 			axios.get( '../../../static/login.json',{
 				mobile:this.phone,
@@ -112,12 +110,14 @@ export default {
 						// 登陆成功
 						console.log(result);
 						
+						this.save(result);
 						this.$router.push({ name: this.from, params: result})
 
 						break;
 					case "2":
 						// 登陆未绑定客户信息
-						this.$router.go(-1);
+						this.save(result);
+						this.$router.push({ name: this.from, params: result})
 						break;
 					case "-1":	
 					// 未登录
@@ -135,12 +135,13 @@ export default {
 		},
 		inputval(context) {
 			this[context.name]=context.value;
+		},
+		save(result) {
+			this.$store.dispatch('savePersonalInfo',result);
 		}
 	},
 	computed:{
-		aaa() {
-
-		}
+		
 	},
 	beforeRouteEnter(to, from, next){
 		next(vm => {

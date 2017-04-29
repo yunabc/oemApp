@@ -28,7 +28,7 @@
         </li>
       </ul>
       <div v-if="flag" class="loading-wrapper">
-        <div class='uil-default-css' style='transform:scale(0.15);'>
+        <div class='uil-default-css' style='transform:scale(0.15);-webkit-transform:scale(0.15);'>
           <div
             style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(0deg) translate(0,-60px);transform:rotate(0deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
           <div
@@ -76,7 +76,7 @@
       }
     },
     props:{
-
+      userInfo: Object,
     },
      components:{
       investHeader,
@@ -84,6 +84,7 @@
     },
     created(){
       this._getData();
+      console.log(this.userInfo)
     },
     mounted(){
       this.$nextTick(() => {

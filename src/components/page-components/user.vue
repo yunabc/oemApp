@@ -26,7 +26,7 @@
       <p class="text">账户管理</p>
     </router-link>
   </ul>
-  <foot-nav></foot-nav>
+  <foot-nav :userInfo="userInfo"></foot-nav>
 </div>
 </template>
 
@@ -59,7 +59,7 @@
       }).catch(function (error) {
         console.log(error);
       });
-      this.userInfo = this.$route.params;
+      this.userInfo = this.$store.state.personalInfo;
     },
     methods:{
       toggleList(){
