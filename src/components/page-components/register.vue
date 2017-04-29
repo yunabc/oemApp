@@ -15,9 +15,9 @@
 				</label>
 			</div>
 		</div>
-		
+
 		<button class="btn submit-btn" @click="checkinput">注册</button>
-		<v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>	
+		<v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>
 	</div>
 </template>
 <script>
@@ -45,6 +45,7 @@ export default {
 		domain:String,
 		userInviterId:String
 	},
+
 	methods: {
 		checkval() {
 			this.checkread = !this.checkread
@@ -66,7 +67,7 @@ export default {
 							this.openWindow = true;
 							return ;
 						}
-						
+
 						this.msg = '两次密码输入不一致';
 						this.openWindow = true;
 						return ;
@@ -85,6 +86,7 @@ export default {
 				return ;
 			}
 		},
+
 		blank() {
 			if(this.phone==""){
 				return "手机号不能为空"
@@ -103,8 +105,8 @@ export default {
 			}
 		},
 		closeWindow(bool) {
-			this.openWindow = bool; 
-			
+			this.openWindow = bool;
+
 		},
 		upload() {
 			axios.post(this.domain + "x-service/user/reg.htm",{
@@ -116,12 +118,13 @@ export default {
 			}).then((res) => {
 				var data = res.data;
 
+
 			})
 		},
 		sendCode() {
 			if(this.count.indexOf('发送') > -1){
 
-				
+
 				/*axios.post( this.domain + "",{
 					userInviterId:this.userInviterId
 				}).then((res) => {
@@ -150,7 +153,7 @@ export default {
 					that.second = "";
 					clearInterval(timer);
 				}
-				
+
 			},1000)
 		}
 	},
@@ -158,7 +161,7 @@ export default {
 		'v-alert': alert
 	}
 }
-</script> 
+</script>
 <style scoped lang="less" rel="stylesheet/less">
 	@import "../../common/style/login.less";
 	.read-checkbox{
@@ -179,5 +182,5 @@ export default {
 			color: @color;
 		}
 	}
-	
+
 </style>

@@ -112,7 +112,7 @@
         nextButton: '.swiper-button-next',
         prevButton: '.swiper-button-prev'
       })
-    },
+    }
   }
 
 </script>
