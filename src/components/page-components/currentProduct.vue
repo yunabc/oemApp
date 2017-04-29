@@ -16,8 +16,8 @@
 
 <script>
   import axios from 'axios';
-  import investHeader from 'components/common-components/investHeader';
-  import investList from 'components/common-components/investList';
+  import investHeader from 'components/page-components/investHeader';
+  import investList from 'components/page-components/investList';
   export default {
     data () {
       return {
@@ -59,7 +59,6 @@
   @import '../../common/style/commoncolor.less';
 
   #product {
-
     .clockHint {
       display: flex;
       display: none;
@@ -76,56 +75,6 @@
         color: #666666;
       }
     }
-    .productList{
-      padding: 0 .26666667rem;
-      .productItem {
-        margin-top: .26666667rem;
-        padding: .4rem;
-        border-radius: .2rem;
-        background-color: #fff;
-        color: #666666;
-        font-size: .26666667rem;
-        .itemTitle {
-          font-size: .32rem;
-          line-height: .32rem;
-          margin-bottom: .34666667rem /* 26px */;
-          color: #333333;
-          font-weight: bold;
-        }
-        .itemInfo {
-          display: flex;
-          line-height: 1.5;
-          justify-content: space-between;
-          .profit {
-            .profitNum {
-              font-size: .48rem;
-              color: red;
-              line-height: .56rem /* 42px */;
-            }
-          }
-          .times {
-            text-align: center;
-            .timesDay {
-              font-size: .37333333rem;
-              color: @color;
-              line-height: .50666667rem;
-            }
-          }
-          .buyBtn {
-            width: 2.4rem /* 180px */;
-            height: .64rem;
-            background-color: @color;
-            color: #fff;
-            text-align: center;
-            line-height: .64rem;
-            border-radius: .32rem;
-          }
-        }
-
-      }
-
-    }
-
   }
 
 </style>
