@@ -9,70 +9,21 @@
       </div>
       <div class="swichBtn"><img src="../../common/img/clock.png" alt=""></div>
     </div>
-    <div ref="listWrapper" class="list-wrapper  list-wrapper-hook">
-      <ul  class="productList list-content  list-content-hook" ref="listContent">
-        <li v-for="item in currentData" class="productItem list-item" :data-id="item.proId">
-          <div class="itemTitle">360金融·{{item.proName}}<!--360金融.活期-20170101--></div>
-          <div class="itemInfo">
-            <div class="profit">
-              <p class="profitNum">{{item.proRate}}%</p>
-              <p>{{item.rateTips}}<!--预期年化利率--></p>
-            </div>
-            <div class="verticalLine"></div>
-            <div class="times">
-              <p><span class="timesDay">{{item.proProspectiveEarn}}</span><!--天--></p>
-              <p>{{item.proProspectiveEarnText}}</p>
-            </div>
-            <div class="buyBtn">立即购买</div>
-          </div>
-        </li>
-      </ul>
-      <div v-if="flag" class="loading-wrapper">
-        <div class='uil-default-css' style='transform:scale(0.15);'>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(0deg) translate(0,-60px);transform:rotate(0deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(30deg) translate(0,-60px);transform:rotate(30deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(60deg) translate(0,-60px);transform:rotate(60deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(90deg) translate(0,-60px);transform:rotate(90deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(120deg) translate(0,-60px);transform:rotate(120deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(150deg) translate(0,-60px);transform:rotate(150deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(180deg) translate(0,-60px);transform:rotate(180deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(210deg) translate(0,-60px);transform:rotate(210deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(240deg) translate(0,-60px);transform:rotate(240deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(270deg) translate(0,-60px);transform:rotate(270deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(300deg) translate(0,-60px);transform:rotate(300deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-          <div
-            style='top:80px;left:93px;width:14px;height:40px;background:rgb(248,142,45);-webkit-transform:rotate(330deg) translate(0,-60px);transform:rotate(330deg) translate(0,-60px);border-radius:10px;position:absolute;'></div>
-        </div>
-      </div>
-    </div>
+    <invest-list :oldObj="dataObj"></invest-list>
   </div>
 
 </template>
 
 <script>
   import axios from 'axios';
-  import BScroll from 'better-scroll';
   import investHeader from 'components/common-components/investHeader';
-  //import investList from 'components/common-components/investList';
+  import investList from 'components/common-components/investList';
   export default {
     data () {
       return {
-        page:1,
-        currentDataHot:{},
-        currentData:[],
-        flag:true,
-        singleNum:6//每页加载的条数
+        dataObj:{
+            isCurrent:true
+        }
       }
     },
     props:{
@@ -80,71 +31,27 @@
     },
      components:{
       investHeader,
-      //investList
+      investList
     },
     created(){
-      this._getData();
-    },
-    mounted(){
-      this.$nextTick(() => {
-        // 代码保证 this.$el 在 document 中
-        this._initScroll();
+      axios.get('../../../static/regularInvest.json').then((res) => {
+        let data = res.data;
+        if (data.status == 0) {
+          this.dataHot = data.result[0];
+        } else {
+          console.log(data.errorMsg)
+        }
+      }).catch(function (error) {
+        console.log(error);
       });
+      this.$root.$on('passObj', this.getObj);
     },
     methods:{
-      _initScroll() {
-        if (!this.scroll) {
-          this.scroll = new BScroll(this.$refs.listWrapper, {
-            probeType: 1,
-            click:true
-          });
-          this.scroll.on('touchend',  (pos) => {
-            //条件判断有误
-            console.log(pos)
-            let listContent = this.$refs.listContent;
-            let listWrapper = this.$refs.listWrapper;
-            let contentH = listContent.offsetHeight;
-            let screenH = listWrapper.clientHeight;
-            let scrollTop = listContent.offsetTop;
-            console.log(contentH,screenH,scrollTop)
-            if (-pos.y + contentH > screenH + scrollTop - 50 ) {
-              setTimeout(() => {
-                this._getData();
-                this.scroll.refresh()
-                //listContent.style.transform = "translate(0,"+ pos.y +"px)"
-              }, 1000)
-            }
-          })
-        }else {
-          // 未取到数据,所以不能滚动
-          this.scroll.refresh();
-        }
-      },
-      _getData(){
-        let page = this.page;
-        if(this.flag){
-          axios.get('../../../static/currentInvest.json').then((res) => {
-            let data = res.data;
-            if (data.status == 0) {
-              if(this.page === 1){
-                this.currentDataHot = data.result[0];
-                this.currentData = data.result.splice(1);
-                this.page ++
-              }else{
-                this.currentData = this.currentData.concat(data.result)
-              }
-              if(data.result.length < this.singleNum || data.result.length === 0){
-                this.flag = false
-              }
-            } else {
-              console.log(data.errorMsg)
-            }
-          }).catch(function (error) {
-            console.log(error);
-          });
-        }
+      getObj(obj){
+        this.dataObj = Object.assign({},this.dataObj,obj);
       }
     }
+
   }
 </script>
 
