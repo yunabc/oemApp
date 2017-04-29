@@ -139,6 +139,7 @@
           this.scroll.refresh();
         }
       },
+
       _getData(obj){
         this.page = obj.page || 1;
         this.flag = obj.flag || true;
