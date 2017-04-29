@@ -2,9 +2,7 @@
 <div id="user" class="stageScreen">
   <div v-if="vip" class="userHeader">
     <div class="moneyNum">1,111.00</div>
-    <router-link to="/login">
-      <p>累计佣金(元)</p>
-    </router-link>
+    <p>累计佣金(元)</p>
   </div>
   <ul class="userCenterList">
     <li class="invite userCenterItem userItemLine" @click="share()">

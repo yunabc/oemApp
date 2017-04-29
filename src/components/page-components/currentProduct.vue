@@ -10,7 +10,7 @@
       <div class="swichBtn"><img src="../../common/img/clock.png" alt=""></div>
     </div>
 
-    <invest-list :oldObj="dataObj"></invest-list>
+    <invest-list :oldObj="dataObj" :userInfo="userInfo" :investurl="current"></invest-list>
   </div>
 
 </template>
@@ -25,7 +25,8 @@
         dataObj:{
             isCurrent:true
         },
-        dataHot:{}
+        dataHot:{},
+        current:'current'
       }
     },
     props:{

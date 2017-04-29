@@ -1,5 +1,5 @@
 <template>
-  <div class="footNav">
+  <div ref="footNav" class="footNav">
     <router-link to="/home" class="home footNavItem">
       <i class="fa fa-home" aria-hidden="true"></i>首页
     </router-link>
@@ -14,19 +14,24 @@
             return {
             }
         },
+        mounted() {
+          let footOffetTop = this.$refs.footNav.offsetTop;
+          // this.$emit('footNavHeight',footOffetTop);
+
+        },
         props: {
           userInfo: Object,
         },
         methods: {
           checkInfo() {
             console.log(this.userInfo);
-            
+
             if(this.userInfo.userId && this.userInfo.userId !=''){
               this.$router.push('/user');
             }else{
-              this.$router.push({path:"/login",query:{topage:"/user"}});
+              this.$router.push({path:"/login",query:{topage:"user"}});
             }
-          }
+          },
         }
         
 

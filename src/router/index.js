@@ -58,10 +58,12 @@ export default new Router({
         },
         {
           path:'/invest/regular',
+          name:'regular',
           component:regularProduct
         },
         {
           path:'/invest/current',
+          name:'current',
           component:currentProduct
         }
       ]

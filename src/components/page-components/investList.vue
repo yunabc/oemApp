@@ -13,7 +13,7 @@
             <p><span class="timesDay">{{item.proDayLimit}}</span>天</p>
             <p>期限</p>
           </div>
-          <div class="buyBtn">立即购买</div>
+          <div @click="checkInfo(item.url)" class="buyBtn">立即购买</div>
         </div>
       </li>
     </ul>
@@ -24,14 +24,15 @@
 <style lang="less" rel="stylesheet/less">
   @import '../../common/style/commoncolor.less';
   .productList {
-    padding: 0 .26666667rem;
+    padding: 0 .26666667rem 1px;
     .productItem {
-      margin-top: .26666667rem;
+      margin-bottom: .26666667rem;
       padding: .4rem;
       border-radius: .2rem;
       background-color: #fff;
       color: #666666;
       font-size: .26666667rem;
+      
       .itemTitle {
         font-size: .32rem;
         line-height: .32rem;
@@ -73,7 +74,7 @@
 
   }
 </style>
-<script type="text/ecmascript-6">
+<script>
   import axios from 'axios';
   import BScroll from 'better-scroll';
   import loading from 'components/common-components/loading';
@@ -84,24 +85,39 @@
         dataList:[],
         flag:true,
         page:1,
-        singleNum:5//每页默认5条数据
+        singleNum:5,//每页默认5条数据
+        promiseObj:{},
       };
     },
     props: {
       oldObj:{
           type:Object
-      }
+      },
+      userInfo: Object,
+      investurl: String,
+      navH: Number,
     },
     components:{
         loading
     },
     created(){
-      this._getData(this.oldObj);
+
+      this.promiseObj=this._getData(this.oldObj);
     },
     mounted(){
       this.$nextTick(() => {
         // 代码保证 this.$el 在 document 中
-        this._initScroll();
+        let wrapper = this.$refs.listWrapper
+        let offTop = wrapper.offsetTop;
+        // let winH = window.offsetHeight;
+        wrapper.style.top = offTop + "px";
+        wrapper.style.bottom = 1.30666667+ "rem";
+
+        this.promiseObj.then((res) =>{
+          console.log(12)
+          this._initScroll();
+
+        })
       });
     },
     methods: {
@@ -112,25 +128,26 @@
             click: true
           });
           this.scroll.on('touchend', (pos) => {
-            //条件判断有误,第一次移动不了
-            console.log(pos)
-            let listContent = this.$refs.listContent;
-            let listWrapper = this.$refs.listWrapper;
-            let contentH = listContent.offsetHeight;
-            let screenH = listWrapper.clientHeight;
-            let scrollTop = Number(listContent.style.transform.replace(/[^\d\.px]/g, '').split('px')[1]);
-            if (-pos.y + contentH > screenH + scrollTop - 50) {
-              console.log(-pos.y, contentH, screenH + scrollTop - 50);
-              setTimeout(() => {
-                this._getData({
-                  page:this.page,
-                  flag:this.flag,
-                  dataList:this.dataList,
-                  url:this.url
-                });
-                this.scroll.refresh();
 
-              }, 1000)
+            //条件判断有误,第一次移动不了
+            let listContent = this.$refs.listContent.offsetHeight;
+            let listWrapper = this.$refs.listWrapper.offsetHeight;
+            // let contentH = listContent.offsetHeight;
+            let screenH = listWrapper.clientHeight;
+            console.log(screenH);
+            // let scrollTop = Number(listContent.style.transform.replace(/[^\d\.px]/g, '').split('px')[1]);
+            console.log(listContent,listWrapper , pos.y);
+            if ( listContent- listWrapper + pos.y < -100) {
+              console.log(2);
+            //   console.log(-pos.y, contentH, screenH + scrollTop - 50);
+                this._getData()
+            //       page:this.page,
+            //       flag:this.flag,
+            //       dataList:this.dataList,
+            //       url:this.url
+            //     });
+            //     this.scroll.refresh();
+
             }
 
           })
@@ -144,8 +161,11 @@
         this.flag = obj.flag || true;
         this.url = obj.isCurrent?"../../../static/currentInvest.json":"../../../static/regularInvest.json"
         this.dataList = obj.dataList || [];
+
         if (this.flag) {
-          axios.get(this.url).then((res) => {
+         return new Promise((resolve) =>{
+          console.log(this);
+           axios.get(this.url).then((res) => {
             let data = res.data;
             if (data.status == 0) {
               if (this.page === 1) {
@@ -162,14 +182,26 @@
                 flag:this.flag,
                 dataList:this.dataList
               });
+              console.log(11);
             } else {
               console.log(data.errorMsg)
             }
+            resolve(res);
           }).catch(function (error) {
             console.log(error);
           });
+         })
+          
         }
-      }
+      },
+      checkInfo(url) {
+        if(this.userInfo.userId && this.userInfo.userId !=''){
+          location.href = url;
+        }else{
+          this.$router.push({path:"/login",query:{topage:this.investurl}});
+        }
+      },
+
     }
   };
 
