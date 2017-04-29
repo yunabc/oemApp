@@ -1,0 +1,244 @@
+a {
+  display: block;
+  color: #000;
+}
+.verticalLine {
+  height: .48rem;
+  margin: auto 0;
+  border-right: 0.01333333rem solid #d7d6dc;
+}
+/*头部nav*/
+.tabNav {
+  display: flex;
+  background-color: #fff;
+}
+.tabNav .navItem {
+  padding: .36rem 0;
+  flex: 1;
+  text-align: center;
+  color: #000;
+  font-size: .37333333rem;
+  line-height: .53333333rem;
+  border-bottom: 0.01333333rem solid #d7d6dc;
+  font-weight: bold;
+}
+.tabNav .navItem.active {
+  border-bottom: 0.05333333rem solid #f88e2d;
+  color: #f88e2d;
+}
+/*绩效表格*/
+.noContent {
+  font-size: 0.6rem;
+  text-align: center;
+  margin-top: 3rem;
+}
+/*绩效按钮*/
+.performanceBtn {
+  font-size: .32rem;
+  float: right;
+  margin-left: 0.5rem;
+  background-color: #f88e2d;
+  color: #fff;
+  padding: 0.1rem 0.3rem;
+  border-radius: 0.1rem;
+}
+.performanceDetail {
+  width: 100%;
+  border: 0.01333333rem solid #d7d6dc;
+}
+.performanceDetail thead tr,
+.performanceDetail tbody tr {
+  display: flex;
+  line-height: 1.06666667rem;
+}
+.performanceDetail thead tr td,
+.performanceDetail tbody tr td {
+  flex: 1;
+  border-bottom: 0.01333333rem solid #d7d6dc;
+  border-right: 0.01333333rem solid #d7d6dc;
+  text-align: center;
+}
+.performanceDetail thead {
+  background-color: #f88e2d;
+  color: #fff;
+}
+.performanceDetail tbody tr:active {
+  background-color: #f0f1f2;
+}
+/*显示主题部分*/
+.stageScreen {
+  background-color: #f0f1f2;
+  min-height: 100%;
+  padding-bottom: 1.30666667rem;
+  box-sizing: border-box;
+}
+/*上拉加载*/
+.list-wrapper {
+  position: fixed;
+  width: 100%;
+  height: 9.67rem;
+  overflow: hidden;
+  background-color: #f0f1f2;
+}
+.list-wrapper .list-content {
+  position: relative;
+  z-index: 10;
+}
+.list-wrapper .loading-wrapper {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+/*上拉刷新等待*/
+@-webkit-keyframes uil-default-anim {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes uil-default-anim {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.uil-default-css {
+  position: relative;
+  background: none;
+  width: 100%;
+  height: 100px;
+}
+.uil-default-css > div:nth-of-type(1) {
+  -webkit-animation: uil-default-anim 1s linear infinite;
+  animation: uil-default-anim 1s linear infinite;
+  -webkit-animation-delay: -0.5s;
+  animation-delay: -0.5s;
+}
+.uil-default-css > div:nth-of-type(2) {
+  -webkit-animation: uil-default-anim 1s linear infinite;
+  animation: uil-default-anim 1s linear infinite;
+  -webkit-animation-delay: -0.41666667s;
+  animation-delay: -0.41666667s;
+}
+.uil-default-css > div:nth-of-type(3) {
+  -webkit-animation: uil-default-anim 1s linear infinite;
+  animation: uil-default-anim 1s linear infinite;
+  -webkit-animation-delay: -0.33333333s;
+  animation-delay: -0.33333333s;
+}
+.uil-default-css > div:nth-of-type(4) {
+  -webkit-animation: uil-default-anim 1s linear infinite;
+  animation: uil-default-anim 1s linear infinite;
+  -webkit-animation-delay: -0.25s;
+  animation-delay: -0.25s;
+}
+.uil-default-css > div:nth-of-type(5) {
+  -webkit-animation: uil-default-anim 1s linear infinite;
+  animation: uil-default-anim 1s linear infinite;
+  -webkit-animation-delay: -0.16666667s;
+  animation-delay: -0.16666667s;
+}
+.uil-default-css > div:nth-of-type(6) {
+  -webkit-animation: uil-default-anim 1s linear infinite;
+  animation: uil-default-anim 1s linear infinite;
+  -webkit-animation-delay: -0.08333333s;
+  animation-delay: -0.08333333s;
+}
+.uil-default-css > div:nth-of-type(7) {
+  -webkit-animation: uil-default-anim 1s linear infinite;
+  animation: uil-default-anim 1s linear infinite;
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+.uil-default-css > div:nth-of-type(8) {
+  -webkit-animation: uil-default-anim 1s linear infinite;
+  animation: uil-default-anim 1s linear infinite;
+  -webkit-animation-delay: 0.08333333333333337s;
+  animation-delay: 0.08333333333333337s;
+}
+.uil-default-css > div:nth-of-type(9) {
+  -webkit-animation: uil-default-anim 1s linear infinite;
+  animation: uil-default-anim 1s linear infinite;
+  -webkit-animation-delay: 0.16666666666666663s;
+  animation-delay: 0.16666666666666663s;
+}
+.uil-default-css > div:nth-of-type(10) {
+  -webkit-animation: uil-default-anim 1s linear infinite;
+  animation: uil-default-anim 1s linear infinite;
+  -webkit-animation-delay: 0.25s;
+  animation-delay: 0.25s;
+}
+.uil-default-css > div:nth-of-type(11) {
+  -webkit-animation: uil-default-anim 1s linear infinite;
+  animation: uil-default-anim 1s linear infinite;
+  -webkit-animation-delay: 0.33333333333333337s;
+  animation-delay: 0.33333333333333337s;
+}
+.uil-default-css > div:nth-of-type(12) {
+  -webkit-animation: uil-default-anim 1s linear infinite;
+  animation: uil-default-anim 1s linear infinite;
+  -webkit-animation-delay: 0.41666666666666663s;
+  animation-delay: 0.41666666666666663s;
+}
+.account {
+  height: 100%;
+  background-color: #f2f2f2;
+  padding-top: .53333333rem;
+}
+.account .account-list {
+  background-color: #fff;
+  padding: .26666667rem 0;
+}
+.account .account-list > li {
+  display: flex;
+  height: 1.06666667rem;
+  line-height: 1.06666667rem;
+  font-size: .37333333rem;
+  border-bottom: 1px solid #ccc;
+  padding: .06666667rem;
+  align-items: center;
+}
+.account .account-list .account-li {
+  border-bottom: none;
+}
+.account .account-list .account-li .fa {
+  padding: 0 .26666667rem;
+  width: .4rem;
+  line-height: inherit;
+}
+.account .account-list .account-li span {
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+  display: inline-block;
+}
+.account .account-list .account-li .key {
+  flex: 0 1 2.66666667rem /* 200px */;
+  border: none;
+  text-align: right;
+}
+.account .account-list .account-li input {
+  flex: 1;
+  margin-left: .53333333rem;
+  margin-right: .66666667rem;
+  border: 1px solid #ccc;
+  padding: .2rem .13333333rem;
+  box-sizing: border-box;
+  height: 0.90666667rem;
+}
+.account .change-btn {
+  font-size: .37333333rem;
+  display: block;
+  text-align: center;
+  width: 100%;
+  background-color: #f88e2d;
+  margin-top: .66666667rem;
+  color: #fff;
+  height: .90666667rem;
+  line-height: .90666667rem;
+  border: none;
+}

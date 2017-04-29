@@ -105,9 +105,6 @@
       });
       
     },
-    methods:{
-      
-    },
     mounted () {
       let mySwiper = new Swiper('.swiper-container', {
         direction: 'horizontal',
@@ -119,7 +116,6 @@
         prevButton: '.swiper-button-prev'
       })
     },
-    
   }
 
 </script>
