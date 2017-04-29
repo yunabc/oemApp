@@ -1,6 +1,6 @@
 <template>
   <div id="product">
-    <invest-header :dataHot="currentDataHot"></invest-header>
+    <invest-header :dataHot="dataHot"></invest-header>
     <div class="clockHint">
       <i class="clockImg"><img src="../../common/img/clock.png" alt=""></i>
       <div class="desc">
@@ -23,7 +23,8 @@
       return {
         dataObj:{
             isCurrent:true
-        }
+        },
+        dataHot:{}
       }
     },
     props:{
