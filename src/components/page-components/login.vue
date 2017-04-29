@@ -43,11 +43,11 @@ export default {
 			moveBlockCb: false,
 			msg:'测试提示文案测试提示文案测试提示文案测试提示文案测试提示文案',
 			openWindow: false,
-			from: "",
+			topage: "",
 		}
 	},
 	created() {
-		console.log(this.$route,this.$router)
+		this.topage = this.$route.query.topage;
 	},
 	methods: {
 		checkInfo() {
@@ -108,16 +108,16 @@ export default {
 						break;
 					case "0":
 						// 登陆成功
-						console.log(result);
+						console.log(this.topage);
 						
 						this.save(result);
-						this.$router.push({ name: this.from, params: result})
+						this.$router.push({ name: this.topage, params: result})
 
 						break;
 					case "2":
 						// 登陆未绑定客户信息
 						this.save(result);
-						this.$router.push({ name: this.from, params: result})
+						this.$router.push({ name: this.topage, params: result})
 						break;
 					case "-1":	
 					// 未登录
@@ -143,12 +143,10 @@ export default {
 	computed:{
 		
 	},
-	beforeRouteEnter(to, from, next){
-		next(vm => {
-        vm.from=from.name;
-        // console.log(from);
-    })
+	mounted() {
+
 	},
+	
 	components: {
 		'v-alert': alert
 	}

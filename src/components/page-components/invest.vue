@@ -6,7 +6,7 @@
       <router-link to="/invest/current" class="currentProduct navItem">活期</router-link>
     </div>
     <router-view :userInfo="userInfo"></router-view>
-    <foot-nav></foot-nav>
+    <foot-nav :userInfo="userInfo" ></foot-nav>
   </div>
 
 </template>

@@ -1,6 +1,6 @@
 <template>
   <div id="product">
-    <invest-header :dataHot="dataHot"></invest-header>
+    <invest-header :dataHot="dataHot" :userInfo="userInfo"></invest-header>
     <div class="clockHint">
       <i class="clockImg"><img src="../../common/img/clock.png" alt=""></i>
       <div class="desc">
@@ -9,7 +9,8 @@
       </div>
       <div class="swichBtn"><img src="../../common/img/clock.png" alt=""></div>
     </div>
-    <invest-list :flag="flag" :dataList="dataList" :page="page" :url="url"></invest-list>
+
+    <invest-list :flag="flag" :dataList="dataList" :page="page" :url="url" :userInfo="userInfo" :investurl="regular"></invest-list>
   </div>
 
 </template>
@@ -20,6 +21,8 @@
   export default {
     data () {
       return {
+
+        regular:'regular',
         url:"../../../static/regularInvest.json",
         flag:true,
         dataList:[],
@@ -30,13 +33,14 @@
     },
     props:{
       userInfo: Object,
+      domain:String,
     },
     components:{
       investHeader,
       investList
     },
     created(){
-
+      // this.url = this.domain + this.url;
       axios.get(this.url).then((res) => {
         let data = res.data;
         if (data.status == 0) {

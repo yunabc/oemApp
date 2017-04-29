@@ -9,8 +9,7 @@
       </div>
       <div class="swichBtn"><img src="../../common/img/clock.png" alt=""></div>
     </div>
-
-    <invest-list :flag="flag" :dataList="dataList" :page="page" :url="url"></invest-list>
+    <invest-list :flag="flag" :dataList="dataList" :page="page" :url="url" :userInfo="userInfo" :investurl="current"></invest-list>
   </div>
 
 </template>
@@ -27,7 +26,8 @@
         dataList:[],
         page:1,
         dataHot:{},
-        singleNum:5
+        current:'current',
+        singleNum:5,
       }
     },
     props:{
