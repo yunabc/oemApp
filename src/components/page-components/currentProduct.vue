@@ -17,8 +17,8 @@
 
 <script>
   import axios from 'axios';
-  import investHeader from 'components/common-components/investHeader';
-  import investList from 'components/common-components/investList';
+  import investHeader from 'components/page-components/investHeader';
+  import investList from 'components/page-components/investList';
   export default {
     data () {
       return {
@@ -60,7 +60,6 @@
   @import '../../common/style/commoncolor.less';
 
   #product {
-
     .clockHint {
       display: flex;
       display: none;
@@ -77,8 +76,6 @@
         color: #666666;
       }
     }
-    
-
   }
 
 </style>

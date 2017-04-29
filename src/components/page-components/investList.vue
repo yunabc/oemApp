@@ -83,7 +83,7 @@
       return {
         dataList:[],
         flag:true,
-        page:2,
+        page:1,
         singleNum:5//每页默认5条数据
       };
     },
@@ -122,7 +122,12 @@
             if (-pos.y + contentH > screenH + scrollTop - 50) {
               console.log(-pos.y, contentH, screenH + scrollTop - 50);
               setTimeout(() => {
-                this._getData(this.newObj);
+                this._getData({
+                  page:this.page,
+                  flag:this.flag,
+                  dataList:this.dataList,
+                  url:this.url
+                });
                 this.scroll.refresh();
 
               }, 1000)
