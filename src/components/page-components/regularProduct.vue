@@ -9,7 +9,7 @@
       </div>
       <div class="swichBtn"><img src="../../common/img/clock.png" alt=""></div>
     </div>
-    <invest-list :oldObj="dataObj"></invest-list>
+    <invest-list :flag="flag" :dataList="dataList" :page="page" :url="url"></invest-list>
   </div>
 
 </template>
@@ -20,10 +20,12 @@
   export default {
     data () {
       return {
-        dataObj:{
-            isCurrent:false
-        },
-        dataHot:{}
+        url:"../../../static/regularInvest.json",
+        flag:true,
+        dataList:[],
+        page:1,
+        dataHot:{},
+        singleNum:5
       }
     },
     props:{
@@ -35,10 +37,15 @@
     },
     created(){
 
-      axios.get('../../../static/regularInvest.json').then((res) => {
+      axios.get(this.url).then((res) => {
         let data = res.data;
         if (data.status == 0) {
-            this.dataHot = data.result[0];
+          this.dataHot = data.result[0];
+          this.dataList = data.result.slice(1);
+          this.page++;
+          if(data.result.length === 0 || data.result.length<this.singleNum){
+            this.flag = false
+          }
         } else {
           console.log(data.errorMsg)
         }
@@ -49,7 +56,9 @@
     },
     methods:{
         getObj(obj){
-            this.dataObj = Object.assign({},this.dataObj,obj);
+            this.flag = obj.flag;
+            this.dataList = obj.dataList;
+            this.page = obj.page;
         }
     }
   }

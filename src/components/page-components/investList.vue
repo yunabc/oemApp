@@ -81,22 +81,17 @@
   export default{
     data () {
       return {
-        dataList:[],
-        flag:true,
-        page:1,
-        singleNum:5//每页默认5条数据
+          singleNum:5//每页默认5条数据
       };
     },
     props: {
-      oldObj:{
-          type:Object
-      }
+      flag:Boolean,
+      url:String,
+      dataList:Array,
+      page:Number
     },
     components:{
         loading
-    },
-    created(){
-      this._getData(this.oldObj);
     },
     mounted(){
       this.$nextTick(() => {
@@ -122,12 +117,7 @@
             if (-pos.y + contentH > screenH + scrollTop - 50) {
               console.log(-pos.y, contentH, screenH + scrollTop - 50);
               setTimeout(() => {
-                this._getData({
-                  page:this.page,
-                  flag:this.flag,
-                  dataList:this.dataList,
-                  url:this.url
-                });
+                this._getData();
                 this.scroll.refresh();
 
               }, 1000)
@@ -139,22 +129,13 @@
           this.scroll.refresh();
         }
       },
-
-      _getData(obj){
-        this.page = obj.page || 1;
-        this.flag = obj.flag || true;
-        this.url = obj.isCurrent?"../../../static/currentInvest.json":"../../../static/regularInvest.json"
-        this.dataList = obj.dataList || [];
+      _getData(){
         if (this.flag) {
           axios.get(this.url).then((res) => {
             let data = res.data;
             if (data.status == 0) {
-              if (this.page === 1) {
-                this.dataList = data.result.slice(1);
-                this.page++
-              } else {
-                this.dataList = this.dataList.concat(data.result)
-              }
+              this.dataList = this.dataList.concat(data.result);
+              this.page++;
               if (data.result.length < this.singleNum || data.result.length === 0) {
                 this.flag = false
               }
@@ -170,7 +151,7 @@
             console.log(error);
           });
         }
-      }
+      },
     }
   };
 
