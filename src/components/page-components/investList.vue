@@ -90,6 +90,7 @@
       dataList:Array,
       page:Number
     },
+
     components:{
         loading
     },
