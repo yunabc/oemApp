@@ -61,7 +61,6 @@
         userInfo:{},
         bannerImgs:[],
         noUrl:"javascript:void(0)",
-        userInfo:{},
       }
 
     },
@@ -103,7 +102,7 @@
       }).catch(function (error) {
         console.log(error);
       });
-      
+
     },
     mounted () {
       let mySwiper = new Swiper('.swiper-container', {

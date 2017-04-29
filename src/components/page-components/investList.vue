@@ -161,10 +161,9 @@
         this.flag = obj.flag || true;
         this.url = obj.isCurrent?"../../../static/currentInvest.json":"../../../static/regularInvest.json"
         this.dataList = obj.dataList || [];
-
+        
         if (this.flag) {
          return new Promise((resolve) =>{
-          console.log(this);
            axios.get(this.url).then((res) => {
             let data = res.data;
             if (data.status == 0) {
