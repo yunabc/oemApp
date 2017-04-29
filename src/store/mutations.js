@@ -9,6 +9,9 @@ export default {
   [types.SAVE_PERSONAL_INFO] (state, info) {
     state.personalInfo = info;
   },
+  [types.SAVE_FOOT_H] (state, h) {
+    state.footH = h;
+  },
   [types.DELETE_PERSONAL_INFO] (state) {
     state.personalInfo = null;
   }

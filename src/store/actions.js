@@ -7,6 +7,9 @@ export default {
   savePersonalInfo({commit},info){
     commit(types.SAVE_PERSONAL_INFO,info)
   },
+  saveFootH({commit},h){
+    commit(types.SAVE_FOOT_INFO,h)
+  },
   deletePersonalInfo({commit}){
     commit(types.DELETE_PERSONAL_INFO)
   }
