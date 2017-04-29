@@ -9,6 +9,7 @@
       </div>
       <div class="swichBtn"><img src="../../common/img/clock.png" alt=""></div>
     </div>
+
     <invest-list :oldObj="dataObj"></invest-list>
   </div>
 
@@ -28,7 +29,7 @@
       }
     },
     props:{
-
+      userInfo: Object,
     },
      components:{
       investHeader,

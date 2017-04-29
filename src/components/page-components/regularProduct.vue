@@ -27,13 +27,14 @@
       }
     },
     props:{
-
+      userInfo: Object,
     },
     components:{
       investHeader,
       investList
     },
     created(){
+
       axios.get('../../../static/regularInvest.json').then((res) => {
         let data = res.data;
         if (data.status == 0) {

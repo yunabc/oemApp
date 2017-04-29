@@ -60,7 +60,8 @@
       return {
         userInfo:{},
         bannerImgs:[],
-        noUrl:"javascript:void(0)"
+        noUrl:"javascript:void(0)",
+        userInfo:{},
       }
 
     },
@@ -71,7 +72,7 @@
       footNav
     },
     created(){
-        this.save();
+      this.userInfo = this.$store.state.personalInfo;
       /*axios.get('../../../static/home.json').then((res) => {
         let data = res.data;
         if (data.status == 0) {
@@ -102,6 +103,7 @@
       }).catch(function (error) {
         console.log(error);
       });
+      
     },
     mounted () {
       let mySwiper = new Swiper('.swiper-container', {
@@ -114,24 +116,6 @@
         prevButton: '.swiper-button-prev'
       })
     },
-    methods:{
-      save(){
-        var info = {
-          totalTime: 0,
-          list: [{
-            name: '二哲',
-            avatar: 'https://sfault-avatar.b0.upaiyun.com/147/223/147223148-573297d0913c5_huge256',
-            date: '2016-12-25',
-            totalTime: '6',
-            comment: '12月25日晚上，陪女朋友一起过圣诞节需要6个小时'
-          }]
-        }
-        this.$store.dispatch('savePersonalInfo', info)
-      },
-      deleteInfo(){
-        this.$store.dispatch('deletePersonalInfo')
-      }
-    }
   }
 
 </script>
