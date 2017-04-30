@@ -9,7 +9,7 @@
       </div>
       <div class="swichBtn"><img src="../../common/img/clock.png" alt=""></div>
     </div>
-    <invest-list :flag="flag" :dataList="dataList" :page="page" :url="url" :userInfo="userInfo" :investurl="current"></invest-list>
+    <invest-list :promiseObj="promiseObj" :flag="flag" :dataList="dataList" :page="page" :url="url" :userInfo="userInfo" :investurl="current"></invest-list>
   </div>
 
 </template>
@@ -28,6 +28,7 @@
         dataHot:{},
         current:'current',
         singleNum:5,
+        promiseObj:{},
       }
     },
     props:{
@@ -38,21 +39,25 @@
       investList
     },
     created(){
-      axios.get(this.url).then((res) => {
-        let data = res.data;
-        if (data.status == 0) {
-          this.dataHot = data.result[0];
-          this.dataList = data.result.slice(1);
-          this.page++;
-          if(data.result.length === 0 || data.result.length<this.singleNum){
-              this.flag = false
+      this.promiseObj = new Promise((resolve) =>{
+        axios.get(this.url).then((res) => {
+          let data = res.data;
+          if (data.status == 0) {
+            this.dataHot = data.result[0];
+            this.dataList = data.result.slice(1);
+            this.page++;
+            if(data.result.length === 0 || data.result.length<this.singleNum){
+                this.flag = false
+            }
+          } else {
+            console.log(data.errorMsg)
           }
-        } else {
-          console.log(data.errorMsg)
-        }
-      }).catch(function (error) {
-        console.log(error);
-      });
+          return resolve(res);
+        }).catch(function (error) {
+          console.log(error);
+        });
+      })
+      console.log(this.promiseObj);
       this.$root.$on('passObj', this.getObj);
     },
     methods:{

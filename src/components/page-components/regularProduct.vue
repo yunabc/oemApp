@@ -10,7 +10,7 @@
       <div class="swichBtn"><img src="../../common/img/clock.png" alt=""></div>
     </div>
 
-    <invest-list :flag="flag" :dataList="dataList" :page="page" :url="url" :userInfo="userInfo" :investurl="regular"></invest-list>
+    <invest-list :promiseObj="promiseObj" :flag="flag" :dataList="dataList" :page="page" :url="url" :userInfo="userInfo" :investurl="regular"></invest-list>
   </div>
 
 </template>
@@ -28,6 +28,7 @@
         dataList:[],
         page:1,
         dataHot:{},
+        promiseObj:{},
         singleNum:5
       }
     },
@@ -41,21 +42,25 @@
     },
     created(){
       // this.url = this.domain + this.url;
-      axios.get(this.url).then((res) => {
-        let data = res.data;
-        if (data.status == 0) {
-          this.dataHot = data.result[0];
-          this.dataList = data.result.slice(1);
-          this.page++;
-          if(data.result.length === 0 || data.result.length<this.singleNum){
-            this.flag = false
+      this.promiseObj = new Promise(resolve => {
+        axios.get(this.url).then((res) => {
+          let data = res.data;
+          if (data.status == 0) {
+            this.dataHot = data.result[0];
+            this.dataList = data.result.slice(1);
+            this.page++;
+            if(data.result.length === 0 || data.result.length<this.singleNum){
+              this.flag = false
+            }
+          } else {
+            console.log(data.errorMsg)
           }
-        } else {
-          console.log(data.errorMsg)
-        }
-      }).catch(function (error) {
-        console.log(error);
-      });
+          return resolve(res);
+        }).catch(function (error) {
+          console.log(error);
+        });
+      })
+      
       this.$root.$on('passObj', this.getObj);
     },
     methods:{

@@ -1,7 +1,7 @@
 <template>
   <div ref="listWrapper" class="list-wrapper  list-wrapper-hook">
     <ul class="productList list-content  list-content-hook" ref="listContent">
-      <li class="productItem" v-for="item in dataList">
+      <li class="productItem" v-for="item in dataList2">
         <div class="itemTitle">360金融·{{item.proName}}</div>
         <div class="itemInfo">
           <div class="profit">
@@ -24,9 +24,9 @@
 <style lang="less" rel="stylesheet/less">
   @import '../../common/style/commoncolor.less';
   .productList {
-    padding: 0 .26666667rem;
+    padding: 0 .26666667rem 1px;
     .productItem {
-      margin-top: .26666667rem;
+      margin-bottom: .26666667rem;
       padding: .4rem;
       border-radius: .2rem;
       background-color: #fff;
@@ -73,7 +73,7 @@
 
   }
 </style>
-<script type="text/ecmascript-6">
+<script>
   import axios from 'axios';
   import BScroll from 'better-scroll';
   import loading from 'components/common-components/loading';
@@ -81,70 +81,88 @@
   export default{
     data () {
       return {
-          singleNum:5//每页默认5条数据
+          singleNum:5,//每页默认5条数据
+          dataList2:[],
+          page2:0,
       };
     },
     props: {
       flag:Boolean,
       url:String,
       dataList:Array,
-      page:Number
+      page:Number,
+      loadDone: Boolean,
+      promiseObj: Promise,
     },
 
     components:{
         loading
     },
+    created() { 
+
+    },
     mounted(){
-      this.$nextTick(() => {
-        // 代码保证 this.$el 在 document 中
-        this._initScroll();
-      });
+      console.log(111);
+      
+      
+      this.promiseObj.then((res) =>{
+
+        this.dataList2 = this.dataList;
+        console.log(this.dataList2);
+        this.page2=this.page;
+        let wrapper = this.$refs.listWrapper
+        let offTop = wrapper.offsetTop;
+        // let winH = window.offsetHeight;
+        wrapper.style.top = offTop + "px";
+        wrapper.style.bottom = 1.30666667+ "rem";
+        console.log(12)
+        this.$nextTick(() => {
+          this._initScroll();
+        })
+        
+
+      })
     },
     methods: {
       _initScroll() {
-        if (!this.scroll) {
+        console.log(11)
+     
           this.scroll = new BScroll(this.$refs.listWrapper, {
             probeType: 1,
             click: true
           });
+           console.log(13)
           this.scroll.on('touchend', (pos) => {
             //条件判断有误,第一次移动不了
             console.log(pos)
-            let listContent = this.$refs.listContent;
-            let listWrapper = this.$refs.listWrapper;
-            let contentH = listContent.offsetHeight;
+            let listContent = this.$refs.listContent.offsetHeight;
+            let listWrapper = this.$refs.listWrapper.offsetHeight;
             let screenH = listWrapper.clientHeight;
-            let scrollTop = Number(listContent.style.transform.replace(/[^\d\.px]/g, '').split('px')[1]);
-            if (-pos.y + contentH > screenH + scrollTop - 50) {
-              console.log(-pos.y, contentH, screenH + scrollTop - 50);
-              setTimeout(() => {
-                this._getData();
-                this.scroll.refresh();
-
-              }, 1000)
+            if ( listContent- listWrapper + pos.y < -100) {
+                this._getData()
             }
-
           })
-        } else {
-          // 未取到数据,所以不能滚动
-          this.scroll.refresh();
-        }
+       
       },
       _getData(){
         if (this.flag) {
+          
           axios.get(this.url).then((res) => {
             let data = res.data;
             if (data.status == 0) {
-              this.dataList = this.dataList.concat(data.result);
-              this.page++;
+              this.dataList2 = this.dataList2.concat(data.result);
+              this.page2++;
               if (data.result.length < this.singleNum || data.result.length === 0) {
                 this.flag = false
               }
               this.$root.$emit('passObj', {
                 page:this.page,
                 flag:this.flag,
-                dataList:this.dataList
+                dataList:this.dataList2
               });
+              this.$nextTick(() => {
+                this.scroll.refresh();
+              })
             } else {
               console.log(data.errorMsg)
             }
@@ -153,6 +171,13 @@
           });
         }
       },
+      checkInfo(url) {
+        if(this.userInfo.userId && this.userInfo.userId !=''){
+          location.href = url;
+        }else{
+          this.$router.push({path:"/login",query:{topage:this.investurl}});
+        }
+      }
     }
   };
 
