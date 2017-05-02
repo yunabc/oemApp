@@ -47,21 +47,12 @@
     },
     created(){
       this.userInfo = this.$store.state.personalInfo;
-      axios.post('/x-service/user/record.htm',{userId:this.userInfo.userId}).then((res) => {
-        let data = res.data;
-        if (data.status == 0) {
-           this.logsList = data.result;
-        } else {
-          console.log(data.errorMsg)
-        }
-
-      }).catch(function (error) {
-        console.log(error);
-      });
-      /*微信分享*/
+      this.option.userInviterId = this.userInfo.userId;
+       /*微信分享*/
       axios.get('/x-service/user/share.htm').then((res) => {
         let data = res.data;
         if (data.status == 0) {
+        console.log(1)
            this.option.appId = data.result.appId
            this.option.timestamp = data.result.timestamp
            this.option.nonceStr = data.result.nonceStr
@@ -73,7 +64,17 @@
       }).catch(function (error) {
         console.log(error);
       });
-
+      /*获取列表*/
+      axios.post('/x-service/user/record.htm',{userId:this.userInfo.userId}).then((res) => {
+        let data = res.data;
+        if (data.status == 0) {
+           this.logsList = data.result;
+        } else {
+          console.log(data.errorMsg)
+        }
+      }).catch(function (error) {
+        console.log(error);
+      });
     },
     methods:{
       toggleList(){
@@ -85,6 +86,7 @@
         }
       },
       share(){
+      console.log(2)
         wxShare(this.option)
       }
     }
