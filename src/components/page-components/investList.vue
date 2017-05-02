@@ -9,10 +9,15 @@
             <p>预期年化利率</p>
           </div>
           <div class="verticalLine"></div>
-          <div class="times">
+          <div class="times" v-if="isH">
+            <p><span class="timesDay">{{item.proProspectiveEarn}}</span></p>
+            <p>{{item.proProspectiveEarnStart}}</p>
+          </div>
+          <div class="times" v-else>
             <p><span class="timesDay">{{item.proDayLimit}}</span>天</p>
             <p>期限</p>
           </div>
+
           <div class="buyBtn">立即购买</div>
         </div>
       </li>
@@ -93,6 +98,7 @@
       page:Number,
       loadDone: Boolean,
       promiseObj: Promise,
+      isH:Boolean
     },
 
     components:{

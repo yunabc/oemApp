@@ -1,6 +1,6 @@
 <template>
   <div id="product" v-if="dataAll.length">
-    <invest-header :dataHot="dataHot"></invest-header>
+    <invest-header :dataHot="dataHot" :isH="isH"></invest-header>
     <div class="clockHint">
       <i class="clockImg"><img src="../../common/img/clock.png" alt=""></i>
       <div class="desc">
@@ -9,7 +9,7 @@
       </div>
       <div class="swichBtn"><img src="../../common/img/clock.png" alt=""></div>
     </div>
-    <invest-list :promiseObj="promiseObj" :flag="flag" :dataList="dataList" :page="page" :url="url" :userInfo="userInfo" :investurl="current"></invest-list>
+    <invest-list :isH="isH" :promiseObj="promiseObj" :flag="flag" :dataList="dataList" :page="page" :url="url" :userInfo="userInfo" :investurl="current"></invest-list>
   </div>
   <div class="noContent" v-else>暂无数据</div>
 
@@ -24,6 +24,7 @@
       return {
         url: "/x-service/pro/hq.htm",
         flag:true,
+        isH: true,
         dataAll:[],
         dataHot:{},
         dataList:[],
