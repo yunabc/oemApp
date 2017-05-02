@@ -6,7 +6,7 @@ import router from './router'
 import vueTap from 'v-tap'
 import fastclick from 'fastclick'
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 Vue.use(vueTap);
 
@@ -16,4 +16,4 @@ new Vue({
   router,
   template: '<App/>',
   components: { App }
-})
+});

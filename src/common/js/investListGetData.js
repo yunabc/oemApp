@@ -10,7 +10,7 @@ let initObj = {
 let dataObj={};//合并数据，以及确定范围export？export default
 export function getData(passObj){
   let obj = Object.assign({},initObj,passObj);
-  console.log("getDataFunction"); 
+  console.log("getDataFunction");
   if(obj.flag){
     axios.get(obj.url).then((res) => {
       console.log("axios")
@@ -19,14 +19,14 @@ export function getData(passObj){
         if(obj.page === 1){
           dataObj.regularDataHot = data.result[0];
           dataObj.regularData = data.result.slice(1);
-          obj.page ++
+          dataObj.page = obj.page ++
         }else{
           beforeData?dataObj.regularData = beforeData.concat(data.result):dataObj.regularData=data.result;
         }
         if(data.result.length < obj.singleNum || data.result.length === 0){
           dataObj.flag = false
         }
-        console.log(dataObj)
+        console.log(dataObj);
         return dataObj;
       } else {
         console.log(data.errorMsg)

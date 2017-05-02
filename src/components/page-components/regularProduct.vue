@@ -35,9 +35,12 @@
     },
     created(){
        let dataObj = getData({url:this.url,page:1});
+
        console.log(dataObj)//怎么才能取到异步的数据
+
        this.regularDataHot = dataObj.dataHot;
        this.regularData = dataObj.dataList;
+       this.flag = dataObj.flag
     }
   }
 

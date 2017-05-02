@@ -236,7 +236,6 @@
     data () {
       return {
         page:2,
-        flag:true,
         singleNum:6
       };
     },
@@ -246,6 +245,9 @@
       },
       url:{
         type:String
+      },
+      flag:{
+        type: Boolean
       }
     },
     mounted(){
@@ -272,7 +274,10 @@
             if (-pos.y + contentH > screenH + scrollTop - 50) {
               console.log(-pos.y, contentH, screenH + scrollTop - 50);
               setTimeout(() => {
-                getData(this.url);
+                let dataObj = getData({url:this.url,flag:this.flag,page:this.page});
+                this.regularData = dataObj.dataList;
+                this.flag = dataObj.flag;
+                this.page = dataObj.page
                 this.scroll.refresh()
               }, 1000)
             }
