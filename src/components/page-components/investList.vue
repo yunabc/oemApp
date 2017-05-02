@@ -1,7 +1,7 @@
 <template>
   <div ref="listWrapper" class="list-wrapper  list-wrapper-hook">
     <ul class="productList list-content  list-content-hook" ref="listContent">
-      <li class="productItem" v-for="item in dataList2">
+      <li class="productItem" v-for="item in dataList2" :data-id="item.proId">
         <div class="itemTitle">360金融·{{item.proName}}</div>
         <div class="itemInfo">
           <div class="profit">
@@ -98,15 +98,11 @@
     components:{
         loading
     },
-    created() { 
-
+    created() {
     },
     mounted(){
       console.log(111);
-      
-      
       this.promiseObj.then((res) =>{
-
         this.dataList2 = this.dataList;
         console.log(this.dataList2);
         this.page2=this.page;
@@ -119,14 +115,11 @@
         this.$nextTick(() => {
           this._initScroll();
         })
-        
-
       })
     },
     methods: {
       _initScroll() {
         console.log(11)
-     
           this.scroll = new BScroll(this.$refs.listWrapper, {
             probeType: 1,
             click: true
@@ -142,12 +135,12 @@
                 this._getData()
             }
           })
-       
+
       },
       _getData(){
         if (this.flag) {
-          
-          axios.get(this.url).then((res) => {
+
+          axios.post(this.url,{page:this.page2}).then((res) => {
             let data = res.data;
             if (data.status == 0) {
               this.dataList2 = this.dataList2.concat(data.result);

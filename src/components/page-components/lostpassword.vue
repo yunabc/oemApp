@@ -8,11 +8,11 @@
 			</div>
 			<input type="password" v-model="password" placeholder="请输入新密码">
 			<input type="password" v-model="password2" placeholder="请确认新密码">
-			
-			
+
+
 		</div>
 		<button class="btn submit-btn" @click="checkinput">找回密码</button>
-		<v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>	
+		<v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>
 	</div>
 </template>
 <script>
@@ -36,7 +36,6 @@ export default {
 		}
 	},
 	porps:{
-		domain:String,
 		userInviterId:String
 	},
 	methods: {
@@ -57,7 +56,7 @@ export default {
 							this.openWindow = true;
 							return ;
 						}
-						
+
 						this.msg = '两次密码输入不一致';
 						this.openWindow = true;
 						return ;
@@ -91,11 +90,11 @@ export default {
 			}
 		},
 		closeWindow(bool) {
-			this.openWindow = bool; 
-			
+			this.openWindow = bool;
+
 		},
 		upload() {
-			axios.post(this.domain + "x-service/user/forget.htm",{
+			axios.post("x-service/user/forget.htm",{
 				userInviterId:this.userInviterId,
 				tel:this.phone,
 				pwd:this.password,
@@ -109,7 +108,7 @@ export default {
 		sendCode() {
 			if(this.count.indexOf('发送') > -1){
 
-				
+
 				/*axios.post( this.domain + "",{
 					userInviterId:this.userInviterId
 				}).then((res) => {
@@ -138,7 +137,7 @@ export default {
 					that.second = "";
 					clearInterval(timer);
 				}
-				
+
 			},1000)
 		}
 	},
@@ -146,8 +145,8 @@ export default {
 		'v-alert': alert
 	}
 }
-</script> 
+</script>
 <style scoped lang="less" rel="stylesheet/less">
 	@import "../../common/style/login.less";
-	
+
 </style>

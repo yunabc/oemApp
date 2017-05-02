@@ -21,18 +21,17 @@
 			<router-link class="fl" to="/lostpassword">忘记密码</router-link>
 			<router-link class="fr" to="/register">注册账号</router-link>
 		</div>
-		<v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>	
+		<v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>
 	</div>
-	
+
 </template>
 <script>
-import alert from '../common-components/alert.vue' 
+import alert from '../common-components/alert.vue'
 import axios from 'axios';
 
 export default {
 	name: 'login',
 	props: {
-		domain: String,
 	},
 	data (){
 		return {
@@ -109,7 +108,7 @@ export default {
 					case "0":
 						// 登陆成功
 						console.log(this.topage);
-						
+
 						this.save(result);
 						this.$router.push({ name: this.topage, params: result})
 
@@ -119,19 +118,19 @@ export default {
 						this.save(result);
 						this.$router.push({ name: this.topage, params: result})
 						break;
-					case "-1":	
+					case "-1":
 					// 未登录
 						this.msg = res.errorMsg;
 						this.openWindow = true;
 						break;
 				}
-				
+
 			})
 		},
 
 		closeWindow(bool) {
-			this.openWindow = bool; 
-			
+			this.openWindow = bool;
+
 		},
 		inputval(context) {
 			this[context.name]=context.value;
@@ -141,18 +140,18 @@ export default {
 		}
 	},
 	computed:{
-		
+
 	},
 	mounted() {
 
 	},
-	
+
 	components: {
 		'v-alert': alert
 	}
 }
-</script> 
+</script>
 <style scoped lang="less" rel="stylesheet/less">
 	@import "../../common/style/login.less";
-	
+
 </style>

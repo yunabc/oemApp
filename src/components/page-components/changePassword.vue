@@ -4,10 +4,10 @@
     <li class="account-li"><span class="key">旧密码:</span><input type="text" v-model="oldpassword"></li>
     <li class="account-li"><span class="key">新密码:</span><input type="text" v-model="newpassword"></li>
     <li class="account-li"><span class="key">确认密码:</span><input type="text" v-model="newpassword2"></li>
-    
+
   </ul>
   <button class="change-btn" @click="checkinput">保存</button>
-  <v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert> 
+  <v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>
   <foot-nav></foot-nav>
 </div>
 </template>
@@ -32,7 +32,7 @@
     },
     porps:{
       domain:String,
-      
+
     },
     methods: {
       checkinput() {
@@ -71,28 +71,28 @@
         if(this.newpassword2==""){
           return "确认新密码不能为空"
         }
-        
+
       },
       closeWindow(bool) {
-        this.openWindow = bool; 
-        
+        this.openWindow = bool;
+
       },
       upload() {
-        axios.post(this.domain + "x-service/user/modify.htm",{
+        axios.post("x-service/user/modify.htm",{
           userId:this.userId,
           originalPwd:this.oldpassword,
           newPwd:this.newpassword,
           conPwd:this.newpassword2
         }).then((res) => {
           var data = res.data;
-          
+
 
         })
       },
       sendCode() {
         if(this.count.indexOf('发送') > -1){
 
-          
+
           /*axios.post( this.domain + "",{
             userInviterId:this.userInviterId
           }).then((res) => {
@@ -121,7 +121,7 @@
             that.second = "";
             clearInterval(timer);
           }
-          
+
         },1000)
       }
     },
@@ -130,11 +130,11 @@
       footNav
     }
   }
-  
+
 </script>
 
 <style lang="less" rel="stylesheet/less">
   @import "../../common/style/account.less";
-  
+
 
 </style>

@@ -7,7 +7,7 @@
 			<input type="text" v-model="bankcardphone" placeholder="请输入银行预留手机号">
 		</div>
 		<button class="btn submit-btn" @click="checkinput">下一步</button>
-		<v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>	
+		<v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>
 	</div>
 </template>
 <script>
@@ -27,7 +27,6 @@ export default {
 		}
 	},
 	porps:{
-		domain:String,
 		userId:String
 	},
 	methods: {
@@ -42,7 +41,7 @@ export default {
 					if(regp.test(this.idcard)){
 						if(regbankcart.test(this.bankcard)){
 							if(regPhone.test(this.bankcardphone)){
-								
+
 							}
 							this.msg = '银行卡预留手机号格式不正确';
 							this.openWindow = true;
@@ -81,11 +80,11 @@ export default {
 			}
 		},
 		closeWindow(bool) {
-			this.openWindow = bool; 
-			
+			this.openWindow = bool;
+
 		},
 		upload() {
-			axios.post(this.domain + "x-service/user/regInfo.htm",{
+			axios.post( "x-service/user/regInfo.htm",{
 				userId:this.userId,
 				bankTel:this.bankcardphone,
 				realName:this.name,
@@ -102,7 +101,7 @@ export default {
 					case 0:
 						// 登陆
 						this.$router.go(-2);
-					case -1:	
+					case -1:
 					// 未登录
 						this.msg = res.errorMsg;
 						this.openWindow = true;
@@ -113,7 +112,7 @@ export default {
 		sendCode() {
 			if(this.count.indexOf('发送') > -1){
 
-				
+
 				/*axios.post( this.domain + "",{
 					userInviterId:this.userInviterId
 				}).then((res) => {
@@ -142,7 +141,7 @@ export default {
 					that.second = "";
 					clearInterval(timer);
 				}
-				
+
 			},1000)
 		}
 	},
@@ -150,8 +149,8 @@ export default {
 		'v-alert': alert
 	}
 }
-</script> 
+</script>
 <style scoped lang="less" rel="stylesheet/less">
 	@import "../../common/style/login.less";
-	
+
 </style>
