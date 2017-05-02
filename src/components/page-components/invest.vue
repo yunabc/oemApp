@@ -27,7 +27,6 @@
     },
     created() {
       this.userInfo = this.$store.state.personalInfo || {};
-      console.log(this.userInfo)
     }
   }
 </script>

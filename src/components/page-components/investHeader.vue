@@ -58,11 +58,12 @@
             type:Object
           },
           userInfo: Object,
-          
         },
         methods: {
           checkInfo() {
-            if(this.userInfo.userId && this.userInfo.userId !=''){
+            console.log('investHeader'+this.userInfo)
+            //if(this.userInfo.userId && this.userInfo.userId !=''){
+            if(this.userInfo && this.userInfo.userId && this.userInfo.userId !=''){
               this.$router.push('/user');
             }else{
               this.$router.push({path:"/login",query:{topage:"user"}});
