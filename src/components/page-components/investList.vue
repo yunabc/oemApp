@@ -75,6 +75,7 @@
 </style>
 <script>
   import axios from 'axios';
+  import qs from 'qs';
   import BScroll from 'better-scroll';
   import loading from 'components/common-components/loading';
 
@@ -140,7 +141,7 @@
       _getData(){
         if (this.flag) {
 
-          axios.post(this.url,{page:this.page2}).then((res) => {
+          axios.post(this.url,qs.stringify({page:this.page2})).then((res) => {
             let data = res.data;
             if (data.status == 0) {
               this.dataList2 = this.dataList2.concat(data.result);

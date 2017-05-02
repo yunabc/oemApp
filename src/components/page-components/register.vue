@@ -23,6 +23,7 @@
 <script>
 import alert from '../common-components/alert.vue';
 import axios from 'axios';
+import qs from 'qs';
 
 export default {
 	name: 'lostpassword',
@@ -109,13 +110,13 @@ export default {
 		},
 		upload() {
 
-			axios.post("/x-service/user/reg.htm",{
+			axios.post("/x-service/user/reg.htm",qs.stringify({
 				userInviterId:this.userInviterId,
 				tel:this.phone,
 				pwd:this.password,
 				rePwd:this.password2,
 				code:this.code
-			}).then((res) => {
+			})).then((res) => {
 				var data = res.data;
 
 
@@ -128,9 +129,9 @@ export default {
 				if(this.count.indexOf('发送') > -1){
 
 
-					axios.post("/x-service/user/msg.htm",{
+					axios.post("/x-service/user/msg.htm",qs.stringify({
 						mobile:this.phone
-					}).then((res) => {
+					})).then((res) => {
 						var data = res.data;
 						/*if(data.status == 0){
 

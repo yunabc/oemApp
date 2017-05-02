@@ -18,12 +18,13 @@
 <script>
 import alert from '../common-components/alert.vue';
 import axios from 'axios';
+import qs from 'qs';
 
 export default {
 	name: 'lostpassword',
 	data (){
 		return {
-			phone: '',
+			phone: null,
 			password: '',
 			password2: '',
 			code: '',
@@ -94,13 +95,13 @@ export default {
 
 		},
 		upload() {
-			axios.post("/x-service/user/forget.htm",{
+			axios.post("/x-service/user/forget.htm",qs.stringify({
 				userInviterId:this.userInviterId,
 				mobile:this.phone,
 				newPwd:this.password,
 				conPwd:this.password2,
 				code:this.code
-			}).then((res) => {
+			})).then((res) => {
 				var data = res.data;
 
 			})
@@ -109,9 +110,9 @@ export default {
 			let reg = /^1(3[0-9]|4[57]|5[0-35-9]|8[0-9]|7[780])\d{8}$/;
 			if(reg.test(this.phone)){
 				if(this.count.indexOf('发送') > -1){
-					axios.post( this.domain + "",{
+					axios.post( this.domain + "",qs.stringify({
 						mobile:this.phone
-					}).then((res) => {
+					})).then((res) => {
 						var data = res.data;
 						if(data.status == 0){
 							this.count = 59;

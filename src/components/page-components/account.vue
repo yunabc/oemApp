@@ -15,6 +15,7 @@
 
 <script>
   import footNav from 'components/common-components/footNav';
+  import qs from 'qs';
   import axios from "axios";
   export default {
     data () {

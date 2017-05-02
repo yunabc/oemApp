@@ -15,6 +15,7 @@
 <script>
   import footNav from 'components/common-components/footNav';
   import alert from '../common-components/alert.vue';
+  import qs from 'qs';
   import axios from 'axios';
 
   export default {
@@ -74,12 +75,12 @@
 
       },
       upload() {
-        axios.post("/x-service/user/modify.htm",{
+        axios.post("/x-service/user/modify.htm",JSON.stringify({
           userId:this.userId,
           originalPwd:this.oldpassword,
           newPwd:this.newpassword,
           conPwd:this.newpassword2
-        }).then((res) => {
+        })).then((res) => {
           var data = res.data;
 
 

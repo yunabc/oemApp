@@ -16,12 +16,13 @@
 
 <script>
   import axios from 'axios';
+  import qs from 'qs';
   import investHeader from 'components/page-components/investHeader';
   import investList from 'components/page-components/investList';
   export default {
     data () {
       return {
-        url: "x-service/pro/hq.htm",
+        url: "/x-service/pro/hq.htm",
         flag:true,
         dataList:[],
         page:1,
@@ -40,9 +41,9 @@
     },
     created(){
       this.promiseObj = new Promise((resolve) =>{
-        axios.post(this.url,{
+        axios.post(this.url,qs.stringify({
           page:this.page
-        }).then((res) => {
+        })).then((res) => {
           let data = res.data;
           if (data.status == 0) {
             this.dataHot = data.result[0];

@@ -27,6 +27,7 @@
 </template>
 <script>
 import alert from '../common-components/alert.vue'
+import qs from 'qs';
 import axios from 'axios';
 
 export default {
@@ -91,10 +92,10 @@ export default {
 		},
 
 		upload() {
-			axios.post('/x-service/user/login.htm',{
+			axios.post('/x-service/user/login.htm',qs.stringify({
 				mobile:this.phone,
 				pwd:this.password
-			}).then((res) => {
+			})).then((res) => {
 				console.log(res);
 				let data =res.data;
 				let result = data.result;

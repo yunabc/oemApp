@@ -12,6 +12,7 @@
 </template>
 <script>
 import alert from '../common-components/alert.vue';
+import qs from 'qs';
 import axios from 'axios';
 
 export default {
@@ -84,13 +85,13 @@ export default {
 
 		},
 		upload() {
-			axios.post( "x-service/user/regInfo.htm",{
+			axios.post( "x-service/user/regInfo.htm",qs.stringify({
 				userId:this.userId,
 				bankTel:this.bankcardphone,
 				realName:this.name,
 				idNo:this.idcard,
 				bankCode:this.bankcard
-			}).then((res) => {
+			})).then((res) => {
 				var data = res.data;
 				switch(data.status){
 					case 1:
@@ -108,25 +109,6 @@ export default {
 						break;
 				}
 			})
-		},
-		sendCode() {
-			if(this.count.indexOf('发送') > -1){
-
-
-				/*axios.post( this.domain + "",{
-					userInviterId:this.userInviterId
-				}).then((res) => {
-					var data = res.data;
-					if(data.status == 0){*/
-
-						this.count = 3;
-						this.second = "s";
-						console.log(this.count);
-						this.counted();
-						// this.code=data.code;
-				/*	}
-				})*/
-			}
 		},
 		counted() {
 			let timer = null;

@@ -16,6 +16,7 @@
 </template>
 <script>
   import axios from 'axios';
+  import qs from 'qs';
   import investHeader from 'components/page-components/investHeader';
   import investList from 'components/page-components/investList';
   export default {
@@ -23,7 +24,7 @@
       return {
 
         regular:'regular',
-        url: "x-service/pro/dq.htm",
+        url: "/x-service/pro/dq.htm",
         flag:true,
         dataList:[],
         page:1,
@@ -42,9 +43,9 @@
     created(){
       // this.url = this.domain + this.url;
       this.promiseObj = new Promise(resolve => {
-        axios.get(this.url,{
+        axios.post(this.url,qs.stringify({
           page:this.page
-        }).then((res) => {
+        })).then((res) => {
           let data = res.data;
           if (data.status == 0) {
             this.dataHot = data.result[0];

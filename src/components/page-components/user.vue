@@ -31,6 +31,7 @@
 <script>
   import footNav from 'components/common-components/footNav';
   import axios from 'axios';
+  import qs from 'qs';
   import {wxShare} from '../../common/js/wxShare'
   export default {
     data () {
