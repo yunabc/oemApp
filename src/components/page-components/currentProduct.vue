@@ -21,13 +21,13 @@
   export default {
     data () {
       return {
-        url:"../../../static/currentInvest.json",
+        url: "x-service/pro/hq.htm",
         flag:true,
         dataList:[],
         page:1,
         dataHot:{},
         current:'current',
-        singleNum:5,
+        singleNum:6,
         promiseObj:{},
       }
     },
@@ -40,7 +40,9 @@
     },
     created(){
       this.promiseObj = new Promise((resolve) =>{
-        axios.get(this.url).then((res) => {
+        axios.post(this.url,{
+          page:this.page
+        }).then((res) => {
           let data = res.data;
           if (data.status == 0) {
             this.dataHot = data.result[0];

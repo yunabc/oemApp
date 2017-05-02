@@ -42,7 +42,6 @@ export default {
 		}
 	},
 	porps:{
-		domain:String,
 		userInviterId:String
 	},
 
@@ -109,7 +108,8 @@ export default {
 
 		},
 		upload() {
-			axios.post(this.domain + "/x-service/user/reg.htm",{
+
+			axios.post("/x-service/user/reg.htm",{
 				userInviterId:this.userInviterId,
 				tel:this.phone,
 				pwd:this.password,

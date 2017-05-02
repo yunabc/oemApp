@@ -21,6 +21,7 @@
       }
     },
     props: {
+
     },
     components: {
       footNav

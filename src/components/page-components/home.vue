@@ -1,8 +1,9 @@
 <template>
   <div id="home" class="stageScreen">
-    <div  class="swiper-container home-banner" v-if="bannerImgs.length">
+    <div class="swiper-container home-banner" v-if="bannerImgs.length">
       <div class="swiper-wrapper">
-        <a v-for="item in bannerImgs" :href="item.triggerType?item.triggerUrl:noUrl" class="swiper-slide"><img :src="item.bannerUrl" alt="" width="100%"></a>
+        <a v-for="item in bannerImgs" :href="item.triggerType?item.triggerUrl:noUrl" class="swiper-slide"><img
+          :src="item.bannerUrl" :alt="item.bannerTitle" width="100%"></a>
       </div>
       <!-- 如果需要分页器 -->
       <div class="swiper-pagination"></div>
@@ -12,11 +13,10 @@
        <div class="swiper-button-next"></div>-->
     </div>
     <div class="home-banner" v-else>
-      <a  href="" class="swiper-slide"><img src="../../common/img/banner.jpg" alt="" width="100%"></a>
+      <a href="" class="swiper-slide"><img src="../../common/img/banner.jpg" alt="" width="100%"></a>
     </div>
-    <ul class="home-content">
-
-      <li  class="currentInvest investLi">
+    <ul class="home-content" v-if="productDqViews.length || productHqViews.length">
+      <li class="currentInvest investLi" v-for="item in productHqViews" :data-id="item.proId">
         <div class="infoDesc">
           <img src="../../common/img/current.png" alt="">
           <div class="desc">
@@ -26,12 +26,12 @@
         </div>
         <div class="deviLine"></div>
         <div class="infoCharge">
-          <div class="name">名字</div>
+          <div class="name">{{item.proName}}</div>
           <div class="profit">4.5%</div>
           <router-link to="/invest/current" class="buyBtn">购买</router-link>
         </div>
       </li>
-      <li  class="regularInvest investLi">
+      <li class="regularInvest investLi" v-for="item in productDqViews" :data-id="item.proId">
         <div class="infoDesc">
           <img src="../../common/img/regular.png" alt="">
           <div class="desc">
@@ -41,13 +41,18 @@
         </div>
         <div class="deviLine"></div>
         <div class="infoCharge">
-          <div class="name">名字</div>
+          <div class="name">{{item.proName}}</div>
           <div class="profit">7.0%</div>
-          <router-link :to="{ path: '/invest/regular', query: userInfo }"  class="buyBtn">购买</router-link>
+          <router-link :to="{ path: '/invest/regular', query: userInfo }" class="buyBtn">购买</router-link>
         </div>
       </li>
     </ul>
+<<<<<<< HEAD
     <foot-nav :userInfo="userInfo"></foot-nav>
+=======
+    <div class="noContent" v-else>暂无数据</div>
+    <foot-nav></foot-nav>
+>>>>>>> 0b77f4666e758d7efeade049c69114146e293b1f
   </div>
 </template>
 
@@ -61,6 +66,8 @@
         userInfo:{},
         bannerImgs:[],
         noUrl:"javascript:void(0)",
+        productDqViews:[],
+        productHqViews:[]
       }
 
     },
@@ -69,8 +76,7 @@
     },
     created(){
       this.userInfo = this.$store.state.personalInfo || {};
-      console.log(this.userInfo);
-      /*axios.get('../../../static/home.json').then((res) => {
+      axios.post('/x-service/pro/index.htm').then((res) => {
         let data = res.data;
         if (data.status == 0) {
           let result = data.result;
@@ -83,37 +89,50 @@
       }).catch(function (error) {
         console.log(error);
       });
+<<<<<<< HEAD
       axios.post('/x-service/user/info.htm').then((res) => {
+=======
+      /* axios.post(this.domain + 'x-service/user/info.htm').then((res) => {
+>>>>>>> 0b77f4666e758d7efeade049c69114146e293b1f
         let response = res.data,result = response.result;
         if(response.status == 0){
           this.userId = result.userId;
         }
       })*/
-      axios.get('../../../static/banner.json').then((res) => {
+      /*轮播图接口*/
+      axios.post('/x-service/banner/ls.htm').then((res) => {
         let data = res.data;
         if (data.status == 0) {
           this.bannerImgs = data.result;
+          this.$nextTick(() => {
+            this.swiperHandle()
+          })
         } else {
           console.log(data.errorMsg)
         }
-
       }).catch(function (error) {
         console.log(error);
       });
 
     },
-    mounted () {
-      let mySwiper = new Swiper('.swiper-container', {
-        direction: 'horizontal',
-        loop: true,
-        autoplay: '3000',
-        pagination: '.swiper-pagination',
-        paginationClickable: true,
-        nextButton: '.swiper-button-next',
-        prevButton: '.swiper-button-prev'
-      })
+    methods :{
+      /*swiper*/
+        swiperHandle(){
+          let mySwiper = new Swiper('.swiper-container', {
+            direction: 'horizontal',
+            loop: true,
+            autoplay: '3000',
+            pagination: '.swiper-pagination',
+            paginationClickable: true,
+            nextButton: '.swiper-button-next',
+            prevButton: '.swiper-button-prev'
+          })
+        }
     },
   }
+
+
+
 
 </script>
 
@@ -123,9 +142,13 @@
 
   #home {
     .home-banner {
+      position: fixed;
+      width: 100%;
       height: 4.8rem;
-      .swiper-slide{
-        img{
+      left: 0;
+      top: 0;
+      .swiper-slide {
+        img {
           width: 100%;
           height: 100%;
         }
@@ -133,7 +156,7 @@
     }
 
     .home-content {
-      padding: 0 .4rem;
+      padding: 4.8rem .4rem 0;
 
       .investLi {
         background-color: #fff;

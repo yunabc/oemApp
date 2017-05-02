@@ -23,18 +23,17 @@
       return {
 
         regular:'regular',
-        url:"../../../static/regularInvest.json",
+        url: "x-service/pro/dq.htm",
         flag:true,
         dataList:[],
         page:1,
         dataHot:{},
         promiseObj:{},
-        singleNum:5
+        singleNum:6
       }
     },
     props:{
       userInfo: Object,
-      domain:String,
     },
     components:{
       investHeader,
@@ -43,7 +42,9 @@
     created(){
       // this.url = this.domain + this.url;
       this.promiseObj = new Promise(resolve => {
-        axios.get(this.url).then((res) => {
+        axios.get(this.url,{
+          page:this.page
+        }).then((res) => {
           let data = res.data;
           if (data.status == 0) {
             this.dataHot = data.result[0];
@@ -60,7 +61,7 @@
           console.log(error);
         });
       })
-      
+
       this.$root.$on('passObj', this.getObj);
     },
     methods:{
