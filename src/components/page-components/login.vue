@@ -92,8 +92,7 @@ export default {
 		},
 
 		upload() {
-			// axios.post( this.domain + 'x-service/user/login.htm',{
-			axios.get( '../../../static/login.json',{
+			axios.post('/x-service/user/login.htm',{
 				mobile:this.phone,
 				pwd:this.password
 			}).then((res) => {
@@ -103,7 +102,7 @@ export default {
 				switch(data.status){
 					case "1":
 					  // 失败
-						this.msg = res.errorMsg;
+						this.msg = data.errorMsg;
 						this.openWindow = true;
 						break;
 					case "0":
@@ -121,7 +120,7 @@ export default {
 						break;
 					case "-1":	
 					// 未登录
-						this.msg = res.errorMsg;
+						this.msg = data.errorMsg;
 						this.openWindow = true;
 						break;
 				}

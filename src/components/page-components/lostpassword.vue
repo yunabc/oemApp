@@ -95,11 +95,11 @@ export default {
 			
 		},
 		upload() {
-			axios.post(this.domain + "x-service/user/forget.htm",{
+			axios.post("/x-service/user/forget.htm",{
 				userInviterId:this.userInviterId,
-				tel:this.phone,
-				pwd:this.password,
-				rePwd:this.password2,
+				mobile:this.phone,
+				newPwd:this.password,
+				conPwd:this.password2,
 				code:this.code
 			}).then((res) => {
 				var data = res.data;
@@ -107,22 +107,25 @@ export default {
 			})
 		},
 		sendCode() {
-			if(this.count.indexOf('发送') > -1){
+			let reg = /^1(3[0-9]|4[57]|5[0-35-9]|8[0-9]|7[780])\d{8}$/;
+			if(reg.test(this.phone)){
+				if(this.count.indexOf('发送') > -1){
 
-				
-				/*axios.post( this.domain + "",{
-					userInviterId:this.userInviterId
-				}).then((res) => {
-					var data = res.data;
-					if(data.status == 0){*/
+					
+					axios.post( this.domain + "",{
+						userInviterId:this.userInviterId
+					}).then((res) => {
+						var data = res.data;
+						if(data.status == 0){
 
-						this.count = 3;
-						this.second = "s";
-						console.log(this.count);
-						this.counted();
-						// this.code=data.code;
-				/*	}
-				})*/
+							this.count = 59;
+							this.second = "s";
+							console.log(this.count);
+							this.counted();
+							// this.code=data.code;
+						}
+					})
+				}
 			}
 		},
 		counted() {

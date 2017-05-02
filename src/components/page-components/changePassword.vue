@@ -30,10 +30,6 @@
 
       }
     },
-    porps:{
-      domain:String,
-      
-    },
     methods: {
       checkinput() {
         let regp = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
@@ -78,7 +74,7 @@
         
       },
       upload() {
-        axios.post(this.domain + "x-service/user/modify.htm",{
+        axios.post("/x-service/user/modify.htm",{
           userId:this.userId,
           originalPwd:this.oldpassword,
           newPwd:this.newpassword,
@@ -93,19 +89,19 @@
         if(this.count.indexOf('发送') > -1){
 
           
-          /*axios.post( this.domain + "",{
+          axios.post( "/x-service/user/msg.htm",{
             userInviterId:this.userInviterId
           }).then((res) => {
             var data = res.data;
-            if(data.status == 0){*/
+            if(data.status == 0){
 
-              this.count = 3;
+              this.count = 59;
               this.second = "s";
               console.log(this.count);
               this.counted();
               // this.code=data.code;
-          /*  }
-          })*/
+            }
+          })
         }
       },
       counted() {

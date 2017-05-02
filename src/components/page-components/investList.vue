@@ -172,7 +172,7 @@
         }
       },
       checkInfo(url) {
-        if(this.userInfo.userId && this.userInfo.userId !=''){
+        if(this.userInfo.hasOwnProperty('userId') && this.userInfo['userId'] !=''){
           location.href = url;
         }else{
           this.$router.push({path:"/login",query:{topage:this.investurl}});

@@ -109,7 +109,7 @@ export default {
 
 		},
 		upload() {
-			axios.post(this.domain + "x-service/user/reg.htm",{
+			axios.post(this.domain + "/x-service/user/reg.htm",{
 				userInviterId:this.userInviterId,
 				tel:this.phone,
 				pwd:this.password,
@@ -122,23 +122,43 @@ export default {
 			})
 		},
 		sendCode() {
-			if(this.count.indexOf('发送') > -1){
+			let reg = /^1(3[0-9]|4[57]|5[0-35-9]|8[0-9]|7[780])\d{8}$/;
+			if(reg.test(this.phone)){
+
+				if(this.count.indexOf('发送') > -1){
 
 
-				/*axios.post( this.domain + "",{
-					userInviterId:this.userInviterId
-				}).then((res) => {
-					var data = res.data;
-					if(data.status == 0){*/
+					axios.post("/x-service/user/msg.htm",{
+						mobile:this.phone
+					}).then((res) => {
+						var data = res.data;
+						/*if(data.status == 0){
 
-						this.count = 3;
-						this.second = "s";
-						console.log(this.count);
-						this.counted();
-						// this.code=data.code;
-				/*	}
-				})*/
+							this.count = 3;
+							this.second = "s";
+							console.log(this.count);
+							this.counted();
+							// this.code=data.code;
+						}*/
+						switch(data.status){
+							case "1":
+							  // 失败
+								this.msg = data.errorMsg;
+								this.openWindow = true;
+								break;
+							case "0":
+								// 登陆成功
+								this.count = 3;
+								this.second = "s";
+								console.log(this.count);
+								this.counted();
+
+								break;
+						}
+					})
+				}
 			}
+
 		},
 		counted() {
 			let timer = null;

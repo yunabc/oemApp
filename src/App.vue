@@ -9,7 +9,7 @@ export default {
   name: 'app',
   data() {
     return {
-      domain:"www.aaa.com"
+      domain:"http://svn.bjdreamtech.com:10080/"
     }
   }
 }

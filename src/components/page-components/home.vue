@@ -47,7 +47,7 @@
         </div>
       </li>
     </ul>
-    <foot-nav></foot-nav>
+    <foot-nav :userInfo="userInfo"></foot-nav>
   </div>
 </template>
 
@@ -64,14 +64,12 @@
       }
 
     },
-    props: {
-      domain: String
-    },
     components: {
       footNav
     },
     created(){
-      this.userInfo = this.$store.state.personalInfo;
+      this.userInfo = this.$store.state.personalInfo || {};
+      console.log(this.userInfo);
       /*axios.get('../../../static/home.json').then((res) => {
         let data = res.data;
         if (data.status == 0) {
@@ -85,7 +83,7 @@
       }).catch(function (error) {
         console.log(error);
       });
-      axios.post(this.domain + 'x-service/user/info.htm').then((res) => {
+      axios.post('/x-service/user/info.htm').then((res) => {
         let response = res.data,result = response.result;
         if(response.status == 0){
           this.userId = result.userId;

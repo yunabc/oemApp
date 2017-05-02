@@ -26,7 +26,8 @@
           checkInfo() {
             console.log(this.userInfo);
 
-            if(this.userInfo.userId && this.userInfo.userId !=''){
+            if(this.userInfo.hasOwnProperty('userId') && this.userInfo['userId'] !=''){
+              // 
               this.$router.push('/user');
             }else{
               this.$router.push({path:"/login",query:{topage:"user"}});
