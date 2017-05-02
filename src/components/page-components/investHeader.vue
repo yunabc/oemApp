@@ -61,7 +61,6 @@
         },
         methods: {
           checkInfo() {
-            console.log('investHeader'+this.userInfo)
             //if(this.userInfo.userId && this.userInfo.userId !=''){
             if(this.userInfo && this.userInfo.hasOwnProperty('userId') && this.userInfo["userId"] !=''){
               this.$router.push('/user');

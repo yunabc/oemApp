@@ -8,7 +8,7 @@
     <li class="invite userCenterItem userItemLine" @click="share()">
       <p class="text">邀请新用户</p>
     </li>
-    <router-link to="/user/performance" v-if="vip" class="performance userCenterItem userItemLine">
+    <router-link to="/user/performance" :userInfo="userInfo" v-if="vip" class="performance userCenterItem userItemLine">
       <p class="text">规模绩效</p>
     </router-link>
     <li class="userCenterItem">
@@ -46,7 +46,8 @@
       footNav
     },
     created(){
-      axios.get('../../../static/record.json').then((res) => {
+      this.userInfo = this.$store.state.personalInfo;
+      axios.post('/x-service/user/record.htm',{userId:this.userInfo.userId}).then((res) => {
         let data = res.data;
         if (data.status == 0) {
            this.logsList = data.result;
@@ -57,7 +58,6 @@
       }).catch(function (error) {
         console.log(error);
       });
-      this.userInfo = this.$store.state.personalInfo;
     },
     methods:{
       toggleList(){

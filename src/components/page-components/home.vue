@@ -47,12 +47,8 @@
         </div>
       </li>
     </ul>
-<<<<<<< HEAD
-    <foot-nav :userInfo="userInfo"></foot-nav>
-=======
     <div class="noContent" v-else>暂无数据</div>
-    <foot-nav></foot-nav>
->>>>>>> 0b77f4666e758d7efeade049c69114146e293b1f
+    <foot-nav :userInfo="userInfo"></foot-nav>
   </div>
 </template>
 
@@ -89,16 +85,6 @@
       }).catch(function (error) {
         console.log(error);
       });
-<<<<<<< HEAD
-      axios.post('/x-service/user/info.htm').then((res) => {
-=======
-      /* axios.post(this.domain + 'x-service/user/info.htm').then((res) => {
->>>>>>> 0b77f4666e758d7efeade049c69114146e293b1f
-        let response = res.data,result = response.result;
-        if(response.status == 0){
-          this.userId = result.userId;
-        }
-      })*/
       /*轮播图接口*/
       axios.post('/x-service/banner/ls.htm').then((res) => {
         let data = res.data;

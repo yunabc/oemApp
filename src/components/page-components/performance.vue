@@ -5,7 +5,7 @@
     <div class="verticalLine"></div>
     <router-link to="/user/lowerPerformance" class="currentProduct navItem">下级推广人绩效</router-link>
   </div>
-  <router-view ></router-view>
+  <router-view :userInfo="userInfo"></router-view>
   <foot-nav></foot-nav>
 </div>
 </template>
@@ -16,6 +16,9 @@
   export default {
         data () {
             return {}
+        },
+        props:{
+          userInfo:Object
         },
         components:{
           footNav
