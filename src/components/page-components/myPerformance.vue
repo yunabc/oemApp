@@ -1,7 +1,7 @@
 <template>
-  <div id="myPerformance">
+  <div id="myPerformance" v-if="data.length">
     <button class="refresh performanceBtn" @click="reflesh()">刷新</button>
-    <table v-if="data.length" class="performanceDetail">
+    <table  class="performanceDetail">
       <thead>
       <tr>
         <td>时间</td>
@@ -19,8 +19,9 @@
       </tr>
       </tbody>
     </table>
-    <div class="noContent" v-else>暂无数据</div>
   </div>
+  <div class="noContent" v-else>暂无数据</div>
+
 </template>
 
 <script>
@@ -43,7 +44,9 @@
             this.getData()
           },
           getData(){
-            axios.get('../../../static/myPerformance.json').then((res) => {
+            axios.post('/x-service/user/perfor.htm',{
+                userId: this.userInfo.userId
+            }).then((res) => {
                let data = res.data;
                 if (data.status == 0) {
                    this.data = data.result;

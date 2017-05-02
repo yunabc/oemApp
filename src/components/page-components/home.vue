@@ -17,37 +17,44 @@
     </div>
     <ul class="home-content" v-if="productDqViews.length || productHqViews.length">
       <li class="currentInvest investLi" v-for="item in productHqViews" :data-id="item.proId">
-        <div class="infoDesc">
-          <img src="../../common/img/current.png" alt="">
-          <div class="desc">
-            <a href="" class="title">活期理财</a>
-            <div class="subtitle">随存随取 复利计息</div>
+        <router-link to="/invest/current">
+          <div class="infoDesc">
+            <img src="../../common/img/current.png" alt="">
+            <div class="desc">
+              <a href="" class="title">活期理财</a>
+              <div class="subtitle">随存随取 复利计息</div>
+            </div>
+            <div class="nextIcon"></div>
           </div>
-        </div>
-        <div class="deviLine"></div>
-        <div class="infoCharge">
-          <div class="name">{{item.proName}}</div>
-          <div class="profit">4.5%</div>
-          <router-link to="/invest/current" class="buyBtn">购买</router-link>
-        </div>
+          <div class="deviLine"></div>
+          <div class="infoCharge">
+            <div class="name">{{item.proName}}</div>
+            <div class="profit">{{item.proRate}}%</div>
+            <div  class="buyBtn">购买</div>
+          </div>
+        </router-link>
+
       </li>
       <li class="regularInvest investLi" v-for="item in productDqViews" :data-id="item.proId">
-        <div class="infoDesc">
-          <img src="../../common/img/regular.png" alt="">
-          <div class="desc">
-            <a href="" class="title">定期理财</a>
-            <div class="subtitle">限期丰富 还可转让变活</div>
+        <router-link :to="{ path: '/invest/regular', query: userInfo }">
+          <div class="infoDesc">
+            <img src="../../common/img/regular.png" alt="">
+            <div class="desc">
+              <a href="" class="title">定期理财</a>
+              <div class="subtitle">限期丰富 还可转让变活</div>
+            </div>
+            <div class="nextIcon"></div>
           </div>
-        </div>
-        <div class="deviLine"></div>
-        <div class="infoCharge">
-          <div class="name">{{item.proName}}</div>
-          <div class="profit">7.0%</div>
-          <router-link :to="{ path: '/invest/regular', query: userInfo }" class="buyBtn">购买</router-link>
-        </div>
+          <div class="deviLine"></div>
+          <div class="infoCharge">
+            <div class="name">{{item.proName}}</div>
+            <div class="profit">{{item.proRate}}</div>
+            <div  class="buyBtn">购买</div>
+          </div>
+        </router-link>
+
       </li>
     </ul>
-
     <div class="noContent" v-else>暂无数据</div>
     <foot-nav :userInfo="userInfo"></foot-nav>
   </div>
@@ -55,6 +62,7 @@
 
 <script>
   import footNav from 'components/common-components/footNav';
+  import qs from 'qs';
   import axios from 'axios';
   import Swiper from 'swiper';
   export default {
@@ -134,6 +142,7 @@
       height: 4.8rem;
       left: 0;
       top: 0;
+      background-color: #fff;
       .swiper-slide {
         img {
           width: 100%;
@@ -166,20 +175,27 @@
 
           .desc {
             margin-left: .64rem;
-
+            width: 100%;
             .title {
               font-size: .42666667rem;
               line-height: .48rem;
               font-weight: bold;
               margin-bottom: .32rem;
             }
-
             .subtitle {
               font-size: .32rem;
               line-height: .4rem;
               color: #666666;
             }
-
+          }
+          .nextIcon{
+            float: right;
+            margin: auto;
+            height: 0.25rem;
+            width: 0.25rem;
+            border-top: 0.03rem solid #d4d4d4;
+            border-right: 0.03rem solid #d4d4d4;
+            transform: rotate(45deg);
           }
         }
         .deviLine {

@@ -8,7 +8,7 @@
     <li class="invite userCenterItem userItemLine" @click="share()">
       <p class="text">邀请新用户</p>
     </li>
-    <router-link to="/user/performance" v-if="vip" class="performance userCenterItem userItemLine">
+    <router-link to="/user/performance" :userInfo="userInfo" v-if="vip" class="performance userCenterItem userItemLine">
       <p class="text">规模绩效</p>
     </router-link>
     <li class="userCenterItem">
@@ -47,10 +47,17 @@
       footNav
     },
     created(){
-      axios.get('../../../static/record.json').then((res) => {
+      this.userInfo = this.$store.state.personalInfo;
+      this.option.userInviterId = this.userInfo.userId;
+       /*微信分享*/
+      axios.get('/x-service/user/share.htm').then((res) => {
         let data = res.data;
         if (data.status == 0) {
-           this.logsList = data.result;
+        console.log(1)
+           this.option.appId = data.result.appId
+           this.option.timestamp = data.result.timestamp
+           this.option.nonceStr = data.result.nonceStr
+           this.option.signature = data.result.signature
         } else {
           console.log(data.errorMsg)
         }
@@ -58,7 +65,17 @@
       }).catch(function (error) {
         console.log(error);
       });
-      this.userInfo = this.$store.state.personalInfo;
+      /*获取列表*/
+      axios.post('/x-service/user/record.htm',{userId:this.userInfo.userId}).then((res) => {
+        let data = res.data;
+        if (data.status == 0) {
+           this.logsList = data.result;
+        } else {
+          console.log(data.errorMsg)
+        }
+      }).catch(function (error) {
+        console.log(error);
+      });
     },
     methods:{
       toggleList(){
@@ -70,6 +87,7 @@
         }
       },
       share(){
+      console.log(2)
         wxShare(this.option)
       }
     }

@@ -1,5 +1,5 @@
 <template>
-  <div id="product">
+  <div id="product" v-if="dataAll.length">
     <invest-header :dataHot="dataHot" :userInfo="userInfo"></invest-header>
     <div class="clockHint">
       <i class="clockImg"><img src="../../common/img/clock.png" alt=""></i>
@@ -12,6 +12,7 @@
 
     <invest-list :promiseObj="promiseObj" :flag="flag" :dataList="dataList" :page="page" :url="url" :userInfo="userInfo" :investurl="regular"></invest-list>
   </div>
+  <div class="noContent" v-else>暂无数据</div>
 
 </template>
 <script>
@@ -22,13 +23,13 @@
   export default {
     data () {
       return {
-
         regular:'regular',
         url: "/x-service/pro/dq.htm",
         flag:true,
+        dataAll:[],
+        dataHot:{},
         dataList:[],
         page:1,
-        dataHot:{},
         promiseObj:{},
         singleNum:6
       }
@@ -48,6 +49,7 @@
         })).then((res) => {
           let data = res.data;
           if (data.status == 0) {
+            this.dataAll = data.result;
             this.dataHot = data.result[0];
             this.dataList = data.result.slice(1);
             this.page++;

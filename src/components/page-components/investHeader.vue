@@ -1,8 +1,15 @@
 <template>
   <div class="investHeader">
     <div class="title">360金融·{{dataHot.proName}}</div>
-    <div class="profit">{{dataHot.proRate}}%</div>
-    <div class="times">期限<span class="days">{{dataHot.proDayLimit}}</span>天</div>
+    <div v-if="isH">
+      <div class="profit">{{dataHot.proRate}}%</div>
+      <div class="times">万份收益<span class="days">{{dataHot.proProspectiveEarn}}</span></div>
+    </div>
+    <div v-else>
+      <div class="profit">{{dataHot.proRate}}%</div>
+      <div class="times">期限<span class="days">{{dataHot.proDayLimit}}</span>天</div>
+    </div>
+
     <div @click="checkInfo" class="buyBtn">立即购买</div>
   </div>
 </template>
@@ -58,10 +65,10 @@
             type:Object
           },
           userInfo: Object,
+          isH: Boolean
         },
         methods: {
           checkInfo() {
-            console.log('investHeader'+this.userInfo)
             //if(this.userInfo.userId && this.userInfo.userId !=''){
             if(this.userInfo && this.userInfo.hasOwnProperty('userId') && this.userInfo["userId"] !=''){
               this.$router.push('/user');

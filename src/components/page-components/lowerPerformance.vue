@@ -1,5 +1,5 @@
 <template>
-<div id="lowerPerformance">
+<div id="lowerPerformance" v-if="data.length">
   <div class="chooseCondition">
     <label>月份:</label>
     <select  class="chooseMonth" v-model="selectMonth">
@@ -8,7 +8,7 @@
     <button class="refresh performanceBtn" @click="select()">刷新</button>
     <button class="search performanceBtn" @click="select()">查询</button>
   </div>
-  <table v-if="data.length" class="performanceDetail">
+  <table  class="performanceDetail">
     <thead>
       <tr>
         <td>推广人ID</td>
@@ -28,8 +28,9 @@
       </tr>
     </tbody>
   </table>
-  <div class="noContent" v-else>暂无数据</div>
 </div>
+<div class="noContent" v-else>暂无数据</div>
+
 </template>
 
 <script>
@@ -62,7 +63,7 @@
               return monthsArr
             },
             getData(monthNum){
-              axios.get('../../../static/lowerPerformance.json').then((res) => {
+              axios.post('/x-service/user/lowerLevel.htm',{userId:this.userInfo.userId}).then((res) => {
                   let data = res.data;
                   if (data.status == 0) {
                     this.data = data.result;

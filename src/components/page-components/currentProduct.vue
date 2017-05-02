@@ -1,6 +1,6 @@
 <template>
-  <div id="product">
-    <invest-header :dataHot="dataHot"></invest-header>
+  <div id="product" v-if="dataAll.length">
+    <invest-header :dataHot="dataHot" :isH="isH"></invest-header>
     <div class="clockHint">
       <i class="clockImg"><img src="../../common/img/clock.png" alt=""></i>
       <div class="desc">
@@ -9,8 +9,9 @@
       </div>
       <div class="swichBtn"><img src="../../common/img/clock.png" alt=""></div>
     </div>
-    <invest-list :promiseObj="promiseObj" :flag="flag" :dataList="dataList" :page="page" :url="url" :userInfo="userInfo" :investurl="current"></invest-list>
+    <invest-list :isH="isH" :promiseObj="promiseObj" :flag="flag" :dataList="dataList" :page="page" :url="url" :userInfo="userInfo" :investurl="current"></invest-list>
   </div>
+  <div class="noContent" v-else>暂无数据</div>
 
 </template>
 
@@ -24,9 +25,11 @@
       return {
         url: "/x-service/pro/hq.htm",
         flag:true,
+        isH: true,
+        dataAll:[],
+        dataHot:{},
         dataList:[],
         page:1,
-        dataHot:{},
         current:'current',
         singleNum:6,
         promiseObj:{},
@@ -46,6 +49,7 @@
         })).then((res) => {
           let data = res.data;
           if (data.status == 0) {
+          this.dataAll = data.result;
             this.dataHot = data.result[0];
             this.dataList = data.result.slice(1);
             this.page++;
