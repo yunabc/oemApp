@@ -50,8 +50,9 @@ export default {
 				if(reg.test(this.phone)){
 					if(regp.test(this.password) && regp.test(this.password2)){
 						if(this.password2 == this.password){
-							if(reg.test(this.code)){
+							if(regcode.test(this.code)){
 									this.upload();
+									return;
 							}
 							this.msg = '请输入验证码';
 							this.openWindow = true;

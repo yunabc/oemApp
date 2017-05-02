@@ -38,12 +38,12 @@ export default {
 			openWindow: false,
 			count:'发送验证码',
 			second:"",
+			userInviterId:null
 
 
 		}
 	},
 	porps:{
-		userInviterId:String
 	},
 
 	methods: {
@@ -60,12 +60,16 @@ export default {
 				if(reg.test(this.phone)){
 					if(regp.test(this.password) && regp.test(this.password2)){
 						if(this.password2 == this.password){
-							if(reg.test(this.code)){
+							console.log(regcode.test(this.code));
+							if(regcode.test(this.code)){
 									this.upload();
+									return;
+							}else{
+
+								this.msg = '请输入验证码';
+								this.openWindow = true;
+								return ;
 							}
-							this.msg = '请输入验证码';
-							this.openWindow = true;
-							return ;
 						}
 
 						this.msg = '两次密码输入不一致';
@@ -112,7 +116,7 @@ export default {
 
 			axios.post("/x-service/user/reg.htm",qs.stringify({
 				userInviterId:this.userInviterId,
-				tel:this.phone,
+				mobile:this.phone,
 				pwd:this.password,
 				rePwd:this.password2,
 				code:this.code

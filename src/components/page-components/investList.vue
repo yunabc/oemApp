@@ -18,7 +18,7 @@
             <p>期限</p>
           </div>
 
-          <div class="buyBtn">立即购买</div>
+          <div class="buyBtn" @click="checkInfo">立即购买</div>
         </div>
       </li>
     </ul>
@@ -108,7 +108,6 @@
     created() {
     },
     mounted(){
-      console.log(111);
       this.promiseObj.then((res) =>{
         this.dataList2 = this.dataList;
         console.log(this.dataList2);
@@ -126,7 +125,6 @@
     },
     methods: {
       _initScroll() {
-        console.log(11)
           this.scroll = new BScroll(this.$refs.listWrapper, {
             probeType: 1,
             click: true
@@ -146,7 +144,6 @@
       },
       _getData(){
         if (this.flag) {
-
           axios.post(this.url,qs.stringify({page:this.page2})).then((res) => {
             let data = res.data;
             if (data.status == 0) {
@@ -172,12 +169,13 @@
         }
       },
       checkInfo(url) {
-        if(this.userInfo.hasOwnProperty('userId') && this.userInfo['userId'] !=''){
+        if(this.userInfo && this.userInfo['userId'] !=''){
           location.href = url;
         }else{
           this.$router.push({path:"/login",query:{topage:this.investurl}});
         }
       }
+
     }
   };
 

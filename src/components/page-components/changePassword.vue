@@ -38,7 +38,8 @@
           if(regp.test(this.oldpassword)){
             if(regp.test(this.newpassword)){
               if(regp.test(this.newpassword2)){
-                this.upload()
+                this.upload();
+                return
               }
               this.msg = '确认新密码格式不对';
               this.openWindow = true;
@@ -75,7 +76,7 @@
 
       },
       upload() {
-        axios.post("/x-service/user/modify.htm",JSON.stringify({
+        axios.post("/x-service/user/modify.htm",qs.stringify({
           userId:this.userId,
           originalPwd:this.oldpassword,
           newPwd:this.newpassword,
