@@ -58,6 +58,22 @@
       }).catch(function (error) {
         console.log(error);
       });
+      /*微信分享*/
+      axios.get('/x-service/user/share.htm').then((res) => {
+        let data = res.data;
+        if (data.status == 0) {
+           this.option.appId = data.result.appId
+           this.option.timestamp = data.result.timestamp
+           this.option.nonceStr = data.result.nonceStr
+           this.option.signature = data.result.signature
+        } else {
+          console.log(data.errorMsg)
+        }
+
+      }).catch(function (error) {
+        console.log(error);
+      });
+
     },
     methods:{
       toggleList(){
