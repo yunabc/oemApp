@@ -1,5 +1,5 @@
 <template>
-  <div id="product" v-if="dataAll.length">
+  <div id="product" v-if="dataAll && dataAll.length">
     <invest-header :dataHot="dataHot" :userInfo="userInfo"></invest-header>
     <div class="clockHint">
       <i class="clockImg"><img src="../../common/img/clock.png" alt=""></i>
