@@ -9,7 +9,6 @@
       </div>
       <div class="swichBtn"><img src="../../common/img/clock.png" alt=""></div>
     </div>
-
     <invest-list :promiseObj="promiseObj" :flag="flag" :dataList="dataList" :page="page" :url="url" :userInfo="userInfo" :investurl="regular"></invest-list>
   </div>
   <div class="noContent" v-else>暂无数据</div>

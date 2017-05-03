@@ -152,11 +152,11 @@
     }
 
     .home-content {
-      padding: 4.8rem .4rem 0;
+      padding: 5.2rem .4rem 0;
 
       .investLi {
         background-color: #fff;
-        margin-top: .4rem;
+        margin-bottom: .4rem;
         border-radius: .13333333rem;
 
         &:active {
