@@ -6,7 +6,8 @@
         <div class="itemInfo">
           <div class="profit">
             <p class="profitNum">{{item.proRate}}%</p>
-            <p>预期年化利率</p>
+            <p v-if="isH">{{item.proRateTips}}</p>
+            <p v-else>{{item.rateTips}}</p>
           </div>
           <div class="verticalLine"></div>
           <div class="times" v-if="isH">

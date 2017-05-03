@@ -1,10 +1,7 @@
 <template>
 <div id="lowerPerformance" v-if="data">
   <div class="chooseCondition">
-    <label>月份:</label>
-    <select  class="chooseMonth" v-model="selectMonth">
-      <option v-for="item in months" :value="item">{{item}}</option>
-    </select>
+    <date-picker></date-picker>
     <button class="refresh performanceBtn" v-tap="{methods:select}">刷新</button>
     <button class="search performanceBtn" v-tap="{methods:select}">查询</button>
   </div>
@@ -35,6 +32,7 @@
 
 <script>
   import footNav from 'components/common-components/footNav';
+  import datePicker from 'components/common-components/datePicker';
   import axios from 'axios';
   import qs from 'qs';
   export default {
@@ -42,22 +40,23 @@
             return {
               selectMonth:'',
               data:null,
-              months:[],
+              //months:[],
               userInfo:{},
               userId:null,
             }
         },
         components:{
           footNav,
+          datePicker
         },
         created(){
           this.userInfo = this.$store.state.personalInfo || {};
           this.userId = this.userInfo['userId'];
           this.getData()
-          this.months = this.getMonth();
+          //this.months = this.getMonth();
         },
         methods:{
-            getMonth(){
+            /*getMonth(){
               let monthsArr = [''];
               let nowTime = new Date();
               let nowYear = nowTime.getFullYear();
@@ -66,7 +65,7 @@
                 monthsArr.push(nowYear+ '.'+ i)
               }
               return monthsArr
-            },
+            },*/
             getData(monthNum){
               axios.post('/x-service/user/lowerLevel.htm',qs.stringify({
                 userId:this.userInfo.userId,
@@ -85,7 +84,7 @@
               let monthNum = (this.selectMonth) ;
               if(monthNum == ""){
                 this.getData()
-                
+
               }else{
                 this.getData(monthNum);
               }
