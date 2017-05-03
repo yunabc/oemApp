@@ -27,16 +27,21 @@
 <script>
   import footNav from 'components/common-components/footNav';
   import axios from 'axios';
+  import qs from 'qs';
   export default {
         data () {
             return {
-              data:[]
+              data:[],
+              userInfo:{},
+              userId:null,
             }
         },
         components:{
           footNav
         },
         created(){
+          this.userInfo = this.$store.state.personalInfo || {};
+          this.userId = this.userInfo['userId'];
           this.getData()
         },
         methods:{
@@ -44,9 +49,9 @@
             this.getData()
           },
           getData(){
-            axios.post('/x-service/user/perfor.htm',{
+            axios.post('/x-service/user/perfor.htm',qs.stringify({
                 userId: this.userInfo.userId
-            }).then((res) => {
+            })).then((res) => {
                let data = res.data;
                 if (data.status == 0) {
                    this.data = data.result;

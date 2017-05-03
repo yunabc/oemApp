@@ -36,18 +36,23 @@
 <script>
   import footNav from 'components/common-components/footNav';
   import axios from 'axios';
+  import qs from 'qs';
   export default {
         data () {
             return {
               selectMonth:'',
               data:[],
-              months:[]
+              months:[],
+              userInfo:{},
+              userId:null,
             }
         },
         components:{
-          footNav
+          footNav,
         },
         created(){
+          this.userInfo = this.$store.state.personalInfo || {};
+          this.userId = this.userInfo['userId'];
           this.getData()
           this.months = this.getMonth();
         },
@@ -63,7 +68,10 @@
               return monthsArr
             },
             getData(monthNum){
-              axios.post('/x-service/user/lowerLevel.htm',{userId:this.userInfo.userId}).then((res) => {
+              axios.post('/x-service/user/lowerLevel.htm',qs.stringify({
+                userId:this.userInfo.userId,
+                curYearMonth:monthNum
+              })).then((res) => {
                   let data = res.data;
                   if (data.status == 0) {
                     this.data = data.result;

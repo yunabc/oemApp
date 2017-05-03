@@ -50,6 +50,7 @@ export default {
 				if(reg.test(this.phone)){
 					if(regp.test(this.password) && regp.test(this.password2)){
 						if(this.password2 == this.password){
+							console.log(regcode.test(this.code));
 							if(regcode.test(this.code)){
 									this.upload();
 									return;
@@ -104,14 +105,36 @@ export default {
 				code:this.code
 			})).then((res) => {
 				var data = res.data;
+				switch(data.status){
+					case "1":
+					  // 失败
+						this.msg = data.errorMsg;
+						this.openWindow = true;
+						break;
+					case "0":
+						// 登陆成功
 
+						this.$router.push({ name: 'login'})
+
+						break;
+					case "2":
+						// 登陆未绑定客户信息
+						this.$router.push({ name: 'login'})
+						break;
+					case "-1":
+					// 未登录
+						this.msg = data.errorMsg;
+						this.openWindow = true;
+						break;
+				}
 			})
 		},
 		sendCode() {
 			let reg = /^1(3[0-9]|4[57]|5[0-35-9]|8[0-9]|7[780])\d{8}$/;
 			if(reg.test(this.phone)){
+				console.log(reg.test(this.phone));
 				if(this.count.indexOf('发送') > -1){
-					axios.post( this.domain + "",qs.stringify({
+					axios.post("/x-service/user/msg.htm",qs.stringify({
 						mobile:this.phone
 					})).then((res) => {
 						var data = res.data;

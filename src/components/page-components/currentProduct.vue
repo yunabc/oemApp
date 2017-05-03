@@ -49,7 +49,7 @@
         })).then((res) => {
           let data = res.data;
           if (data.status == 0) {
-          this.dataAll = data.result;
+            this.dataAll = data.result;
             this.dataHot = data.result[0];
             this.dataList = data.result.slice(1);
             this.page++;

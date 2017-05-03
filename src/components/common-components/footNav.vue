@@ -65,17 +65,17 @@
       &.active{
         color: @color;
        }
-     }
-     &.invest{
+    }
+    &.invest{
       &.active{
-         color: @color;
-       }
+        color: @color;
       }
-     &.user{
-        &.active{
-           color: @color;
-         }
+    }
+    &.user{
+      &.active{
+        color: @color;
       }
+    }
   }
 }
 

@@ -36,7 +36,7 @@
   export default {
     data () {
         return {
-          vip:true,
+          vip:false,
           logsStatus:"down",
           logsList:[],
           option:{},
@@ -47,7 +47,11 @@
       footNav
     },
     created(){
-      this.userInfo = this.$store.state.personalInfo;
+      console.log(this.userInfo);
+      this.userInfo = this.$store.state.personalInfo || {};
+      if(this.userInfo['signFlag'] == '00'){
+        this.vip=true;
+      }
       this.option.userInviterId = this.userInfo.userId;
        /*微信分享*/
       axios.get('/x-service/user/share.htm').then((res) => {
@@ -66,7 +70,7 @@
         console.log(error);
       });
       /*获取列表*/
-      axios.post('/x-service/user/record.htm',{userId:this.userInfo.userId}).then((res) => {
+      axios.post('/x-service/user/record.htm',qs.stringify({userId:this.userInfo.userId})).then((res) => {
         let data = res.data;
         if (data.status == 0) {
            this.logsList = data.result;

@@ -27,9 +27,14 @@
         newpassword2: '',
         msg:'测试提示文案测试提示文案测试提示文案测试提示文案测试提示文案',
         openWindow: false,
+        userInfo:{},
 
 
       }
+    },
+    created() {
+      this.userInfo = this.$store.state.personalInfo || {};
+      this.userId = this.userInfo.userId;
     },
     methods: {
       checkinput() {
@@ -83,7 +88,33 @@
           conPwd:this.newpassword2
         })).then((res) => {
           var data = res.data;
+          switch(data.status){
+            case "1":
+              // 失败
+              this.msg = data.errorMsg;
+              this.openWindow = true;
+              break;
+            case "0":
+              // 修改密码成功
+              var that =this;
+              this.msg = "密码修改成功，请重新登陆";
+              this.openWindow = true;
+              setTimeout(function(){
 
+                that.$router.push({ name: 'login',query:{topage:"user"}})
+              },1500)
+
+              break;
+            case "2":
+              // 登陆未绑定客户信息
+              this.$router.push({ name: 'login',query:{topage:"user"}})
+              break;
+            case "-1":
+            // 未登录
+              this.msg = data.errorMsg;
+              this.openWindow = true;
+              break;
+          }
 
         })
       },

@@ -122,7 +122,28 @@ export default {
 				code:this.code
 			})).then((res) => {
 				var data = res.data;
+				switch(data.status){
+					case "1":
+					  // 失败
+						this.msg = data.errorMsg;
+						this.openWindow = true;
+						break;
+					case "0":
+						// 登陆成功
 
+						this.$router.push({ name: 'login'})
+
+						break;
+					case "2":
+						// 登陆未绑定客户信息
+						this.$router.push({ name: 'login'})
+						break;
+					case "-1":
+					// 未登录
+						this.msg = data.errorMsg;
+						this.openWindow = true;
+						break;
+				}
 
 			})
 		},
@@ -152,7 +173,7 @@ export default {
 								this.openWindow = true;
 								break;
 							case "0":
-								// 登陆成功
+								// 
 								this.count = 3;
 								this.second = "s";
 								console.log(this.count);
