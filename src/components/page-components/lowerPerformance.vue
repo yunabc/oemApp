@@ -1,12 +1,12 @@
 <template>
-<div id="lowerPerformance" v-if="data.length">
+<div id="lowerPerformance" v-if="data">
   <div class="chooseCondition">
     <label>月份:</label>
     <select  class="chooseMonth" v-model="selectMonth">
       <option v-for="item in months" :value="item">{{item}}</option>
     </select>
-    <button class="refresh performanceBtn" @click="select()">刷新</button>
-    <button class="search performanceBtn" @click="select()">查询</button>
+    <button class="refresh performanceBtn" v-tap="{methods:select}">刷新</button>
+    <button class="search performanceBtn" v-tap="{methods:select}">查询</button>
   </div>
   <table  class="performanceDetail">
     <thead>
@@ -41,7 +41,7 @@
         data () {
             return {
               selectMonth:'',
-              data:[],
+              data:null,
               months:[],
               userInfo:{},
               userId:null,
@@ -58,7 +58,7 @@
         },
         methods:{
             getMonth(){
-              let monthsArr = [];
+              let monthsArr = [''];
               let nowTime = new Date();
               let nowYear = nowTime.getFullYear();
               let nowMonth = nowTime.getMonth() + 1
@@ -74,15 +74,21 @@
               })).then((res) => {
                   let data = res.data;
                   if (data.status == 0) {
-                    this.data = data.result;
+                    this.data = data.result || [];
+
                   }else{
                      console.log(data.errorMsg)
                   }
               })
             },
             select(){
-              let monthNum = (this.selectMonth);
-              this.getData(monthNum)
+              let monthNum = (this.selectMonth) ;
+              if(monthNum == ""){
+                this.getData()
+                
+              }else{
+                this.getData(monthNum);
+              }
             }
         }
     }

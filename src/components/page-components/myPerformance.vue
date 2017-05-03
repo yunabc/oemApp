@@ -1,6 +1,6 @@
 <template>
   <div id="myPerformance" v-if="data.length">
-    <button class="refresh performanceBtn" @click="reflesh()">刷新</button>
+    <button class="refresh performanceBtn" v-tap="{methods:refresh}">刷新</button>
     <table  class="performanceDetail">
       <thead>
       <tr>

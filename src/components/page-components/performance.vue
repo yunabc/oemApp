@@ -6,7 +6,7 @@
     <router-link to="/user/lowerPerformance" class="currentProduct navItem">下级推广人绩效</router-link>
   </div>
   <router-view :userInfo="userInfo"></router-view>
-  <foot-nav></foot-nav>
+  <foot-nav :active="active"></foot-nav>
 </div>
 </template>
 
@@ -15,7 +15,9 @@
 
   export default {
         data () {
-            return {}
+            return {
+              active:"active"
+            }
         },
         props:{
           userInfo:Object

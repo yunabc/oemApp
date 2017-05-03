@@ -9,7 +9,7 @@
   </ul>
   <router-link class="change-btn" :userId="userId" to="/changePassword">修改密码</router-link> 
   <!-- <button class="change-btn">修改密码</button> -->
-  <foot-nav></foot-nav>
+  <foot-nav :active="active"></foot-nav>
 </div>
 </template>
 
@@ -26,6 +26,7 @@
         bankphone: '',
         userId:null,
         account:{},
+        active:'active'
 
       }
     },

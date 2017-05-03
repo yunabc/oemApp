@@ -5,7 +5,7 @@
 			<div class="content">
 				{{msg}}
 			</div>
-			<p class="sure" @click="sure">确定</p>
+			<p class="sure" v-tap="{methods:sure}">确定</p>
 		</div>
 	</div>
 </template>

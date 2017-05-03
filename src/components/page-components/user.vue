@@ -5,24 +5,26 @@
     <p>累计佣金(元)</p>
   </div>
   <ul class="userCenterList">
-    <li class="invite userCenterItem userItemLine" @click="share()">
+    <li class="invite userCenterItem userItemLine" v-tap="{methods:share}">
       <p class="text">邀请新用户</p>
     </li>
     <router-link to="/user/performance" :userInfo="userInfo" v-if="vip" class="performance userCenterItem userItemLine">
       <p class="text">规模绩效</p>
     </router-link>
     <li class="userCenterItem">
-      <div class="logs  userItemLine" :class="logsStatus" @click="toggleList">
+      <div class="logs  userItemLine" :class="logsStatus" v-tap="{methods:toggleList}">
         <p class="text">投资记录</p>
       </div>
       <div class="logsList" v-show="logsStatus == 'up'">
-        <a  v-for="item in logsList" :data-id="item.plateId"  href="javascript:void(0)" class="logsItem" @click="logHandler(item)">{{item.plateName}}</a>
+        <a  v-for="item in logsList" :data-id="item.plateId"  href="javascript:void(0)" class="logsItem" v-tap="{methods:logHandler,paramA:item}">{{item.plateName}}</a>
       </div>
     </li>
     <li class="manage userCenterItem userItemLine">
-      <p class="text" @click="ckeckDetail">账户管理</p>
+      <p class="text" v-tap="{methods:ckeckDetail}">账户管理</p>
     </li>
   </ul>
+  <div class="zhezhao" v-if="shareTo"></div>
+  <div class="share-arrow" v-if="shareTo"></div>
   <foot-nav :userInfo="userInfo" :active="active"></foot-nav>
   <v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>
 </div>
@@ -42,9 +44,11 @@
           logsList:[],
           option:{},
           userInfo:{},
-          active:"active"
+          active:"active",
           msg:'敬请期待',
           openWindow: false,
+          pathUrl:'',
+          shareTo:false,
         }
     },
     components:{
@@ -101,8 +105,10 @@
         }
       },
       share(){
-        console.log(2)
-        wxShare(this.option)
+        // console.log(window.location)
+        this.pathUrl = window.location.origin
+        wxShare(this.option,this.pathUrl)
+        this.shareTo = true;
       },
 
       ckeckDetail() {
@@ -156,6 +162,25 @@
   @import '../../common/style/commoncolor.less';
 
   #user{
+    .zhezhao{
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.8)
+    }
+    .share-arrow{
+      position: fixed;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 101;
+      top: 0;
+      background: url(../../../static/img/tip_content_01.png) 65% 18% no-repeat;
+      background-size: 80%;
+    }
     .userHeader{
       display: flex;
       align-items:center;

@@ -6,17 +6,17 @@
 			<input type="password" v-model="password2" placeholder="请确认密码">
 			<div class="send-code">
 				<input type="text" v-model="code" placeholder="请输入验证码" >
-				<span class="send" :class="{sended:second=='s'}" @click="sendCode">{{count}}{{second}}</span>
+				<span class="send" :class="{sended:second=='s'}" v-tap="{methods:sendCode}">{{count}}{{second}}</span>
 			</div>
 			<div class="read-checkbox">
 				<label for="checkread">
-					<input id="checkread"  v-model="checkread" type="checkbox" @click="checkval">
+					<input id="checkread"  v-model="checkread" type="checkbox" v-tap="{methods:checkval}">
 					<span>我已阅读并同意</span><a href="" class="xieyi">《平台协议》</a>
 				</label>
 			</div>
 		</div>
 
-		<button class="btn submit-btn" @click="checkinput">注册</button>
+		<button class="btn submit-btn" v-tap="{methods:checkinput}">注册</button>
 		<v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>
 	</div>
 </template>

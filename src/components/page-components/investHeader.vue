@@ -10,7 +10,7 @@
       <div class="times">期限<span class="days">{{dataHot.proDayLimit}}</span>天</div>
     </div>
 
-    <div @click="checkInfo" class="buyBtn">立即购买</div>
+    <div v-tap="{methods:checkInfo}" class="buyBtn">立即购买</div>
   </div>
 </template>
 <style lang="less" rel="stylesheet/less">

@@ -6,9 +6,9 @@
     <li class="account-li"><span class="key">确认密码:</span><input type="text" v-model="newpassword2"></li>
 
   </ul>
-  <button class="change-btn" @click="checkinput">保存</button>
+  <button class="change-btn" v-tap="{methods:checkinput}">保存</button>
   <v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>
-  <foot-nav></foot-nav>
+  <foot-nav :active="active"></foot-nav>
 </div>
 </template>
 
@@ -28,6 +28,7 @@
         msg:'测试提示文案测试提示文案测试提示文案测试提示文案测试提示文案',
         openWindow: false,
         userInfo:{},
+        active:"active"
 
 
       }

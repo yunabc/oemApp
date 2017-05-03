@@ -18,7 +18,7 @@
             <p>期限</p>
           </div>
 
-          <div class="buyBtn" @click="checkInfo">立即购买</div>
+          <div class="buyBtn" v-tap="{methods:checkInfo}">立即购买</div>
         </div>
       </li>
     </ul>
@@ -106,6 +106,7 @@
         loading
     },
     created() {
+      console.log()
     },
     mounted(){
       this.promiseObj.then((res) =>{
@@ -172,7 +173,7 @@
         if(this.userInfo && this.userInfo['userId'] !=''){
           location.href = url;
         }else{
-          this.$router.push({path:"/login",query:{topage:this.investurl}});
+          this.$router.push({path:"/login",query:{topage:this.$route.name}});
         }
       }
 

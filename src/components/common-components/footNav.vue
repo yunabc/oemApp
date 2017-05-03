@@ -2,7 +2,7 @@
   <div ref="footNav" class="footNav">
     <router-link to="/home" class="home footNavItem"><i class="fa fa-home" aria-hidden="true"></i>首页</router-link>
     <router-link to="/invest" class="invest footNavItem"><i class="fa fa-bank" aria-hidden="true"></i>投资</router-link>
-    <a class="user footNavItem" :class="{active:active=='active'}"><i class="fa fa-user-o" aria-hidden="true" @click="checkInfo"></i>我的</a>
+    <a class="user footNavItem" :class="{active:active=='active'}" v-tap="{methods:checkInfo}"><i class="fa fa-user-o" aria-hidden="true" ></i>我的</a>
   </div>
 </template>
 

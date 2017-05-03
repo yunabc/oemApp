@@ -4,14 +4,14 @@
 			<input type="text" v-model="phone" placeholder="请输入手机号">
 			<div class="send-code">
 				<input type="text" v-model="code" placeholder="请输入验证码" >
-				<span class="send" :class="{sended:second=='s'}" @click="sendCode">{{count}}{{second}}</span>
+				<span class="send" :class="{sended:second=='s'}" v-tap="{methods:sendCode}">{{count}}{{second}}</span>
 			</div>
 			<input type="password" v-model="password" placeholder="请输入新密码">
 			<input type="password" v-model="password2" placeholder="请确认新密码">
 
 
 		</div>
-		<button class="btn submit-btn" @click="checkinput">找回密码</button>
+		<button class="btn submit-btn" v-tap="{methods:checkinput}">找回密码</button>
 		<v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>
 	</div>
 </template>
@@ -147,6 +147,11 @@ export default {
 						}
 					})
 				}
+			}else{
+
+				this.msg = "手机号码格式不对";
+				this.openWindow = true;
+				return ;
 			}
 		},
 		counted() {

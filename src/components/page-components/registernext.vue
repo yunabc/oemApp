@@ -6,7 +6,7 @@
 			<input type="text" v-model="bankcard" placeholder="请输入银行卡号">
 			<input type="text" v-model="bankcardphone" placeholder="请输入银行预留手机号">
 		</div>
-		<button class="btn submit-btn" @click="checkinput">下一步</button>
+		<button class="btn submit-btn" v-tap="{methods:checkinput}">下一步</button>
 		<v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>
 	</div>
 </template>
