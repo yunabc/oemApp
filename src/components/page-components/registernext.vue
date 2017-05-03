@@ -25,24 +25,27 @@ export default {
 			bankcardphone: '',
 			msg:'测试提示文案测试提示文案测试提示文案测试提示文案测试提示文案',
 			openWindow: false,
+			userId:null,
 		}
 	},
-	porps:{
-		userId:String
+	created(){
+		this.userId = this.$route.params.userId;
+		console.log(this.userId)
 	},
 	methods: {
 		checkinput() {
 			let flag = true;
 			let reg = /^[\u4e00-\u9fa5]{2,}$/;
 			let regp = /^([0-9]){7,18}(x|X)?$/;
-			let regbankcart =/^(998801|998802|622525|622526|435744|435745|483536|528020|526855|622156|622155|356869|531659|622157|627066|627067|627068|627069)d{10}$/;
+			let regbankcart =/^(998801|998802|622525|622526|435744|435745|483536|528020|526855|622156|622155|356869|531659|622157|627066|627067|627068|627069)\d{13}$/;
 			let regPhone = /^1(3[0-9]|4[57]|5[0-35-9]|8[0-9]|7[780])\d{8}$/;
 			if(this.name != "" && this.idcard != "" && this.bankcard != "" && this.bankcardphone != ""){
 				if(reg.test(this.name)){
 					if(regp.test(this.idcard)){
 						if(regbankcart.test(this.bankcard)){
 							if(regPhone.test(this.bankcardphone)){
-
+								this.upload();
+								return;
 							}
 							this.msg = '银行卡预留手机号格式不正确';
 							this.openWindow = true;
@@ -92,17 +95,23 @@ export default {
 				idNo:this.idcard,
 				bankCode:this.bankcard
 			})).then((res) => {
-				var data = res.data;
+				let data = res.data;
 				switch(data.status){
-					case 1:
+					case "1":
 					  // 失败
-						this.msg = res.errorMsg;
+					  console.log(111);
+						this.msg = data.errorMsg;
 						this.openWindow = true;
 						break;
-					case 0:
+					case "0":
 						// 登陆
-						this.$router.go(-2);
-					case -1:
+						var that =this;
+						this.msg = "绑定成功，请重新登陆";
+						this.openWindow = true;
+						setTimeout(function(){
+							that.$router.push({ name: 'login'})
+						},1500)
+					case "-1":
 					// 未登录
 						this.msg = res.errorMsg;
 						this.openWindow = true;

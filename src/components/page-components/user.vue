@@ -20,16 +20,19 @@
         <a href="" class="logsItem">绿地金服投资</a>
       </div>
     </li>
-    <router-link to="/account" class="manage userCenterItem userItemLine">
-      <p class="text">账户管理</p>
-    </router-link>
+    <li class="manage userCenterItem userItemLine">
+      <p class="text" @click="ckeckDetail">账户管理</p>
+    </li>
   </ul>
-  <foot-nav :userInfo="userInfo"></foot-nav>
+  <foot-nav :userInfo="userInfo" :active="active"></foot-nav>
+  <v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>
 </div>
 </template>
 
 <script>
   import footNav from 'components/common-components/footNav';
+  import alert from '../common-components/alert.vue';
+
   import axios from 'axios';
   import qs from 'qs';
   import {wxShare} from '../../common/js/wxShare'
@@ -41,14 +44,17 @@
           logsList:[],
           option:{},
           userInfo:{},
+          openWindow:false,
+          active:"active"
         }
     },
     components:{
-      footNav
+      footNav,
+      'v-alert':alert,
     },
     created(){
-      console.log(this.userInfo);
       this.userInfo = this.$store.state.personalInfo || {};
+      console.log(this.userInfo);
       if(this.userInfo['signFlag'] == '00'){
         this.vip=true;
       }
@@ -75,7 +81,12 @@
         if (data.status == 0) {
            this.logsList = data.result;
         } else {
-          console.log(data.errorMsg)
+          var that =this;
+          this.msg = data.errorMsg;
+          this.openWindow = true;
+          setTimeout(function(){
+            that.$router.push({ name: 'login',query:{topage:'user'}})
+          },1500)
         }
       }).catch(function (error) {
         console.log(error);
@@ -91,8 +102,31 @@
         }
       },
       share(){
-      console.log(2)
+        console.log(2)
         wxShare(this.option)
+      },
+      closeWindow(bool) {
+        this.openWindow = bool;
+      },
+      ckeckDetail() {
+        axios.post('/x-service/user/info.htm',qs.stringify({userId:this.userInfo.userId})).then((res) => {
+          let data = res.data;
+          if (data.status == 0) {
+            this.$router.push({
+              name:'account',
+              params:data.result
+            })
+          } else {
+            var that =this;
+            this.msg = data.errorMsg;
+            this.openWindow = true;
+            setTimeout(function(){
+              that.$router.push({ name: 'login',query:{topage:'user'}})
+            },1500)
+          }
+        }).catch(function (error) {
+          console.log(error);
+        });
       }
     }
   }

@@ -45,7 +45,7 @@ export default {
 			width: 60%;
 			left: 50%;
 		  box-shadow:0 0 10px #ccc;  
-			top: 1.33333333rem;
+			top:40%;
 			margin-left: -30%;
 			position: absolute;
 			padding-top: .53333333rem;

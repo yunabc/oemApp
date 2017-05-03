@@ -10,7 +10,7 @@
 			</div>
 			<div class="read-checkbox">
 				<label for="checkread">
-					<input id="checkread"  v-model="checkread" type="checkbox" @click=checkval>
+					<input id="checkread"  v-model="checkread" type="checkbox" @click="checkval">
 					<span>我已阅读并同意</span><a href="" class="xieyi">《平台协议》</a>
 				</label>
 			</div>
@@ -51,6 +51,7 @@ export default {
 			this.checkread = !this.checkread
 		},
 		checkinput() {
+			this.$router.push({ name: 'registernext',params:{userId:'sdfsdf'}})
 			let flag = true;
 			let reg = /^1(3[0-9]|4[57]|5[0-35-9]|8[0-9]|7[780])\d{8}$/;
 			let regp = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
@@ -113,7 +114,7 @@ export default {
 
 		},
 		upload() {
-
+			
 			axios.post("/x-service/user/reg.htm",qs.stringify({
 				userInviterId:this.userInviterId,
 				mobile:this.phone,
@@ -129,14 +130,16 @@ export default {
 						this.openWindow = true;
 						break;
 					case "0":
-						// 登陆成功
-
-						this.$router.push({ name: 'login'})
-
+						// 注册成功
+						var that =this;
+						this.msg = "注册成功，请完善用户信息";
+						this.openWindow = true;
+						setTimeout(function(){
+							that.$router.push({ name: 'next',params:{userId:data.result.userId}})
+						},1500)
 						break;
 					case "2":
-						// 登陆未绑定客户信息
-						this.$router.push({ name: 'login'})
+						// 注册未绑定客户信息
 						break;
 					case "-1":
 					// 未登录
@@ -149,11 +152,12 @@ export default {
 		},
 		sendCode() {
 			let reg = /^1(3[0-9]|4[57]|5[0-35-9]|8[0-9]|7[780])\d{8}$/;
+			console.log(reg.test(this.phone));
 			if(reg.test(this.phone)){
 
 				if(this.count.indexOf('发送') > -1){
 
-
+					console.log(1);
 					axios.post("/x-service/user/msg.htm",qs.stringify({
 						mobile:this.phone
 					})).then((res) => {
@@ -183,8 +187,12 @@ export default {
 						}
 					})
 				}
-			}
+			}else{
 
+				this.msg = "手机号码格式不对";
+				this.openWindow = true;
+				return ;
+			}
 		},
 		counted() {
 			let timer = null;

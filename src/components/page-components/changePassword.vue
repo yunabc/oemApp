@@ -32,9 +32,8 @@
 
       }
     },
-    created() {
-      this.userInfo = this.$store.state.personalInfo || {};
-      this.userId = this.userInfo.userId;
+    props: {
+      userId:String,
     },
     methods: {
       checkinput() {
