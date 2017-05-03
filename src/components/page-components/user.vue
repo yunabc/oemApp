@@ -16,8 +16,7 @@
         <p class="text">投资记录</p>
       </div>
       <div class="logsList" v-show="logsStatus == 'up'">
-        <a v-for="item in logsList" href="" class="logsItem">360财富投资</a>
-        <a href="" class="logsItem">绿地金服投资</a>
+        <a  v-for="item in logsList" :data-id="item.plateId"  href="javascript:void(0)" class="logsItem" @click="logHandler(item)">{{item.plateName}}</a>
       </div>
     </li>
     <li class="manage userCenterItem userItemLine">
@@ -31,8 +30,7 @@
 
 <script>
   import footNav from 'components/common-components/footNav';
-  import alert from '../common-components/alert.vue';
-
+  import alert from '../common-components/alert.vue'
   import axios from 'axios';
   import qs from 'qs';
   import {wxShare} from '../../common/js/wxShare'
@@ -44,13 +42,14 @@
           logsList:[],
           option:{},
           userInfo:{},
-          openWindow:false,
           active:"active"
+          msg:'敬请期待',
+          openWindow: false,
         }
     },
     components:{
       footNav,
-      'v-alert':alert,
+      'v-alert': alert
     },
     created(){
       this.userInfo = this.$store.state.personalInfo || {};
@@ -76,7 +75,7 @@
         console.log(error);
       });
       /*获取列表*/
-      axios.post('/x-service/user/record.htm',qs.stringify({userId:this.userInfo.userId})).then((res) => {
+      axios.post('/x-service/user/plate.htm',qs.stringify({userId:this.userInfo.userId})).then((res) => {
         let data = res.data;
         if (data.status == 0) {
            this.logsList = data.result;
@@ -105,9 +104,7 @@
         console.log(2)
         wxShare(this.option)
       },
-      closeWindow(bool) {
-        this.openWindow = bool;
-      },
+
       ckeckDetail() {
         axios.post('/x-service/user/info.htm',qs.stringify({userId:this.userInfo.userId})).then((res) => {
           let data = res.data;
@@ -127,6 +124,29 @@
         }).catch(function (error) {
           console.log(error);
         });
+      },
+      closeWindow(bool) {
+        this.openWindow = bool;
+
+      },
+      logHandler(item){
+        if(item.plateStatus != 0){
+          axios.post('/x-service/user/record.htm',qs.stringify({
+            userId: this.userInfo.userId,
+            plateId:item.plateId
+          })).then((res) => {
+            let data = res.data;
+            if (data.status == 0) {
+               window.location.href = data.result.allRedirectUrl
+            } else {
+              console.log(data.errorMsg)
+            }
+          }).catch(function (error) {
+            console.log(error);
+          });
+        }else{
+          this.openWindow = true;
+        }
       }
     }
   }
