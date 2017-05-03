@@ -116,7 +116,7 @@
         let wrapper = this.$refs.listWrapper
         let offTop = wrapper.offsetTop;
         // let winH = window.offsetHeight;
-        wrapper.style.top = offTop + "px";
+        // wrapper.style.top = offTop + "px";
         wrapper.style.bottom = 1.30666667+ "rem";
         console.log(12)
         this.$nextTick(() => {

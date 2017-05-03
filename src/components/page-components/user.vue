@@ -24,7 +24,7 @@
     </li>
   </ul>
   <div class="zhezhao" v-if="shareTo"></div>
-  <div class="share-arrow" v-if="shareTo"></div>
+  <div class="share-arrow" v-if="shareTo"><i class="fa fa-times" aria-hidden="true" v-tap="{methods:closeFn}"></i></div>
   <foot-nav :userInfo="userInfo" :active="active"></foot-nav>
   <v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>
 </div>
@@ -96,6 +96,9 @@
       });
     },
     methods:{
+      closeFn() {
+        this.shareTo = !this.shareTo
+      },
       toggleList(){
         //this.logsList = this.logsList == "down" ? "down" : "up";
         if(this.logsStatus == 'down'){
@@ -180,6 +183,13 @@
       top: 0;
       background: url(../../../static/img/tip_content_01.png) 65% 18% no-repeat;
       background-size: 80%;
+      .fa-times{
+        font-size: .53333333rem;
+        position: absolute;
+        right: 5%;
+        top: 4%;
+        color: #fff;
+      }
     }
     .userHeader{
       display: flex;

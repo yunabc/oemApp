@@ -28,13 +28,16 @@
         msg:'测试提示文案测试提示文案测试提示文案测试提示文案测试提示文案',
         openWindow: false,
         userInfo:{},
-        active:"active"
-
+        active:"active",
+        userId:null,
 
       }
     },
     props: {
-      userId:String,
+    },
+    created() {
+      console.log(this.$route.params);
+      this.userId = this.$route.params.userId;  
     },
     methods: {
       checkinput() {

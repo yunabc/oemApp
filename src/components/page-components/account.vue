@@ -7,7 +7,7 @@
     <li class="account-li"><i class="fa fa-phone" aria-hidden="true"></i><span>银行预留手机号：{{bankphone}}</span></li>
     
   </ul>
-  <router-link class="change-btn" :userId="userId" to="/changePassword">修改密码</router-link> 
+  <router-link class="change-btn" :to="{name:'changePassword',params:{userId:userId}}">修改密码</router-link> 
   <!-- <button class="change-btn">修改密码</button> -->
   <foot-nav :active="active"></foot-nav>
 </div>
@@ -34,8 +34,10 @@
       this.account = this.$route.params;
       this.realname = this.account.realName;
       this.idcode = this.account.idNo;
+      this.userId = this.account.userId;
       this.bankcard = this.account.bankCode;
       this.bankphone = this.account.bankTel;
+      console.log(this.userId)
       
     },
     components:{
@@ -46,5 +48,6 @@
 
 <style lang="less" rel="stylesheet/less">
   @import "../../common/style/account.less";
+  
 
 </style>

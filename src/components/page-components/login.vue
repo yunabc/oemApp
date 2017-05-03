@@ -3,19 +3,20 @@
 		<div class="inputbox">
 			<input type="text" v-model="phone"  placeholder="请输入手机号" >
 			<input type="password" v-model="password" placeholder="请输入密码" >
-		</div>
-		<div v-if="loginTimes > 3" class="stage">
-			<div class="slider" id="slider">
-				<div class="label">向右滑动验证</div>
-				<div class="track" id="track">
-					<div id="callBack" class="bg-green"></div>
-				</div>
-				<div class="button" id="btn">
-					<div class="icon" id="icon"></div>
-					<div class="spinner" id="spinner"></div>
+			<div v-if="loginTimes > 3" class="stage">
+				<div class="slider" ref="slider" id="slider">
+					<div class="label">向右滑动验证</div>
+					<div class="track" ref="track" id="track">
+						<div ref="callBack" id="callBack" class="bg-green"></div>
+					</div>
+					<div class="button" @touchstart="estart" @touchmove="emove" @touchend="eend" ref="btn" id="btn">
+						<div class="icon" ref="icon" id="icon"></div>
+						<div class="spinner" ref="spinner" id="spinner"></div>
+					</div>
 				</div>
 			</div>
 		</div>
+		
 		<button class="btn submit-btn" v-tap="{methods:checkInfo}">登录</button>
 		<div class="register-forget clearfix">
 			<router-link class="fl" to="/lostpassword">忘记密码</router-link>
@@ -44,14 +45,70 @@ export default {
 			msg:'测试提示文案测试提示文案测试提示文案测试提示文案测试提示文案',
 			openWindow: false,
 			topage: "",
+			oW:null,
+			oLeft:null,
+			flag:1,
 		}
 	},
 	created() {
 		this.topage = this.$route.query.topage;
+
 	},
 	methods: {
+		estart(e) { 
+			console.log(e);
+			if(this.flag==1){
+				let oBtn = this.$refs.btn;
+				let oTrack = this.$refs.track;
+				var touches = e.touches[0];
+				this.oW = touches.clientX - oBtn.offsetLeft;
+				oBtn.className="button";
+				oTrack.className="track";
+			}
+		},
+		emove(e) {
+			console.log(document.documentElement.clientWidth);
+			if(this.flag==1){
+				let oBtn = this.$refs.btn;
+				let oTrack = this.$refs.track;
+				let oSlider = this.$refs.slider;
+				let touches = e.touches[0];
+				this.oLeft = touches.clientX - this.oW;
+				if(this.oLeft < 0) {
+					this.oLeft = 0;
+				}else if(this.oLeft > oSlider.offsetWidth - oBtn.offsetWidth) {
+					this.oLeft = (doSlider.offsetWidth - oBtn.offsetWidth-30);
+				}
+				oBtn.style.left = this.oLeft + "px";
+				oTrack.style.width=this.oLeft+ 'px';			
+			}
+		},
+		eend(e) {
+			console.log('q1');
+			let oBtn = this.$refs.btn;
+			let oTrack = this.$refs.track;
+			let oSlider = this.$refs.slider;
+			let oIcon = this.$refs.icon;
+			let oSpinner = this.$refs.spinner;
+			let callBack = this.$refs.callBack;
+			if(this.oLeft>=(oSlider.clientWidth-oBtn.clientWidth)){
+        oBtn.style.left = (document.documentElement.clientWidth - oBtn.offsetWidth-30);
+        oTrack.style.width= (document.documentElement.clientWidth - oBtn.offsetWidth-30);
+        oIcon.style.display='none';
+        oSpinner.style.display='block';	
+        callBack.innerText="验证通过";			
+	      this.flag=0;			
+      }else{
+        oBtn.style.left = 0;
+        oTrack.style.width= 0;
+      }
+      oBtn.className="button-on";
+      oTrack.className="track-on";   
+
+		},
 		checkInfo() {
 			//登录 判断情况
+			this.loginTimes++;
 			if(this.loginTimes > 3) {
 				this.moveBlock = true;
 			}
@@ -153,5 +210,5 @@ export default {
 </script>
 <style scoped lang="less" rel="stylesheet/less">
 	@import "../../common/style/login.less";
-
+  @import "../../common/style/slider.css";
 </style>
