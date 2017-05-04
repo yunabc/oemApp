@@ -158,12 +158,11 @@ const router = new Router({
 // 路由导航钩子，beforeEach，在路由进入前调用
 router.beforeEach((to, from, next) => {
   let titleStr = ''
+  console.log(to.matched)
   // 倒序遍历数组获取匹配到的路由节点，拼接各部分title
   for (let i = to.matched.length - 1; i >= 0; i--) {
-    titleStr += `${to.matched[i].meta.title} - `
+    titleStr += `${to.matched[i].meta.title}`
   }
-  // 添加站点名
-  titleStr += title
   // 更新title
   document.title = titleStr
   // 继续路由导航
