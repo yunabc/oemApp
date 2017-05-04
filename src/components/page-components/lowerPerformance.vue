@@ -3,8 +3,8 @@
   <div class="chooseCondition">
     <date-picker @chooseMonth="getChooseMonth"></date-picker>
     <div class="btnWrap">
-      <button class="refresh performanceBtn" v-tap="{methods:getData,num:0}">刷新</button>
-      <button class="search performanceBtn" v-tap="{methods:getData,num:1}">查询</button>
+      <button class="refresh performanceBtn" v-tap="{methods:getData}">刷新</button>
+      <button class="search performanceBtn" v-tap="{methods:getData}">查询</button>
     </div>
   </div>
   <div v-if="dataReturnFlag">
@@ -45,7 +45,7 @@
             return {
               selectMonth:'',
               dataList:[],
-              month:0,
+              chooseMonth:'',
               initDate:'',
               userInfo:{},
               userId:null,
@@ -60,27 +60,24 @@
           this.userInfo = this.$store.state.personalInfo || {};
           this.userId = this.userInfo['userId'];
           let today = new Date();
-          this.initDate = today.getFullYear() +'.'+ this.padLeftZero(today.getMonth());
-          this.getData(0);
-          //this.months = this.getMonth();
+          this.initDate = today.getFullYear() +"."+ this.padLeftZero(today.getMonth());
+          this.getData();
         },
         methods:{
             getChooseMonth(chooseMonth){
-              this.month = chooseMonth
+              this.chooseMonth = chooseMonth;
               console.log(chooseMonth,this.month)
             },
             padLeftZero(str) {
               typeof(str) === 'number' && (str = str + '');
               return ('00' + str).substr(str.length);
             },
-            getData(num){
-              let date = this.month;
-              if(!num.num){
-                date = this.initDate.replace(/[^\d]/g,'');
-              }
+            getData(){
+              let curYearMonth = this.chooseMonth ?this.chooseMonth: this.initDate;
+
               axios.post('/x-service/user/lowerLevel.htm',qs.stringify({
                 userId:this.userInfo.userId,
-                curYearMonth:date
+                curYearMonth:curYearMonth.replace(/[^\d]/g,'')
               })).then((res) => {
                   let data = res.data;
                   if (data.status == 0) {
