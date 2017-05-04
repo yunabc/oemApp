@@ -2,8 +2,11 @@
 <div id="lowerPerformance" v-if="data">
   <div class="chooseCondition">
     <date-picker></date-picker>
-    <button class="refresh performanceBtn" v-tap="{methods:select}">刷新</button>
-    <button class="search performanceBtn" v-tap="{methods:select}">查询</button>
+    <div class="btnWrap">
+      <button class="refresh performanceBtn" v-tap="{methods:select}">刷新</button>
+      <button class="search performanceBtn" v-tap="{methods:select}">查询</button>
+    </div>
+
   </div>
   <table  class="performanceDetail">
     <thead>
@@ -99,12 +102,9 @@
   #lowerPerformance{
   padding:1.06666667rem .66666667rem;
   .chooseCondition{
-    margin-bottom: .26666667rem;
-    .chooseMonth{
-      font-size: .32rem;
-      border-bottom: .01333333rem solid @lineGrayColor;
-      padding: .06666667rem;
-      margin-left: .4rem;
+    .btnWrap{
+      float: right;
+      margin-bottom: 0.3rem;
     }
   }
 }

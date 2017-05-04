@@ -151,7 +151,7 @@
       }
     }
 
-    .home-content {
+    .home-content { 
       padding: 5.2rem .4rem 0;
 
       .investLi {

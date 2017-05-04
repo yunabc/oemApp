@@ -73,7 +73,7 @@
     display: inline-block;
     font-size: .32rem;
     border: .01333333rem solid @lineGrayColor;
-    padding: .06666667rem;
+    padding: .13rem;
     margin-left: .4rem;
     width: 2rem;
   }
@@ -110,6 +110,6 @@
         }
     }
 }
- 
+
 
 </style>
