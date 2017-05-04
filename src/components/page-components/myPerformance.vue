@@ -45,7 +45,7 @@
           this.getData()
         },
         methods:{
-          reflesh(){
+          refresh(){
             this.getData()
           },
           getData(){
