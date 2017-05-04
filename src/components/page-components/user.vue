@@ -63,7 +63,9 @@
       }
       this.option.userInviterId = this.userInfo.userId;
        /*微信分享*/
-      axios.get('/x-service/user/share.htm').then((res) => {
+      axios.post('/x-service/user/share.htm',qs.stringify({
+        signUrl: location.href.split('#')[0]
+      })).then((res) => {
         let data = res.data;
         if (data.status == 0) {
            this.option.appId = data.result.appId
