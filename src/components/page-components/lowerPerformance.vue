@@ -1,15 +1,15 @@
 <template>
-<div id="lowerPerformance" v-if="data">
+<div id="lowerPerformance" >
   <div class="chooseCondition">
     <date-picker @chooseMonth="getChooseMonth"></date-picker>
     <div class="btnWrap">
       <button class="refresh performanceBtn" v-tap="{methods:getData,num:0}">刷新</button>
       <button class="search performanceBtn" v-tap="{methods:getData,num:1}">查询</button>
     </div>
-
   </div>
-  <table  class="performanceDetail">
-    <thead>
+  <div v-if="dataReturnFlag">
+    <table  class="performanceDetail" v-if="dataList && dataList.length">
+      <thead>
       <tr>
         <td>推广人ID</td>
         <td>姓名</td>
@@ -17,19 +17,21 @@
         <td>累计规模</td>
         <td>累计佣金</td>
       </tr>
-    </thead>
-    <tbody>
-      <tr v-for="item in data">
+      </thead>
+      <tbody>
+      <tr v-for="item in dataList">
         <td>{{item.userId}}</td>
         <td>{{item.userName}}</td>
         <td>{{item.curPersonCount}}</td>
         <td>{{item.curMonthTotalMoney}}</td>
         <td>{{item.curMonthComm}}</td>
       </tr>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+    <div class="noContent" v-else>暂无数据</div>
+  </div>
+
 </div>
-<div class="noContent" v-else>暂无数据</div>
 
 </template>
 
@@ -42,11 +44,12 @@
         data () {
             return {
               selectMonth:'',
-              data:null,
+              dataList:[],
               month:0,
               initDate:'',
               userInfo:{},
               userId:null,
+              dataReturnFlag:false
             }
         },
         components:{
@@ -81,8 +84,8 @@
               })).then((res) => {
                   let data = res.data;
                   if (data.status == 0) {
-                    this.data = data.result || [];
-
+                    this.dataList = data.result;
+                    this.dataReturnFlag = true
                   }else{
                      console.log(data.errorMsg)
                   }

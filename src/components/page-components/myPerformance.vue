@@ -1,26 +1,29 @@
-<template>
-  <div id="myPerformance" v-if="data.length">
-    <button class="refresh performanceBtn" v-tap="{methods:refresh}">刷新</button>
-    <table  class="performanceDetail">
-      <thead>
-      <tr>
-        <td>时间</td>
-        <td>累计人数</td>
-        <td>累计规模</td>
-        <td>累计佣金</td>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="item in data">
-        <td>{{item.curMonthTime}}</td>
-        <td>{{item.curPersonCount}}</td>
-        <td>{{item.curMonthTotalMoney}}</td>
-        <td>{{item.curMonthComm}}</td>
-      </tr>
-      </tbody>
-    </table>
+<template >
+  <div v-if="this.dataReturnFlag">
+    <div id="myPerformance" v-if="dataList && dataList.length">
+      <button class="refresh performanceBtn" v-tap="{methods:refresh}">刷新</button>
+      <table  class="performanceDetail">
+        <thead>
+        <tr>
+          <td>时间</td>
+          <td>累计人数</td>
+          <td>累计规模</td>
+          <td>累计佣金</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="item in dataList">
+          <td>{{item.curMonthTime}}</td>
+          <td>{{item.curPersonCount}}</td>
+          <td>{{item.curMonthTotalMoney}}</td>
+          <td>{{item.curMonthComm}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="noContent" v-else>暂无数据</div>
   </div>
-  <div class="noContent" v-else>暂无数据</div>
+
 
 </template>
 
@@ -31,9 +34,10 @@
   export default {
         data () {
             return {
-              data:[],
+              dataList:[],
               userInfo:{},
               userId:null,
+              dataReturnFlag:false
             }
         },
         components:{
@@ -54,7 +58,8 @@
             })).then((res) => {
                let data = res.data;
                 if (data.status == 0) {
-                   this.data = data.result;
+                   this.dataList = data.result;
+                   this.dataReturnFlag = true
                 }else{
                    console.log(data.errorMsg)
                 }
