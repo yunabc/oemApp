@@ -91,6 +91,7 @@
           singleNum:5,//每页默认5条数据
           dataList2:[],
           page2:0,
+          _flag:false,
       };
     },
     props: {
@@ -107,6 +108,7 @@
         loading
     },
     created() {
+      this._flag = this.flag;
       console.log()
     },
     mounted(){
@@ -114,19 +116,19 @@
         this.dataList2 = this.dataList;
         console.log(this.dataList2);
         this.page2=this.page;
-        let wrapper = this.$refs.listWrapper
-        let offTopThis = wrapper.offsetTop;
-        let offTopParent = wrapper.parentNode.offsetTop;
-        let doc = document.body || document.documentElement;
-        let docH = doc.offsetHeight;
-        let docW = doc.offsetWidth;
-        let rate = docW/10;
-        console.log(offTopThis,docH,offTopParent,docW)
-        // wrapper.style.top = offTop + "px";(docH-offTopThis-offTopParent)/75 -1.30666667
-        let hei = (docH-offTopThis-offTopParent)/rate -1.30666667
-        wrapper.style.height = hei+ "rem";
+        
         console.log(12)
         this.$nextTick(() => {
+          let wrapper = this.$refs.listWrapper
+          let offTopParent = wrapper.parentNode;
+          let offHei = offTopParent.offsetHeight;
+          let offTop = offTopParent.offsetTop;
+          
+          
+          // console.log(offTopThis,docH,offTopParent,docW)
+          // wrapper.style.top = offTop + "px";(docH-offTopThis-offTopParent)/75 -1.30666667
+          wrapper.style.top = offTop + offHei+ "px";
+          wrapper.style.bottom = 1.30666667+ "rem";
           this._initScroll();
         })
       })
@@ -143,26 +145,27 @@
             console.log(pos)
             let listContent = this.$refs.listContent.offsetHeight;
             let listWrapper = this.$refs.listWrapper.offsetHeight;
-            let screenH = listWrapper.clientHeight;
+            console.log(listContent,listWrapper,pos.y)
             if ( listContent- listWrapper + pos.y < -100) {
+              console.log(1111);
                 this._getData()
             }
           })
 
       },
       _getData(){
-        if (this.flag) {
+        if (this._flag) {
           axios.post(this.url,qs.stringify({page:this.page2})).then((res) => {
             let data = res.data;
             if (data.status == 0) {
               this.dataList2 = this.dataList2.concat(data.result);
               this.page2++;
               if (data.result.length < this.singleNum || data.result.length === 0) {
-                this.flag = false
+                this._flag = false
               }
               this.$root.$emit('passObj', {
                 page:this.page,
-                flag:this.flag,
+                _flag:this._flag,
                 dataList:this.dataList2
               });
               this.$nextTick(() => {
