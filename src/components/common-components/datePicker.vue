@@ -78,37 +78,38 @@
     width: 2rem;
   }
   .calender{
-    width: 3rem;
-    box-shadow: 2px 2px 8px 2px @backGrayColor;
-    font-size: 24px;
-    text-align: center;
-    line-height: 50px;
-    margin:0.2rem 0 0 .6rem;
-    position: absolute;
-    background-color: #fff;
-    .canHeader{
-      padding: 0 20px;
-      height: 50px;
-      text-align: center;
-      background-color: @backGrayColor;
-      font-weight: bold;
-      display: flex;
-      .canBtn{
-        width: 20px;
-        height: 50px;
-        cursor: pointer;
-      }
-      .curMonth{
-        flex:1;
-      }
-    }
-    .canBody{
-      .monthItem{
-        &:active{
-          background-color: @backGrayColor;
+     width: 3rem;
+     box-shadow: 0.02666666666666667rem 0.02666666666666667rem 0.10666666666666667rem 0.02666666666666667rem @backGrayColor;
+     font-size: 0.32rem;
+     text-align: center;
+     line-height: 0.6666666666666666rem;
+     margin:0.2rem 0 0 .6rem;
+     position: absolute;
+     background-color: #fff;
+     .canHeader{
+         padding: 0 0.26666666666666666rem;
+         height: 0.6666666666666666rem;
+         text-align: center;
+         background-color: @backGrayColor;
+         font-weight: bold;
+         display: flex;
+         .canBtn{
+             width: 0.26666666666666666rem;
+             height: 0.6666666666666666rem;
+             cursor: pointer;
         }
-      }
+         .curMonth{
+             flex:1;
+        }
     }
-  }
+     .canBody{
+         .monthItem{
+             &:active{
+                 background-color: @backGrayColor;
+            }
+        }
+    }
+}
+ 
 
 </style>

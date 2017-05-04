@@ -77,7 +77,7 @@ export default {
 				if(this.oLeft < 0) {
 					this.oLeft = 0;
 				}else if(this.oLeft > oSlider.offsetWidth - oBtn.offsetWidth) {
-					this.oLeft = (doSlider.offsetWidth - oBtn.offsetWidth-30);
+					this.oLeft = (oSlider.offsetWidth - oBtn.offsetWidth);
 				}
 				oBtn.style.left = this.oLeft + "px";
 				oTrack.style.width=this.oLeft+ 'px';			
@@ -97,7 +97,8 @@ export default {
         oIcon.style.display='none';
         oSpinner.style.display='block';	
         callBack.innerText="验证通过";			
-	      this.flag=0;			
+	      this.flag=0;	
+	      this.moveBlockCb=true;		
       }else{
         oBtn.style.left = 0;
         oTrack.style.width= 0;
@@ -128,7 +129,7 @@ export default {
 								this.upload();
 								return ;
 							}
-							this.msg = '解锁失败';
+							this.msg = '请拖动滑块验证';
 							this.openWindow = true;
 							return ;
 						}
