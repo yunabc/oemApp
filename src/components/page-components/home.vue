@@ -150,7 +150,6 @@
 
     .home-content {
       padding: .3rem .4rem 0;
-
       .investLi {
         background-color: #fff;
         margin-bottom: .4rem;
