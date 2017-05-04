@@ -1,10 +1,10 @@
 <template>
 <div id="lowerPerformance" v-if="data">
   <div class="chooseCondition">
-    <date-picker></date-picker>
+    <date-picker @chooseMonth="getChooseMonth"></date-picker>
     <div class="btnWrap">
-      <button class="refresh performanceBtn" v-tap="{methods:select}">刷新</button>
-      <button class="search performanceBtn" v-tap="{methods:select}">查询</button>
+      <button class="refresh performanceBtn" v-tap="{methods:getData,num:0}">刷新</button>
+      <button class="search performanceBtn" v-tap="{methods:getData,num:1}">查询</button>
     </div>
 
   </div>
@@ -43,7 +43,8 @@
             return {
               selectMonth:'',
               data:null,
-              //months:[],
+              month:0,
+              initDate:'',
               userInfo:{},
               userId:null,
             }
@@ -55,24 +56,28 @@
         created(){
           this.userInfo = this.$store.state.personalInfo || {};
           this.userId = this.userInfo['userId'];
-          this.getData()
+          let today = new Date();
+          this.initDate = today.getFullYear() +'.'+ this.padLeftZero(today.getMonth());
+          this.getData(0);
           //this.months = this.getMonth();
         },
         methods:{
-            /*getMonth(){
-              let monthsArr = [''];
-              let nowTime = new Date();
-              let nowYear = nowTime.getFullYear();
-              let nowMonth = nowTime.getMonth() + 1
-              for(var i = 1;i<nowMonth;i++){
-                monthsArr.push(nowYear+ '.'+ i)
+            getChooseMonth(chooseMonth){
+              this.month = chooseMonth
+              console.log(chooseMonth,this.month)
+            },
+            padLeftZero(str) {
+              typeof(str) === 'number' && (str = str + '');
+              return ('00' + str).substr(str.length);
+            },
+            getData(num){
+              let date = this.month;
+              if(!num.num){
+                date = this.initDate.replace(/[^\d]/g,'');
               }
-              return monthsArr
-            },*/
-            getData(monthNum){
               axios.post('/x-service/user/lowerLevel.htm',qs.stringify({
                 userId:this.userInfo.userId,
-                curYearMonth:monthNum
+                curYearMonth:date
               })).then((res) => {
                   let data = res.data;
                   if (data.status == 0) {
@@ -82,15 +87,6 @@
                      console.log(data.errorMsg)
                   }
               })
-            },
-            select(){
-              let monthNum = (this.selectMonth) ;
-              if(monthNum == ""){
-                this.getData()
-
-              }else{
-                this.getData(monthNum);
-              }
             }
         }
     }

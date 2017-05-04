@@ -1,11 +1,11 @@
 <template>
   <div class="simpleCalenderArea">
     <label>月份:</label>
-    <span class="chooseMonth" type="text" @click="toggleClick">{{chooseMonth}}</span>
+    <input class="chooseMonth" type="text" @click="toggleClick" :value="chooseMonth"/>
   <div class="calender" v-if="isHide">
     <div class="canHeader">
       <span class="canBtn prevBtn" @click="prevYear">&lt;</span>
-      <span class="curMonth">{{year}}.{{month}}</span>
+      <span class="curMonth">{{chooseMonth}}</span>
       <span class="canBtn nextBtn" @click="nextYear">&gt;</span>
     </div>
     <ul class="canBody">
@@ -34,12 +34,13 @@
             getCurMonth(){
                 let today = new Date();
                 this.year = today.getFullYear();
-                this.month = today.getMonth();/*上个月份*/
+                this.month = this.padLeftZero(today.getMonth());/*上个月份*/
                 this.chooseMonth = this.year + "." + this.month
             },
             getMonths(){
                 this.months = [];
                 for(let i=1;i<13;i++){
+                    i = this.padLeftZero(i);
                     this.months.push(this.year + "." + i)
                 }
             },
@@ -56,10 +57,13 @@
             },
             chooseHandle(item){
                 this.isHide = false;
-                this.chooseMonth = item
+                this.chooseMonth = item;
+                this.$emit('chooseMonth',this.chooseMonth.replace(/[^\d]/g,''))
+            },
+            padLeftZero(str) {
+              typeof(str) === 'number' && (str = str + '');
+              return ('00' + str).substr(str.length);
             }
-
-
         }
     }
 </script>
@@ -67,7 +71,7 @@
 <style lang="less" rel="stylesheet/less">
   @import '../../common/style/commoncolor.less';
   .simpleCalenderArea{
-    width: 5rem;
+    float: left;
   }
   .chooseMonth {
     display: inline-block;
