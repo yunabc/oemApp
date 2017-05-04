@@ -138,11 +138,11 @@
         this.openWindow = bool;
 
       },
-      logHandler(item){
-        if(item.plateStatus != 0){
+      logHandler(params){
+        if(params.item.plateStatus != 0){
           axios.post('/x-service/user/record.htm',qs.stringify({
             userId: this.userInfo.userId,
-            plateId:item.plateId
+            plateId:params.item.plateId
           })).then((res) => {
             let data = res.data;
             if (data.status == 0) {
