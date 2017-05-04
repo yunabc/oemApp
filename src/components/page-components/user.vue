@@ -66,7 +66,6 @@
       axios.get('/x-service/user/share.htm').then((res) => {
         let data = res.data;
         if (data.status == 0) {
-        console.log(1)
            this.option.appId = data.result.appId
            this.option.timestamp = data.result.timestamp
            this.option.nonceStr = data.result.nonceStr

@@ -76,7 +76,7 @@ const router = new Router({
       children:[
         {
           path:'/',
-          redirect:'/invest/current',
+          redirect:'/invest/regular',
           meta: {
             title: '活期'
           },

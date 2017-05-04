@@ -115,10 +115,16 @@
         console.log(this.dataList2);
         this.page2=this.page;
         let wrapper = this.$refs.listWrapper
-        let offTop = wrapper.offsetTop;
-        // let winH = window.offsetHeight;
-        // wrapper.style.top = offTop + "px";
-        wrapper.style.bottom = 1.30666667+ "rem";
+        let offTopThis = wrapper.offsetTop;
+        let offTopParent = wrapper.parentNode.offsetTop;
+        let doc = document.body || document.documentElement;
+        let docH = doc.offsetHeight;
+        let docW = doc.offsetWidth;
+        let rate = docW/10;
+        console.log(offTopThis,docH,offTopParent,docW)
+        // wrapper.style.top = offTop + "px";(docH-offTopThis-offTopParent)/75 -1.30666667
+        let hei = (docH-offTopThis-offTopParent)/rate -1.30666667
+        wrapper.style.height = hei+ "rem";
         console.log(12)
         this.$nextTick(() => {
           this._initScroll();

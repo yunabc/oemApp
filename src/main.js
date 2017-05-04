@@ -5,11 +5,12 @@ import App from './App'
 import router from './router'
 import store from './store'
 import vueTap from 'v-tap'
-import fastclick from 'fastclick'
+import VueCookie from 'vue-cookie'
 
 Vue.config.productionTip = false
 
 Vue.use(vueTap);
+Vue.use(VueCookie);
 
 /* eslint-disable no-new */
 new Vue({

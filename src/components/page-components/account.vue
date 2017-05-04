@@ -26,19 +26,41 @@
         bankphone: '',
         userId:null,
         account:{},
-        active:'active'
+        active:'active',
+        promiseObj:null,
 
       }
     },
     created() {
-      this.account = this.$route.params;
-      this.realname = this.account.realName;
-      this.idcode = this.account.idNo;
-      this.userId = this.account.userId;
-      this.bankcard = this.account.bankCode;
-      this.bankphone = this.account.bankTel;
-      console.log(this.userId)
-      
+      console.log(this.$route.params['idNo']);
+      if(this.$route.params['idNo']){
+        this.account = this.$route.params;
+      }else{
+      this.promiseObj = new Promise((resolve) =>{
+          axios.post('/x-service/user/info.htm',qs.stringify({userId:this.$store.state.personalInfo.userId})).then((res) => {
+            let data = res.data;
+            return resolve(data);
+          })
+        })
+      }
+      if(this.promiseObj){
+        this.promiseObj.then((data) =>{
+          console.log(data);
+          this.account=data.result;
+          this._renderProperty()
+        })
+      }else{
+        this._renderProperty();
+      }
+    },
+    methods: {
+      _renderProperty() {
+        this.realname = this.account.realName;
+        this.idcode = this.account.idNo;
+        this.userId = this.account.userId;
+        this.bankcard = this.account.bankCode;
+        this.bankphone = this.account.bankTel;
+      }
     },
     components:{
       footNav

@@ -48,6 +48,7 @@
     "shelljs": "^0.7.6",
     "url-loader": "^0.5.8",
     "v-tap": "^3.0.1",
+    "vue-cookie": "^1.1.4",
     "vue-loader": "^11.3.4",
     "vue-style-loader": "^2.0.5",
     "vue-template-compiler": "^2.2.6",

@@ -166,7 +166,7 @@ export default {
 					case "0":
 						// 登陆成功
 						console.log(this.topage);
-
+						this.$cookie.set('userId',result.userId)
 						this.save(result);
 						this.$router.push({ name: this.topage, params: result})
 
