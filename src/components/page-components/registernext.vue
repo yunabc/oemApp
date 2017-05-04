@@ -88,7 +88,7 @@ export default {
 
 		},
 		upload() {
-			axios.post( "x-service/user/regInfo.htm",qs.stringify({
+			axios.post( "/x-service/user/regInfo.htm",qs.stringify({
 				userId:this.userId,
 				bankTel:this.bankcardphone,
 				realName:this.name,

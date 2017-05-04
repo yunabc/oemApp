@@ -16,7 +16,7 @@
         <p class="text">投资记录</p>
       </div>
       <div class="logsList" v-show="logsStatus == 'up'">
-        <a  v-for="item in logsList" :data-id="item.plateId"  href="javascript:void(0)" class="logsItem" v-tap="{methods:logHandler,paramA:item}">{{item.plateName}}</a>
+        <a  v-for="item in logsList" :data-id="item.plateId"  href="javascript:void(0)" class="logsItem" v-tap="{methods:logHandler,item:item}">{{item.plateName}}</a>
       </div>
     </li>
     <li class="manage userCenterItem userItemLine">

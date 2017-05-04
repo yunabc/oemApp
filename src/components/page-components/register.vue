@@ -51,12 +51,10 @@ export default {
 			this.checkread = !this.checkread
 		},
 		checkinput() {
-			this.$router.push({ name: 'registernext',params:{userId:'sdfsdf'}})
 			let flag = true;
 			let reg = /^1(3[0-9]|4[57]|5[0-35-9]|8[0-9]|7[780])\d{8}$/;
 			let regp = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
 			let regcode = /^\d{6}$/;
-			console.log(this.phone == '',this.password != null)
 			if(this.phone != "" && this.password != "" && this.password2 != "" && this.code != "" && this.checkread){
 				if(reg.test(this.phone)){
 					if(regp.test(this.password) && regp.test(this.password2)){
@@ -178,7 +176,7 @@ export default {
 								break;
 							case "0":
 								// 
-								this.count = 3;
+								this.count = 59;
 								this.second = "s";
 								console.log(this.count);
 								this.counted();

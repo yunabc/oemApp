@@ -137,11 +137,8 @@
 
   #home {
     .home-banner {
-      position: fixed;
       width: 100%;
       height: 4.8rem;
-      left: 0;
-      top: 0;
       background-color: #fff;
       .swiper-slide {
         img {
@@ -152,7 +149,7 @@
     }
 
     .home-content {
-      padding: 5.2rem .4rem 0;
+      padding: .3rem .4rem 0;
 
       .investLi {
         background-color: #fff;

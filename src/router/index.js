@@ -23,47 +23,78 @@ export default new Router({
     {
       path: '/login',
       name: 'login',
+      meta: {
+        title: '登陆'
+      },
       component: login
     },
     {
       path:'/lostpassword',
       name:'lostpassword',
+      meta: {
+        title: '忘记密码'
+      },
       component:lostpassword
     },
     {
       path:'/register',
       name:'register',
+      meta: {
+        title: '注册账号'
+      },
       component:register
 
     },{
       path:'/next',
       name:'registernext',
+      meta: {
+        title: '完善用户信息'
+      },
       component:registernext
     },
     {
       path:'/home',
+      meta: {
+        title: '首页'
+      },
       component:home
+
     },
     {
       path:'/',
+      meta: {
+        title: '首页'
+      },
       redirect:'/home'
     },
     {
       path:'/invest',
       component:invest,
+      meta: {
+        title: '投资'
+      },
       children:[
         {
           path:'/',
-          redirect:'/invest/current'
+          redirect:'/invest/current',
+          meta: {
+            title: '活期'
+          },
         },
         {
           path:'/invest/regular',
           name:'regular',
+          meta: {
+            title: '定期'
+          },
           component:regularProduct
         },
         {
           path:'/invest/current',
           name:'current',
+          meta: {
+            title: '活期'
+          },
           component:currentProduct
         }
       ]
@@ -72,32 +103,53 @@ export default new Router({
     {
       path:'/user',
       name:'user',
+      meta: {
+        title: '我的'
+      },
       component:user
     },
     {
       path:'/user/performance',
+      meta: {
+        title: '规模绩效'
+      },
       component:performance,
       children:[
         {
           path:'/',
+          meta: {
+            title: '我的绩效'
+          },
           redirect:'/user/myPerformance'
         },
         {
           path:'/user/myPerformance',
+          meta: {
+            title: '我的绩效'
+          },
           component:myPerformance
         },
         {
           path:'/user/lowerPerformance',
+          meta: {
+            title: '下级推广人绩效'
+          },
           component:lowerPerformance
         }
       ]
     },{
       path: '/account',
       name: 'account',
+      meta: {
+        title: '账户管理'
+      },
       component: account
     },{
       path: '/changePassword',
       name: 'changePassword',
+      meta: {
+        title: '修改密码'
+      },
       component: changePassword
     }
   ],
