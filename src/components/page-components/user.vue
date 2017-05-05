@@ -120,7 +120,7 @@
             let data = res.data;
             if (data.status == 0) {
               this.$cookie.delete('userId');
-              window.confirm("确定要退出了吗？") && this.$router.push('/login');
+              window.confirm("确定要退出了吗？") && this.$router.push({ name: 'login',query:{topage:'user'}});
               console.log("退出")
             }
          })
