@@ -119,6 +119,8 @@
          axios.post('/x-service/user/logout.htm',qs.stringify({userId:this.userInfo.userId})).then((res) => {
             let data = res.data;
             if (data.status == 0) {
+              this.$cookie.delete('userId');
+              window.confirm("确定要退出了吗？") && this.$router.push('/login');
               console.log("退出")
             }
          })
