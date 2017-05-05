@@ -91,8 +91,8 @@
                   if (data.status == 0) {
                     this.dataList = data.result;
                     this.dataReturnFlag = true;
-                      console.log(params && params.item !="");
-                    if(params && params.item !=""){
+                      console.log(params);
+                    if(params && params.item){
                       console.log(111);
                       this.msg = params.item;
                       this.openWindow = true;

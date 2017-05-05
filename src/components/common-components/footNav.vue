@@ -25,7 +25,7 @@
           checkInfo() {
             console.log(this.userInfo);
 
-            if(this.userInfo && this.userInfo['userId'] !=''){
+            if(this.userInfo.hasOwnProperty('userId') && this.userInfo['userId'] !=''){
               // 
               this.$router.push('/user');
             }else{

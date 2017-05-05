@@ -81,17 +81,18 @@
         console.log(error);
       });
       /*获取列表*/
+      console.
       axios.post('/x-service/user/plate.htm',qs.stringify({userId:this.userInfo.userId})).then((res) => {
         let data = res.data;
         if (data.status == 0) {
            this.logsList = data.result;
         } else {
-          var that =this;
-          this.msg = data.errorMsg;
-          this.openWindow = true;
-          setTimeout(function(){
-            that.$router.push({ name: 'login',query:{topage:'user'}})
-          },1500)
+          // var that =this;
+          // this.msg = data.errorMsg;
+          // this.openWindow = true;
+          // setTimeout(function(){
+          //   that.$router.push({ name: 'login',query:{topage:'user'}})
+          // },1500)
         }
       }).catch(function (error) {
         console.log(error);
