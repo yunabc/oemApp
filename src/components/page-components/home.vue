@@ -168,7 +168,7 @@
           img {
             width: .78666667rem;
             height: .77333333rem;
-            margin-top: .21333333rem;
+            margin-top: .17rem;
           }
 
           .desc {
