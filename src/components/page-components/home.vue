@@ -1,6 +1,6 @@
 <template>
   <div id="home" class="stageScreen">
-    <div class="swiper-container home-banner" v-if="bannerImgs.length">
+    <div class="swiper-container home-banner" v-if="bannerImgs.length>1">
       <div class="swiper-wrapper">
         <a v-for="item in bannerImgs" :href="item.triggerType?item.triggerUrl:noUrl" class="swiper-slide"><img
           :src="item.bannerUrl" :alt="item.bannerTitle" width="100%"></a>
@@ -13,7 +13,9 @@
        <div class="swiper-button-next"></div>-->
     </div>
     <div class="home-banner" v-else>
-      <a href="" class="swiper-slide"><img src="../../common/img/banner.jpg" alt="" width="100%"></a>
+      <a v-for="item in bannerImgs" :href="item.triggerType?item.triggerUrl:noUrl" class="swiper-slide">
+        <img  :src="item.bannerUrl" :alt="item.bannerTitle"  width="100%">
+      </a>
     </div>
     <ul class="home-content" v-if="productDqViews.length || productHqViews.length">
       <li class="currentInvest investLi" v-for="item in productHqViews" :data-id="item.proId">
