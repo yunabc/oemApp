@@ -97,6 +97,7 @@ export default {
 
 		},
 		upload() {
+			var that =this;
 			axios.post("/x-service/user/forget.htm",qs.stringify({
 				userInviterId:this.userInviterId,
 				mobile:this.phone,
@@ -113,10 +114,11 @@ export default {
 						break;
 					case "0":
 						// 登陆成功
+						this.count = 0;
              this.msg = "密码修改成功";
 						this.openWindow = true;
 						setTimeout(function(){
-							this.$router.push({ name: 'login'})
+							that.$router.push({ name: 'login'})
 						},1500)
 
 						break;

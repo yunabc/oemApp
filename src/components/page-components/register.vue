@@ -131,6 +131,7 @@ export default {
 						// 注册成功
 						var that =this;
 						this.msg = "注册成功，请完善用户信息";
+						this.count = 0;
 						this.openWindow = true;
 						setTimeout(function(){
 							that.$router.push({ name: 'registernext',params:{userId:data.result.userId}})
@@ -139,6 +140,7 @@ export default {
 					case "2":
 						// 注册未绑定客户信息
 						var that =this;
+						this.count = 0;
 						this.msg = "注册成功，请完善用户信息";
 						this.openWindow = true;
 						setTimeout(function(){
