@@ -229,7 +229,8 @@
           .logsItem{
             color: #818181;
             border-bottom: none;
-            height: .69333333rem/* 52px */;
+            height: .9333333rem;
+            line-height: 0.933333rem;
           }
         }
       }
