@@ -112,7 +112,7 @@
       },
       share(){
         // console.log(window.location)
-        this.pathUrl = window.location.origin
+        this.pathUrl = window.location.origin + '/app/index.html';
         wxShare(this.option,this.pathUrl)
         this.shareTo = true;
       },
@@ -299,15 +299,13 @@
 
     }
     .logout{
-      width: 1.6rem;
-      height: .64rem;
-      line-height: .64rem;
+      width: 100%;
+      height: 1rem;
+      line-height: 1rem;
       font-size: .32rem;
-      border-radius: .16rem;
       text-align: center;
-      color: #fff;
-      background-color: @color;
-      margin: 2rem auto;
+      background-color: #fff;
+      margin: 1.5rem auto;
     }
   }
 
