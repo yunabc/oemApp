@@ -76,7 +76,7 @@ import qs from 'qs';
               axios.post('/x-service/pro/detail.htm',qs.stringify({userId:this.userInfo['userId'],proId:params.params})).then((res) => {
                 let data = res.data;
                 if (data.status == 0) {
-                  location.href = data.allRedirectUrl;
+                  location.href = data.result.allRedirectUrl;;
                 } else {
                   console.log(data.errorMsg)
                 }

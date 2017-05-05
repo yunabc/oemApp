@@ -187,7 +187,8 @@
             let data = res.data;
             console.log(data.result);
             if (data.status == 0) {
-              location.href = data.allRedirectUrl;
+              console.log(data.result.allRedirectUrl);
+              location.href = data.result.allRedirectUrl;
             } else {
               console.log(data.errorMsg)
             }
