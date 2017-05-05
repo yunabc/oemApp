@@ -41,7 +41,7 @@ export default {
 			z-index: 5;
 		}
 		.alert-content{
-			z-index: 6;
+			z-index: 124;
 			width: 60%;
 			left: 50%;
 		  box-shadow:0 0 10px #ccc;  

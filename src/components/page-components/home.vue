@@ -22,7 +22,7 @@
             <img src="../../common/img/current.png" alt="">
             <div class="desc">
               <a href="" class="title">活期理财</a>
-              <div class="subtitle">随存随取 复利计息</div>
+              <!-- <div class="subtitle">随存随取 复利计息</div> -->
             </div>
             <div class="nextIcon"></div>
           </div>
@@ -41,7 +41,7 @@
             <img src="../../common/img/regular.png" alt="">
             <div class="desc">
               <a href="" class="title">定期理财</a>
-              <div class="subtitle">限期丰富 还可转让变活</div>
+              <!-- <div class="subtitle">限期丰富 还可转让变活</div> -->
             </div>
             <div class="nextIcon"></div>
           </div>
@@ -176,7 +176,7 @@
               font-size: .42666667rem;
               line-height: .48rem;
               font-weight: bold;
-              margin-bottom: .32rem;
+              margin-top: .32rem;
             }
             .subtitle {
               font-size: .32rem;

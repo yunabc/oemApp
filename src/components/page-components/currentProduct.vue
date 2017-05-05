@@ -1,6 +1,6 @@
 <template>
   <div id="product" v-if="dataAll && dataAll.length">
-    <invest-header :dataHot="dataHot" :isH="isH"></invest-header>
+    <invest-header :dataHot="dataHot" :isH="isH" :userInfo="userInfo"></invest-header>
     <div class="clockHint">
       <i class="clockImg"><img src="../../common/img/clock.png" alt=""></i>
       <div class="desc">

@@ -1,9 +1,9 @@
 <template>
 <div class="account">
   <ul class="account-list">
-    <li class="account-li"><span class="key">旧密码:</span><input type="text" v-model="oldpassword"></li>
-    <li class="account-li"><span class="key">新密码:</span><input type="text" v-model="newpassword"></li>
-    <li class="account-li"><span class="key">确认密码:</span><input type="text" v-model="newpassword2"></li>
+    <li class="account-li"><span class="key">旧密码:</span><input type="password" v-model="oldpassword"></li>
+    <li class="account-li"><span class="key">新密码:</span><input type="password" v-model="newpassword"></li>
+    <li class="account-li"><span class="key">确认密码:</span><input type="password" v-model="newpassword2"></li>
 
   </ul>
   <button class="change-btn" v-tap="{methods:checkinput}">保存</button>

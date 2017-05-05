@@ -10,7 +10,7 @@
       <div class="times">期限<span class="days">{{dataHot.proDayLimit}}</span>天</div>
     </div>
 
-    <div v-tap="{methods:checkInfo}" class="buyBtn">立即购买</div>
+    <div v-tap="{methods:checkInfo,params:dataHot.proId}" class="buyBtn">立即购买</div>
   </div>
 </template>
 <style lang="less" rel="stylesheet/less">
@@ -55,6 +55,8 @@
   }
 </style>
 <script>
+import axios from 'axios';
+import qs from 'qs';
     export default{
         data () {
           return{
@@ -68,10 +70,19 @@
           isH: Boolean
         },
         methods: {
-          checkInfo() {
+          checkInfo(params) {
             //if(this.userInfo.userId && this.userInfo.userId !=''){
             if(this.userInfo && this.userInfo.hasOwnProperty('userId') && this.userInfo["userId"] !=''){
-              this.$router.push('/user');
+              axios.post('/x-service/pro/detail.htm',qs.stringify({userId:this.userInfo['userId'],proId:params.params})).then((res) => {
+                let data = res.data;
+                if (data.status == 0) {
+                  location.href = data.allRedirectUrl;
+                } else {
+                  console.log(data.errorMsg)
+                }
+              }).catch(function (error) {
+                console.log(error);
+              });
             }else{
               this.$router.push({path:"/login",query:{topage:"user"}});
             }

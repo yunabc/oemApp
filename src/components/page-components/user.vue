@@ -1,8 +1,8 @@
 <template>
 <div id="user" class="stageScreen">
   <div v-if="vip" class="userHeader">
-    <div class="moneyNum">1,111.00</div>
-    <p>累计佣金(元)</p>
+    <div class="moneyNum">{{userInfo.totalMoney}}</div>
+    <p>{{userInfo.totalMoneyText}}</p>
   </div>
   <ul class="userCenterList">
     <li class="invite userCenterItem userItemLine" v-tap="{methods:share}">
@@ -16,7 +16,7 @@
         <p class="text">投资记录</p>
       </div>
       <div class="logsList" v-show="logsStatus == 'up'">
-        <a  v-for="item in logsList" :data-id="item.plateId"  href="javascript:void(0)" class="logsItem" v-tap="{methods:logHandler,item:item}">{{item.plateName}}</a>
+        <a  v-for="item in logsList" :data-id="item.plateId"  href="javascript:void(0)" class="logsItem" v-tap="{methods:logHandler,item:item.plateId,item2:item.plateStatus}">{{item.plateName}}</a>
       </div>
     </li>
     <li class="manage userCenterItem userItemLine">
@@ -140,10 +140,10 @@
 
       },
       logHandler(params){
-        if(params.item.plateStatus != 0){
+        if(params.item2 != 0){
           axios.post('/x-service/user/record.htm',qs.stringify({
             userId: this.userInfo.userId,
-            plateId:params.item.plateId
+            plateId:params.item
           })).then((res) => {
             let data = res.data;
             if (data.status == 0) {

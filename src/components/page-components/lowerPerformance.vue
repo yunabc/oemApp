@@ -3,7 +3,7 @@
   <div class="chooseCondition">
     <date-picker @chooseMonth="getChooseMonth"></date-picker>
     <div class="btnWrap">
-      <button class="refresh performanceBtn" v-tap="{methods:getData}">刷新</button>
+      <button class="refresh performanceBtn" v-tap="{methods:getData,item:'刷新成功'}">刷新</button>
       <button class="search performanceBtn" v-tap="{methods:getData}">查询</button>
     </div>
   </div>
@@ -30,13 +30,14 @@
     </table>
     <div class="noContent" v-else>暂无数据</div>
   </div>
-
+  <v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>
 </div>
 
 </template>
 
 <script>
   import footNav from 'components/common-components/footNav';
+  import alert from '../common-components/alert.vue'
   import datePicker from 'components/common-components/datePicker';
   import axios from 'axios';
   import qs from 'qs';
@@ -49,12 +50,15 @@
               initDate:'',
               userInfo:{},
               userId:null,
-              dataReturnFlag:false
+              dataReturnFlag:false,
+              msg:'测试提示文案测试提示文案测试提示文案测试提示文案测试提示文案',
+              openWindow: false,
             }
         },
         components:{
           footNav,
-          datePicker
+          datePicker,
+          'v-alert': alert
         },
         created(){
           this.userInfo = this.$store.state.personalInfo || {};
@@ -64,6 +68,10 @@
           this.getData();
         },
         methods:{
+            closeWindow(bool) {
+              this.openWindow = bool;
+
+            },
             getChooseMonth(chooseMonth){
               this.chooseMonth = chooseMonth;
               console.log(chooseMonth,this.month)
@@ -72,7 +80,7 @@
               typeof(str) === 'number' && (str = str + '');
               return ('00' + str).substr(str.length);
             },
-            getData(){
+            getData(params){
               let curYearMonth = this.chooseMonth ?this.chooseMonth: this.initDate;
 
               axios.post('/x-service/user/lowerLevel.htm',qs.stringify({
@@ -82,7 +90,13 @@
                   let data = res.data;
                   if (data.status == 0) {
                     this.dataList = data.result;
-                    this.dataReturnFlag = true
+                    this.dataReturnFlag = true;
+                      console.log(params && params.item !="");
+                    if(params && params.item !=""){
+                      console.log(111);
+                      this.msg = params.item;
+                      this.openWindow = true;
+                    }
                   }else{
                      console.log(data.errorMsg)
                   }

@@ -51,6 +51,7 @@ export default {
 		}
 	},
 	created() {
+		console.log(this.$route.query.topage)
 		this.topage = this.$route.query.topage;
 
 	},

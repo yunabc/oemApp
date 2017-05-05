@@ -19,7 +19,7 @@
             <p>期限</p>
           </div>
 
-          <div class="buyBtn" v-tap="{methods:checkInfo}">立即购买</div>
+          <div class="buyBtn" v-tap="{methods:checkInfo,params:item.proId}">立即购买</div>
         </div>
       </li>
     </ul>
@@ -92,6 +92,7 @@
           dataList2:[],
           page2:0,
           _flag:false,
+          userInfo:{},
       };
     },
     props: {
@@ -103,13 +104,13 @@
       promiseObj: Promise,
       isH:Boolean
     },
-
     components:{
         loading
     },
     created() {
       this._flag = this.flag;
-      console.log()
+      console.log(this.$store.state.personalInfo)
+      this.userInfo = this.$store.state.personalInfo;
     },
     mounted(){
       this.promiseObj.then((res) =>{
@@ -179,9 +180,19 @@
           });
         }
       },
-      checkInfo(url) {
+      checkInfo(params) {
+        console.log(params )
         if(this.userInfo && this.userInfo['userId'] !=''){
-          location.href = url;
+          axios.post('/x-service/pro/detail.htm',qs.stringify({userId:this.userInfo['userId'],proId:params.params})).then((res) => {
+            let data = res.data;
+            if (data.status == 0) {
+              location.href = data.allRedirectUrl;
+            } else {
+              console.log(data.errorMsg)
+            }
+          }).catch(function (error) {
+            console.log(error);
+          });
         }else{
           this.$router.push({path:"/login",query:{topage:this.$route.name}});
         }
