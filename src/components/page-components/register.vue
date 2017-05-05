@@ -133,11 +133,17 @@ export default {
 						this.msg = "注册成功，请完善用户信息";
 						this.openWindow = true;
 						setTimeout(function(){
-							that.$router.push({ name: 'next',params:{userId:data.result.userId}})
+							that.$router.push({ name: 'registernext',params:{userId:data.result.userId}})
 						},1500)
 						break;
 					case "2":
 						// 注册未绑定客户信息
+						var that =this;
+						this.msg = "注册成功，请完善用户信息";
+						this.openWindow = true;
+						setTimeout(function(){
+							that.$router.push({ name: 'registernext',params:{userId:data.result.userId}})
+						},1500)
 						break;
 					case "-1":
 					// 未登录

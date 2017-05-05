@@ -131,12 +131,19 @@
               name:'account',
               params:data.result
             })
-          } else {
+          } else if(data.status == -1){
             var that =this;
             this.msg = data.errorMsg;
             this.openWindow = true;
             setTimeout(function(){
               that.$router.push({ name: 'login',query:{topage:'user'}})
+            },1500)
+          }else if(data.status == 2){
+            var that =this;
+            this.msg = "未绑定用户信息，请绑定";
+            this.openWindow = true;
+            setTimeout(function(){
+              that.$router.push({ name: 'registernext',params:{userId:data.result.userId}})
             },1500)
           }
         }).catch(function (error) {
