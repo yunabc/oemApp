@@ -81,7 +81,6 @@
         console.log(error);
       });
       /*获取列表*/
-      console.
       axios.post('/x-service/user/plate.htm',qs.stringify({userId:this.userInfo.userId})).then((res) => {
         let data = res.data;
         if (data.status == 0) {
