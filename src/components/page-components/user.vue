@@ -23,6 +23,7 @@
       <p class="text" v-tap="{methods:ckeckDetail}">账户管理</p>
     </li>
   </ul>
+  <div class="logout" v-tap="{methods:logout}">退出</div>
   <div class="zhezhao" v-if="shareTo"></div>
   <div class="share-arrow" v-if="shareTo"><i class="fa fa-times" aria-hidden="true" v-tap="{methods:closeFn}"></i></div>
   <foot-nav :userInfo="userInfo" :active="active"></foot-nav>
@@ -114,7 +115,14 @@
         wxShare(this.option,this.pathUrl)
         this.shareTo = true;
       },
-
+      logout(){
+         axios.post('/x-service/user/logout.htm',qs.stringify({userId:this.userInfo.userId})).then((res) => {
+            let data = res.data;
+            if (data.status == 0) {
+              console.log("退出")
+            }
+         })
+      },
       ckeckDetail() {
         axios.post('/x-service/user/info.htm',qs.stringify({userId:this.userInfo.userId})).then((res) => {
           let data = res.data;
@@ -286,7 +294,17 @@
       }
 
     }
-
+    .logout{
+      width: 1.6rem;
+      height: .64rem;
+      line-height: .64rem;
+      font-size: .32rem;
+      border-radius: .16rem;
+      text-align: center;
+      color: #fff;
+      background-color: #f88e2d;
+      margin: 2rem auto;
+    }
   }
 
 

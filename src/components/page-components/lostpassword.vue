@@ -113,8 +113,11 @@ export default {
 						break;
 					case "0":
 						// 登陆成功
-
-						this.$router.push({ name: 'login'})
+             this.msg = "密码修改成功";
+						this.openWindow = true;
+						setTimeout(function(){
+							this.$router.push({ name: 'login'})
+						},1500)
 
 						break;
 					case "2":
@@ -135,7 +138,8 @@ export default {
 				console.log(reg.test(this.phone));
 				if(this.count.indexOf('发送') > -1){
 					axios.post("/x-service/user/msg.htm",qs.stringify({
-						mobile:this.phone
+						mobile:this.phone,
+						smsTem:5
 					})).then((res) => {
 						var data = res.data;
 						if(data.status == 0){
