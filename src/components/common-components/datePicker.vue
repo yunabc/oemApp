@@ -58,13 +58,14 @@
             chooseHandle(item){
                 this.isHide = false;
                 this.chooseMonth = item;
-                this.$emit('chooseMonth',this.chooseMonth.replace(/[^\d]/g,''))
+                this.$emit('chooseMonth',this.chooseMonth)
             },
             padLeftZero(str) {
               typeof(str) === 'number' && (str = str + '');
               return ('00' + str).substr(str.length);
             }
-        }
+        },
+
     }
 </script>
 
