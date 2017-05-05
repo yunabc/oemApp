@@ -1,17 +1,20 @@
 <template>
-  <div id="product" v-if="dataAll && dataAll.length">
-    <invest-header :dataHot="dataHot" :isH="isH" :userInfo="userInfo"></invest-header>
-    <div class="clockHint">
-      <i class="clockImg"><img src="../../common/img/clock.png" alt=""></i>
-      <div class="desc">
-        <p>开启新产品上线提醒</p>
-        <p>抢购快人一步</p>
+  <div v-if="dataReturnFlag">
+    <div id="product" v-if="dataAll && dataAll.length">
+      <invest-header :dataHot="dataHot" :isH="isH" :userInfo="userInfo"></invest-header>
+      <div class="clockHint">
+        <i class="clockImg"><img src="../../common/img/clock.png" alt=""></i>
+        <div class="desc">
+          <p>开启新产品上线提醒</p>
+          <p>抢购快人一步</p>
+        </div>
+        <div class="swichBtn"><img src="../../common/img/clock.png" alt=""></div>
       </div>
-      <div class="swichBtn"><img src="../../common/img/clock.png" alt=""></div>
+      <invest-list :isH="isH" :promiseObj="promiseObj" :flag="flag" :dataList="dataList" :page="page" :url="url" :userInfo="userInfo" :investurl="current"></invest-list>
     </div>
-    <invest-list :isH="isH" :promiseObj="promiseObj" :flag="flag" :dataList="dataList" :page="page" :url="url" :userInfo="userInfo" :investurl="current"></invest-list>
+    <div class="noContent" v-else>暂无数据</div>
   </div>
-  <div class="noContent" v-else>暂无数据</div>
+
 
 </template>
 
@@ -33,6 +36,7 @@
         current:'current',
         singleNum:6,
         promiseObj:{},
+        dataReturnFlag:false
       }
     },
     props:{
@@ -56,6 +60,7 @@
             if(data.result.length === 0 || data.result.length<this.singleNum){
                 this.flag = false
             }
+            this.dataReturnFlag = true;
           } else {
             console.log(data.errorMsg)
           }

@@ -119,6 +119,8 @@
          axios.post('/x-service/user/logout.htm',qs.stringify({userId:this.userInfo.userId})).then((res) => {
             let data = res.data;
             if (data.status == 0) {
+              this.$cookie.delete('userId');
+              window.confirm("确定要退出了吗？") && this.$router.push({ name: 'login',query:{topage:'user'}});
               console.log("退出")
             }
          })
@@ -236,7 +238,8 @@
           .logsItem{
             color: #818181;
             border-bottom: none;
-            height: .69333333rem/* 52px */;
+            height: .9333333rem;
+            line-height: 0.933333rem;
           }
         }
       }
@@ -302,7 +305,7 @@
       border-radius: .16rem;
       text-align: center;
       color: #fff;
-      background-color: #f88e2d;
+      background-color: @color;
       margin: 2rem auto;
     }
   }
