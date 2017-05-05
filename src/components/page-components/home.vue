@@ -2,7 +2,7 @@
   <div id="home" class="stageScreen">
     <div class="swiper-container home-banner" v-if="bannerImgs.length">
       <div class="swiper-wrapper">
-        <a v-for="item in bannerImgs" :href="item.triggerType?item.triggerUrl:noUrl" class="swiper-slide"><img
+        <a v-for="item in bannerImgs" :href="item.triggerType==1?item.tiggerUrl:noUrl" class="swiper-slide"><img
           :src="item.bannerUrl" :alt="item.bannerTitle" width="100%"></a>
       </div>
       <!-- 如果需要分页器 -->

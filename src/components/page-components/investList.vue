@@ -185,6 +185,7 @@
         if(this.userInfo && this.userInfo['userId'] !=''){
           axios.post('/x-service/pro/detail.htm',qs.stringify({userId:this.userInfo['userId'],proId:params.params})).then((res) => {
             let data = res.data;
+            console.log(data.result);
             if (data.status == 0) {
               location.href = data.allRedirectUrl;
             } else {
