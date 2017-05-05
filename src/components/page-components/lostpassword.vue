@@ -135,7 +135,8 @@ export default {
 				console.log(reg.test(this.phone));
 				if(this.count.indexOf('发送') > -1){
 					axios.post("/x-service/user/msg.htm",qs.stringify({
-						mobile:this.phone
+						mobile:this.phone,
+						smsTem:5
 					})).then((res) => {
 						var data = res.data;
 						if(data.status == 0){

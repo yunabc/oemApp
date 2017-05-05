@@ -112,7 +112,7 @@ export default {
 
 		},
 		upload() {
-			
+
 			axios.post("/x-service/user/reg.htm",qs.stringify({
 				userInviterId:this.userInviterId,
 				mobile:this.phone,
@@ -157,7 +157,8 @@ export default {
 
 					console.log(1);
 					axios.post("/x-service/user/msg.htm",qs.stringify({
-						mobile:this.phone
+						mobile:this.phone,
+						smsTem:1
 					})).then((res) => {
 						var data = res.data;
 						/*if(data.status == 0){
@@ -175,7 +176,7 @@ export default {
 								this.openWindow = true;
 								break;
 							case "0":
-								// 
+								//
 								this.count = 59;
 								this.second = "s";
 								console.log(this.count);
