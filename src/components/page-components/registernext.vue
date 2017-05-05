@@ -37,7 +37,7 @@ export default {
 			let flag = true;
 			let reg = /^[\u4e00-\u9fa5]{2,}$/;
 			let regp = /^([0-9]){7,18}(x|X)?$/;
-			let regbankcart =/^(998801|998802|622525|622526|435744|435745|483536|528020|526855|622156|622155|356869|531659|622157|627066|627067|627068|627069)\d{13}$/;
+			let regbankcart =/\d{16,}$/;
 			let regPhone = /^1(3[0-9]|4[57]|5[0-35-9]|8[0-9]|7[780])\d{8}$/;
 			if(this.name != "" && this.idcard != "" && this.bankcard != "" && this.bankcardphone != ""){
 				if(reg.test(this.name)){
