@@ -305,7 +305,7 @@
       border-radius: .16rem;
       text-align: center;
       color: #fff;
-      background-color: #f88e2d;
+      background-color: @color;
       margin: 2rem auto;
     }
   }
