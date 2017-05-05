@@ -112,7 +112,7 @@
       },
       share(){
         // console.log(window.location)
-        this.pathUrl = window.location.origin + '/app/index.html';
+        this.pathUrl = window.location.origin + window.location.pathname;
         wxShare(this.option,this.pathUrl)
         this.shareTo = true;
       },
