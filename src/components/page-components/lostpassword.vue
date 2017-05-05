@@ -113,8 +113,11 @@ export default {
 						break;
 					case "0":
 						// 登陆成功
-
-						this.$router.push({ name: 'login'})
+             this.msg = "密码修改成功";
+						this.openWindow = true;
+						setTimeout(function(){
+							this.$router.push({ name: 'login'})
+						},1500)
 
 						break;
 					case "2":
