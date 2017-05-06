@@ -1,14 +1,14 @@
 <template>
 <div id="user" class="stageScreen">
   <div v-if="vip" class="userHeader">
-    <div class="moneyNum">{{userInfo.totalMoney}}</div>
-    <p>{{userInfo.totalMoneyText}}</p>
+    <div class="moneyNum">{{totalMoney}}</div>
+    <p>{{totalMoneyText}}</p>
   </div>
   <ul class="userCenterList">
     <li class="invite userCenterItem userItemLine" v-tap="{methods:share}">
       <p class="text">邀请新用户</p>
     </li>
-    <router-link to="/user/performance" :userInfo="userInfo" v-if="vip" class="performance userCenterItem userItemLine">
+    <router-link to="/user/performance" v-if="vip" class="performance userCenterItem userItemLine">
       <p class="text">规模绩效</p>
     </router-link>
     <li class="userCenterItem">
@@ -26,7 +26,7 @@
   <div class="logout" v-tap="{methods:logout}">退出</div>
   <div class="zhezhao" v-if="shareTo"></div>
   <div class="share-arrow" v-if="shareTo"><i class="fa fa-times" aria-hidden="true" v-tap="{methods:closeFn}"></i></div>
-  <foot-nav :userInfo="userInfo" :active="active"></foot-nav>
+  <foot-nav :active="active"></foot-nav>
   <v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>
   <v-confirm :msg="msg" @sure="confirmSure" @cancle="closeWindow" v-if="openConfirm"></v-confirm>
 </div>
@@ -46,13 +46,15 @@
           logsStatus:"down",
           logsList:[],
           option:{},
-          userInfo:{},
           active:"active",
           msg:'敬请期待',
           openWindow: false,
           openConfirm: false,
           pathUrl:'',
           shareTo:false,
+          signFlag:null,
+          userId:null,
+          totalMoney:null,
         }
     },
     components:{
@@ -61,12 +63,15 @@
       'v-confirm': confirm,
     },
     created(){
-      this.userInfo = this.$store.state.personalInfo || {};
-      console.log(this.userInfo);
-      if(this.userInfo['signFlag'] == '00'){
+      this.signFlag = this.$cookie.get('signFlag');
+      this.userId = this.$cookie.get('userId');
+      this.totalMoney = this.$cookie.get('totalMoney');
+      this.totalMoneyText = this.$cookie.get('totalMoneyText');
+
+      if(this.signFlag == '00'){
         this.vip=true;
       }
-      this.option.userInviterId = this.userInfo.userId;
+      this.option.userInviterId = this.userId;
        /*微信分享*/
       axios.post('/x-service/user/share.htm',qs.stringify({
         signUrl: location.href.split('#')[0]
@@ -85,7 +90,7 @@
         console.log(error);
       });
       /*获取列表*/
-      axios.post('/x-service/user/plate.htm',qs.stringify({userId:this.userInfo.userId})).then((res) => {
+      axios.post('/x-service/user/plate.htm',qs.stringify({userId:this.userId})).then((res) => {
         let data = res.data;
         if (data.status == 0) {
            this.logsList = data.result;
@@ -125,7 +130,7 @@
          this.msg = '确定要退出了吗？'
       },
       ckeckDetail() {
-        axios.post('/x-service/user/info.htm',qs.stringify({userId:this.userInfo.userId})).then((res) => {
+        axios.post('/x-service/user/info.htm',qs.stringify({userId:this.userId})).then((res) => {
           let data = res.data;
           if (data.status == 0) {
             this.$router.push({
@@ -144,7 +149,7 @@
             this.msg = "未绑定用户信息，请绑定";
             this.openWindow = true;
             setTimeout(function(){
-              that.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'user'}})
+              that.$router.push({ name: 'registernext',params:{topage:'user'}})
             },1500)
           }
         }).catch(function (error) {
@@ -159,7 +164,7 @@
       },
       confirmSure() {
         this.openConfirm=false;
-        axios.post('/x-service/user/logout.htm',qs.stringify({userId:this.userInfo.userId})).then((res) => {
+        axios.post('/x-service/user/logout.htm',qs.stringify({userId:this.userId})).then((res) => {
            let data = res.data;
            if (data.status == 0) {
              this.$cookie.delete('userId');
@@ -172,7 +177,7 @@
       logHandler(params){
         if(params.item2 != 0){
           axios.post('/x-service/user/record.htm',qs.stringify({
-            userId: this.userInfo.userId,
+            userId: this.userId,
             plateId:params.item
           })).then((res) => {
             let data = res.data;
@@ -229,7 +234,8 @@
       flex-flow: column;
       height: 5.12rem/* 384px */;
       margin-bottom: .26666667rem;
-      background-color: @color;
+      background-image:-webkit-linear-gradient(-64deg, #f1660f, #f19d2b); 
+      // {background-image:linear-gradient(left top, red 100px, yellow 200px);}
       color: #fff;
       font-size:.26666667rem;
       .moneyNum{

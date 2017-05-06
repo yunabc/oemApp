@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div @click.self='changeDatePicker' id="app">
     <router-view></router-view>
   </div>
 </template>
@@ -9,7 +9,14 @@ export default {
   name: 'app',
   data() {
     return {
-
+      datePicker:true
+    }
+  },
+  created() {
+  },
+  methods: {
+    changeDatePicker() {
+      this.$store.dispatch('saveDP',true);
     }
   }
 }

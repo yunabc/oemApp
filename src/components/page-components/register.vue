@@ -51,6 +51,7 @@ export default {
 			this.checkread = !this.checkread
 		},
 		checkinput() {
+			document.activeElement.blur();
 			let flag = true;
 			let reg = /^1(3[0-9]|4[57]|5[0-35-9]|8[0-9]|7[780])\d{8}$/;
 			let regp = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;

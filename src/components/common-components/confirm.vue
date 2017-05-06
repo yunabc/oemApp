@@ -38,7 +38,7 @@ export default {
 		    border-top: 1px solid #e2e2e2;
 		    span.sure{
 		    	border:none;
-		    	padding:0 .26666667rem;
+		    	padding:0 .89rem;
 		    }
 			}
 		}

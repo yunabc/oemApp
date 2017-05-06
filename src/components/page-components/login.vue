@@ -110,6 +110,7 @@ export default {
 		},
 		checkInfo() {
 			//登录 判断情况
+			document.activeElement.blur();
 			this.loginTimes++;
 			if(this.loginTimes > 3) {
 				this.moveBlock = true;
@@ -166,16 +167,20 @@ export default {
 						break;
 					case "0":
 						// 登陆成功
-						console.log(this.topage);
-						this.$cookie.set('userId',result.userId)
-						this.save(result);
-						this.$router.push({ name: this.topage, params: result})
+						for (var key in result){
+							this.$cookie.set(key,result[key]);
+						}
+						// this.save(result);
+						this.$router.push({ name: this.topage})
 
 						break;
 					case "2":
 						// 登陆未绑定客户信息
-						this.save(result);
-						this.$router.push({ name: this.topage, params: result})
+						// this.save(result);
+						for (var key in result){
+							this.$cookie.set(key,result[key]);
+						}
+						this.$router.push({ name: this.topage})
 						break;
 					case "-1":
 					// 未登录

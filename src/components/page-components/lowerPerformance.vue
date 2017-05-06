@@ -48,7 +48,6 @@
               dataList:[],
               chooseMonth:'',
               initDate:'',
-              userInfo:{},
               userId:null,
               dataReturnFlag:false,
               msg:'测试提示文案测试提示文案测试提示文案测试提示文案测试提示文案',
@@ -61,8 +60,7 @@
           'v-alert': alert
         },
         created(){
-          this.userInfo = this.$store.state.personalInfo || {};
-          this.userId = this.userInfo['userId'];
+          this.userId = this.$cookie.get('userId');
           let today = new Date();
           this.initDate = today.getFullYear() +"."+ this.padLeftZero(today.getMonth());
           this.getData();
@@ -84,7 +82,7 @@
               let curYearMonth = this.chooseMonth ?this.chooseMonth: this.initDate;
 
               axios.post('/x-service/user/lowerLevel.htm',qs.stringify({
-                userId:this.userInfo.userId,
+                userId:this.userId,
                 curYearMonth:curYearMonth.replace(/[^\d]/g,'')
               })).then((res) => {
                   let data = res.data;

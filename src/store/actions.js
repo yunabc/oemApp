@@ -12,5 +12,8 @@ export default {
   },
   deletePersonalInfo({commit}){
     commit(types.DELETE_PERSONAL_INFO)
+  },
+  saveDP({commit},bool){
+    commit(types.SAVE_DATEPICKER_INFO,bool)
   }
 }

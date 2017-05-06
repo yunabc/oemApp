@@ -10,22 +10,24 @@
     export default {
         data () {
             return {
+            userId:null,
             }
         },
         mounted() {
+          this.userId = this.$cookie.get('userId');
           let footOffetTop = this.$refs.footNav.offsetTop;
           // this.$emit('footNavHeight',footOffetTop);
 
         },
         props: {
-          userInfo: Object,
+          
           active:String,
         },
         methods: {
           checkInfo() {
-            console.log(this.userInfo);
+            console.log(this.userId);
 
-            if(this.userInfo.hasOwnProperty('userId') && this.userInfo['userId'] !=''){
+            if(this.userId && this.userId !=''){
               // 
               this.$router.push('/user');
             }else{

@@ -37,7 +37,6 @@
         data () {
             return {
               dataList:[],
-              userInfo:{},
               userId:null,
               dataReturnFlag:false,
               openWindow:false,
@@ -49,8 +48,7 @@
           'v-alert': alert
         },
         created(){
-          this.userInfo = this.$store.state.personalInfo || {};
-          this.userId = this.userInfo['userId'];
+          this.userId = this.$cookie.get('userId');
           this.getData()
         },
         methods:{
@@ -59,7 +57,7 @@
           },
           getData(params){
             axios.post('/x-service/user/perfor.htm',qs.stringify({
-                userId: this.userInfo.userId
+                userId: this.userId
             })).then((res) => {
                let data = res.data;
                 if (data.status == 0) {

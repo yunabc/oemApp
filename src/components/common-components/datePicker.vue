@@ -26,7 +26,14 @@
                 chooseMonth:''
             }
         },
+        mounted() {
+            document.addEventListener('click', (e) => {
+               if (!this.$el.contains(e.target)) this.isHide = false
+           })
+        },
+
         created(){
+            this.isHide = this.$store.state.datePicker
             this.getCurMonth();
             this.getMonths();
         },
@@ -53,7 +60,12 @@
               this.getMonths()
             },
             toggleClick(){
-                this.isHide = !this.isHide
+                document.activeElement.blur();
+                this.isHide = !this.isHide;
+
+                // this.$store.dispatch('saveDP',this.isHide);
+                // console.log(this.$store.state)
+                // this.$emit('datePicker',this.isHide);
             },
             chooseHandle(item){
                 this.isHide = false;

@@ -41,6 +41,7 @@
     },
     methods: {
       checkinput() {
+        document.activeElement.blur();
         let regp = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
         if(this.oldpassword != "" && this.newpassword != "" && this.newpassword2){
           if(regp.test(this.oldpassword)){

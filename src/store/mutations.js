@@ -14,5 +14,9 @@ export default {
   },
   [types.DELETE_PERSONAL_INFO] (state) {
     state.personalInfo = null;
+  },
+  [types.SAVE_DATEPICKER_INFO] (state, bool) {
+  	console.log(bool);
+    state.datePicker = bool;
   }
 }

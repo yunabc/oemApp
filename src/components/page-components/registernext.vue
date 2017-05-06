@@ -6,7 +6,11 @@
 			<input type="text" v-model="bankcard" placeholder="请输入银行卡号">
 			<input type="text" v-model="bankcardphone" placeholder="请输入银行预留手机号">
 		</div>
-		<button class="btn submit-btn" v-tap="{methods:checkinput}">下一步</button>
+		<div class="twobtns">
+			
+			<button class="btn submit-btn btnleft" v-tap="{methods:checkinput}">保存</button>
+			<router-link class="btn submit-btn btnright" :to="{name:topage}">不了，跳过</router-link>
+		</div>
 		<v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>
 	</div>
 </template>
@@ -26,16 +30,16 @@ export default {
 			msg:'测试提示文案测试提示文案测试提示文案测试提示文案测试提示文案',
 			openWindow: false,
 			userId:null,
-			topage:'',
+			topage:'login',
 		}
 	},
 	created(){
-		this.userId = this.$route.params.userId;
-		this.topage = this.$route.params.topage;
-		console.log(this.topage)
+		this.userId = this.$cookie.get('userId') || this.$route.params.userId;
+		this.topage = this.$cookie.get('userId')?this.$route.params.topage:'login';
 	},
 	methods: {
 		checkinput() {
+			document.activeElement.blur();
 			let flag = true;
 			let reg = /^[\u4e00-\u9fa5]{2,}$/;
 			let regp = /^([0-9]){7,18}(x|X)?$/;
@@ -132,5 +136,12 @@ export default {
 </script>
 <style scoped lang="less" rel="stylesheet/less">
 	@import "../../common/style/login.less";
-
+	.twobtns{
+		display: flex;
+		.btn{
+			&.btnright{
+				margin-left: .26666667rem;
+			}
+		}
+	}
 </style>

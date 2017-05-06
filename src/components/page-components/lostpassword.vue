@@ -41,6 +41,7 @@ export default {
 	},
 	methods: {
 		checkinput() {
+			document.activeElement.blur();
 			let flag = true;
 			let reg = /^1(3[0-9]|4[57]|5[0-35-9]|8[0-9]|7[780])\d{8}$/;
 			let regp = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,20}$/;
@@ -99,7 +100,6 @@ export default {
 		upload() {
 			var that =this;
 			axios.post("/x-service/user/forget.htm",qs.stringify({
-				userInviterId:this.userInviterId,
 				mobile:this.phone,
 				newPwd:this.password,
 				conPwd:this.password2,

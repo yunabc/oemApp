@@ -38,7 +38,7 @@
 
       </li>
       <li class="regularInvest investLi" v-for="item in productDqViews" :data-id="item.proId">
-        <router-link :to="{ path: '/invest/regular', query: userInfo }">
+        <router-link :to="{ path: '/invest/regular'}">
           <div class="infoDesc">
             <img src="../../common/img/regular.png" alt="">
             <div class="desc">
@@ -58,7 +58,7 @@
       </li>
     </ul>
     <div class="noContent" v-else>暂无数据</div>
-    <foot-nav :userInfo="userInfo"></foot-nav>
+    <foot-nav ></foot-nav>
   </div>
 </template>
 
@@ -70,11 +70,10 @@
   export default {
     data () {
       return {
-        userInfo:{},
         bannerImgs:[],
         noUrl:"javascript:void(0)",
         productDqViews:[],
-        productHqViews:[]
+        productHqViews:[],
       }
 
     },
@@ -82,7 +81,6 @@
       footNav
     },
     created(){
-      this.userInfo = this.$store.state.personalInfo || {};
       axios.post('/x-service/pro/index.htm').then((res) => {
         let data = res.data;
         if (data.status == 0) {

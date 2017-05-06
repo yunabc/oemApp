@@ -60,20 +60,23 @@ import qs from 'qs';
     export default{
         data () {
           return{
+            userId:null,
           };
         },
         props:{
           dataHot:{
             type:Object
           },
-          userInfo: Object,
           isH: Boolean
+        },
+        created() {
+          this.userId = this.$cookie.get('userId');
         },
         methods: {
           checkInfo(params) {
             //if(this.userInfo.userId && this.userInfo.userId !=''){
-            if(this.userInfo && this.userInfo.hasOwnProperty('userId') && this.userInfo["userId"] !=''){
-              axios.post('/x-service/pro/detail.htm',qs.stringify({userId:this.userInfo['userId'],proId:params.params})).then((res) => {
+            if(this.userId && this.userId !=''){
+              axios.post('/x-service/pro/detail.htm',qs.stringify({userId:this.userId,proId:params.params})).then((res) => {
                 let data = res.data;
                 if (data.status == 0) {
                   location.href = data.result.allRedirectUrl;;

@@ -3,9 +3,9 @@
  */
 
 export function wxShare(option,pageUrl){
-  let title= "";
-  let desc = "";
-  let url = pageUrl+'/static/xinjrlogo.jpg'
+  let title= "信金融";
+  let desc = "点击邀请注册";
+  let url = location.origin+'/app/static/xinjrlogo.jpg'
   console.log(option)
     wx.config({
       debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。

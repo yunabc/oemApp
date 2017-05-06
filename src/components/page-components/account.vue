@@ -32,12 +32,12 @@
       }
     },
     created() {
-      console.log(this.$route.params['idNo']);
+      this.userId = this.$cookie.get('userId');
       if(this.$route.params['idNo']){
         this.account = this.$route.params;
       }else{
-      this.promiseObj = new Promise((resolve) =>{
-          axios.post('/x-service/user/info.htm',qs.stringify({userId:this.$store.state.personalInfo.userId})).then((res) => {
+        this.promiseObj = new Promise((resolve) =>{
+          axios.post('/x-service/user/info.htm',qs.stringify({userId:this.userId})).then((res) => {
             let data = res.data;
             return resolve(data);
           })

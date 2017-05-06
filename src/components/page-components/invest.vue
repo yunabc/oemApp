@@ -5,8 +5,8 @@
       <div class="verticalLine"></div>
       <router-link to="/invest/current" class="currentProduct navItem">活期</router-link>
     </div>
-    <router-view :userInfo="userInfo"></router-view>
-    <foot-nav :userInfo="userInfo" ></foot-nav>
+    <router-view ></router-view>
+    <foot-nav></foot-nav>
   </div>
 
 </template>
@@ -17,7 +17,6 @@
   export default {
     data () {
       return {
-        userInfo: {},
       }
     },
     props: {
@@ -27,7 +26,6 @@
       footNav
     },
     created() {
-      this.userInfo = this.$store.state.personalInfo || {};
     }
   }
 </script>

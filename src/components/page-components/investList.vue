@@ -92,7 +92,7 @@
           dataList2:[],
           page2:0,
           _flag:false,
-          userInfo:{},
+          userId:null,
       };
     },
     props: {
@@ -109,8 +109,7 @@
     },
     created() {
       this._flag = this.flag;
-      console.log(this.$store.state.personalInfo)
-      this.userInfo = this.$store.state.personalInfo;
+      this.userId = this.$cookie.get('userId');
     },
     mounted(){
       this.promiseObj.then((res) =>{
@@ -182,8 +181,8 @@
       },
       checkInfo(params) {
         console.log(params )
-        if(this.userInfo && this.userInfo['userId'] !=''){
-          axios.post('/x-service/pro/detail.htm',qs.stringify({userId:this.userInfo['userId'],proId:params.params})).then((res) => {
+        if(this.userId && this.userId!=''){
+          axios.post('/x-service/pro/detail.htm',qs.stringify({userId:this.userId,proId:params.params})).then((res) => {
             let data = res.data;
             console.log(data.result);
             if (data.status == 0) {
