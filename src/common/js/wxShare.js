@@ -43,7 +43,6 @@ export function wxShare(option,pageUrl){
         link: pageUrl+'?userInviterId=' + option.userInviterId,
         imgUrl: url,
         trigger: function (res) {
-          $('.mask').hide();
         },
         success: function (res) {
         },
