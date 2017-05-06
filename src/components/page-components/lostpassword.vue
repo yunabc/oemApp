@@ -55,7 +55,7 @@ export default {
 									this.upload();
 									return;
 							}
-							this.msg = '请输入验证码';
+							this.msg = '验证码格式不正确';
 							this.openWindow = true;
 							return ;
 						}

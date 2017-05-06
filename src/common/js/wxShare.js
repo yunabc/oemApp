@@ -3,6 +3,9 @@
  */
 
 export function wxShare(option,pageUrl){
+  let title= "";
+  let desc = "";
+  let url = pageUrl+'/static/xinjrlogo.jpg'
   console.log(option)
     wx.config({
       debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -20,10 +23,10 @@ export function wxShare(option,pageUrl){
     wx.ready(function () {
       console.log('ready')
       wx.onMenuShareAppMessage({
-        title: '',
-        desc: '',
+        title: title,
+        desc: desc,
         link: pageUrl+'?userInviterId=' + option.userInviterId,
-        imgUrl: '',
+        imgUrl: url,
         trigger: function (res) {
           // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
 
@@ -36,9 +39,9 @@ export function wxShare(option,pageUrl){
         }
       });
       wx.onMenuShareTimeline({
-        title: '',
+        title: title,
         link: pageUrl+'?userInviterId=' + option.userInviterId,
-        imgUrl: '',
+        imgUrl: url,
         trigger: function (res) {
           $('.mask').hide();
         },
@@ -50,10 +53,10 @@ export function wxShare(option,pageUrl){
         }
       });
       wx.onMenuShareQQ({
-        title: '', // 分享标题
-        desc: '', // 分享描述
+        title: title, // 分享标题
+        desc: desc, // 分享描述
         link: pageUrl+'?userInviterId=' + option.userInviterId,
-        imgUrl: '', // 分享图标
+        imgUrl: url, // 分享图标
         success: function () {
           // 用户确认分享后执行的回调函数
         },
