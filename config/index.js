@@ -29,7 +29,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/x-service': {
-        target: 'http://svn.bjdreamtech.com:10080',
+        target: 'http://www.mu12.cn',
         changeOrigin: true,
         pathRewrite: {
           '^/x-service': '/x-service'

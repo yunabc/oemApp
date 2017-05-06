@@ -28,12 +28,14 @@
   <div class="share-arrow" v-if="shareTo"><i class="fa fa-times" aria-hidden="true" v-tap="{methods:closeFn}"></i></div>
   <foot-nav :userInfo="userInfo" :active="active"></foot-nav>
   <v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>
+  <v-confirm :msg="msg" @sure="confirmSure" @cancle="closeWindow" v-if="openConfirm"></v-confirm>
 </div>
 </template>
 
 <script>
   import footNav from 'components/common-components/footNav';
   import alert from '../common-components/alert.vue'
+  import confirm from '../common-components/confirm.vue'
   import axios from 'axios';
   import qs from 'qs';
   import {wxShare} from '../../common/js/wxShare'
@@ -48,13 +50,15 @@
           active:"active",
           msg:'敬请期待',
           openWindow: false,
+          openConfirm: false,
           pathUrl:'',
           shareTo:false,
         }
     },
     components:{
       footNav,
-      'v-alert': alert
+      'v-alert': alert,
+      'v-confirm': confirm,
     },
     created(){
       this.userInfo = this.$store.state.personalInfo || {};
@@ -116,14 +120,9 @@
         this.shareTo = true;
       },
       logout(){
-         axios.post('/x-service/user/logout.htm',qs.stringify({userId:this.userInfo.userId})).then((res) => {
-            let data = res.data;
-            if (data.status == 0) {
-              this.$cookie.delete('userId');
-              window.confirm("确定要退出了吗？") && this.$router.push({ name: 'login',query:{topage:'user'}});
-              console.log("退出")
-            }
-         })
+         
+         this.openConfirm = true;
+         this.msg = '确定要退出了吗？'
       },
       ckeckDetail() {
         axios.post('/x-service/user/info.htm',qs.stringify({userId:this.userInfo.userId})).then((res) => {
@@ -145,7 +144,7 @@
             this.msg = "未绑定用户信息，请绑定";
             this.openWindow = true;
             setTimeout(function(){
-              that.$router.push({ name: 'registernext',params:{userId:data.result.userId}})
+              that.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'user'}})
             },1500)
           }
         }).catch(function (error) {
@@ -154,7 +153,21 @@
       },
       closeWindow(bool) {
         this.openWindow = bool;
+        this.openConfirm = bool; 
+        console.log(2);
 
+      },
+      confirmSure() {
+        this.openConfirm=false;
+        axios.post('/x-service/user/logout.htm',qs.stringify({userId:this.userInfo.userId})).then((res) => {
+           let data = res.data;
+           if (data.status == 0) {
+             this.$cookie.delete('userId');
+             this.$router.push({ name: 'login',query:{topage:'user'}});
+             console.log("退出")
+           }
+        })
+        console.log(1)
       },
       logHandler(params){
         if(params.item2 != 0){

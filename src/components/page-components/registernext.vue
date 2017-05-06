@@ -26,11 +26,13 @@ export default {
 			msg:'测试提示文案测试提示文案测试提示文案测试提示文案测试提示文案',
 			openWindow: false,
 			userId:null,
+			topage:'',
 		}
 	},
 	created(){
 		this.userId = this.$route.params.userId;
-		console.log(this.userId)
+		this.topage = this.$route.params.topage;
+		console.log(this.topage)
 	},
 	methods: {
 		checkinput() {
@@ -99,41 +101,28 @@ export default {
 				switch(data.status){
 					case "1":
 					  // 失败
-					  console.log(111);
 						this.msg = data.errorMsg;
 						this.openWindow = true;
 						break;
 					case "0":
-						// 登陆
-						var that =this;
-						this.msg = "绑定成功，请重新登陆";
+						//
+						let msg2 = null; 
+						if(this.topage == 'login'){
+							msg2 = "，请登录";
+						}
+						this.msg ="绑定成功" + msg2;
 						this.openWindow = true;
-						setTimeout(function(){
-							that.$router.push({ name: 'login'})
+						setTimeout(() =>{
+							this.$router.push({ name: this.topage})
 						},1500)
+						break;
 					case "-1":
 					// 未登录
-						this.msg = res.errorMsg;
+						this.msg = data.errorMsg;
 						this.openWindow = true;
 						break;
 				}
 			})
-		},
-		counted() {
-			let timer = null;
-			let that = this;
-			timer = setInterval(function(){
-				console.log(that.count);
-				if(that.count > 0){
-					that.count =that.count-1;
-				}else{
-
-					that.count = "发送验证码"
-					that.second = "";
-					clearInterval(timer);
-				}
-
-			},1000)
 		}
 	},
 	components: {

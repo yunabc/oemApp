@@ -134,7 +134,7 @@ export default {
 						this.count = 0;
 						this.openWindow = true;
 						setTimeout(function(){
-							that.$router.push({ name: 'registernext',params:{userId:data.result.userId}})
+							that.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'login'}})
 						},1500)
 						break;
 					case "2":
@@ -144,7 +144,7 @@ export default {
 						this.msg = "注册成功，请完善用户信息";
 						this.openWindow = true;
 						setTimeout(function(){
-							that.$router.push({ name: 'registernext',params:{userId:data.result.userId}})
+							that.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'login'}})
 						},1500)
 						break;
 					case "-1":
