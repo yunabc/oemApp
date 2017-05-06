@@ -52,13 +52,15 @@
         })).then((res) => {
           let data = res.data;
           if (data.status == 0) {
-            this.dataAll = data.result;
-            this.dataHot = data.result[0];
-            this.dataList = data.result.slice(1);
-            this.page++;
-            if(data.result.length === 0 || data.result.length<this.singleNum){
+            if(data.result){
+              this.dataAll = data.result;
+              this.dataHot = data.result[0];
+              this.dataList = data.result.slice(1);
+            }
+            if(data.result || data.result.length === 0 || data.result.length<this.singleNum){
               this.flag = false
-            };
+            }
+            this.page++;
             this.dataReturnFlag = true
           } else {
             console.log(data.errorMsg)
