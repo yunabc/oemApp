@@ -10,7 +10,7 @@
 			</div>
 			<div class="read-checkbox">
 				<label for="checkread">
-					<input id="checkread"  v-model="checkread" type="checkbox" v-tap="{methods:checkval}">
+					<input id="checkread" :checked="checkread"  v-model="checkread" type="checkbox">
 					<span>我已阅读并同意</span><a href="" class="xieyi">《平台协议》</a>
 				</label>
 			</div>
@@ -45,10 +45,16 @@ export default {
 	},
 	porps:{
 	},
-
+	created(){
+		console.log(this.checkread)
+		this.userInviterId = location.search.substring(0).split('=')[1];
+	},
 	methods: {
 		checkval() {
-			this.checkread = !this.checkread
+			console.log(this.checkread);
+
+			this.checkread
+			console.log(this.checkread);
 		},
 		checkinput() {
 			document.activeElement.blur();
