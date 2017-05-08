@@ -8,5 +8,8 @@ module.exports = {
       ? config.build.productionSourceMap
       : config.dev.cssSourceMap,
     extract: isProduction
-  })
+  }),
+  postcss: [
+    require('postcss-px2rem')({'remUnit':75,'baseDpr':2})
+  ]
 }

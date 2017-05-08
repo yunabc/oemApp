@@ -12,7 +12,7 @@ exports.cssLoaders = function (options) {
   options = options || {}
 
   var cssLoader = {
-    loader: 'css-loader',
+    loader: 'css-loader?importLoaders=1',
     options: {
       minimize: process.env.NODE_ENV === 'production',
       sourceMap: options.sourceMap
@@ -46,7 +46,7 @@ exports.cssLoaders = function (options) {
   // https://vue-loader.vuejs.org/en/configurations/extract-css.html
   return {
     css: generateLoaders(),
-    postcss: generateLoaders([require('postcss-px2rem')({remUnit: 75})]),
+    postcss: generateLoaders(),
     less: generateLoaders('less'),
     sass: generateLoaders('sass', { indentedSyntax: true }),
     scss: generateLoaders('sass'),
