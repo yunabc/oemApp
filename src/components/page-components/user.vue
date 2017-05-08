@@ -55,6 +55,7 @@
           signFlag:null,
           userId:null,
           totalMoney:null,
+          islogout:true,
         }
     },
     components:{
@@ -63,32 +64,45 @@
       'v-confirm': confirm,
     },
     created(){
-      this.signFlag = this.$cookie.get('signFlag');
+      // this.signFlag = this.$cookie.get('signFlag');
       this.userId = this.$cookie.get('userId');
-      this.totalMoney = this.$cookie.get('totalMoney');
-      this.totalMoneyText = this.$cookie.get('totalMoneyText');
-
-      if(this.signFlag == '00'){
-        this.vip=true;
-      }
-      this.option.userInviterId = this.userId;
-       /*微信分享*/
-      axios.post('/x-service/user/share.htm',qs.stringify({
-        signUrl: location.href.split('#')[0]
+      // this.totalMoney = this.$cookie.get('totalMoney');
+      // this.totalMoneyText = this.$cookie.get('totalMoneyText');
+      axios.get('/x-service/user/person.htm',qs.stringify({
+        userId: this.userId
       })).then((res) => {
         let data = res.data;
         if (data.status == 0) {
-           this.option.appId = data.result.appId
-           this.option.timestamp = data.result.timestamp
-           this.option.nonceStr = data.result.nonceStr
-           this.option.signature = data.result.signature
-        } else {
-          console.log(data.errorMsg)
-        }
+          this.islogout=false;
+          this.signFlag = data.result.signFlag
+          this.totalMoney = data.result.totalMoney
+          this.totalMoneyText = data.result.totalMoneyText
+           /*微信分享*/
+           if(this.signFlag == '00'){
+             this.vip=true;
+           }
+           this.option.userInviterId = this.userId;
+          axios.post('/x-service/user/share.htm',qs.stringify({
+            signUrl: location.href.split('#')[0]
+          })).then((res) => {
+            let data = res.data;
+            if (data.status == 0) {
+               this.option.appId = data.result.appId
+               this.option.timestamp = data.result.timestamp
+               this.option.nonceStr = data.result.nonceStr
+               this.option.signature = data.result.signature
+            } else {
+              console.log(data.errorMsg)
+            }
 
-      }).catch(function (error) {
-        console.log(error);
-      });
+          }).catch(function (error) {
+            console.log(error);
+          });
+        }
+      }).catch((error) => {
+        this.islogout = true;
+      })
+     
       /*获取列表*/
       axios.post('/x-service/user/plate.htm',qs.stringify({userId:this.userId})).then((res) => {
         let data = res.data;
@@ -111,6 +125,9 @@
         this.shareTo = !this.shareTo
       },
       toggleList(){
+        if(this.islogout){
+          this.$router.push({name:'login',params:{topage:'user'}})
+        }
         //this.logsList = this.logsList == "down" ? "down" : "up";
         if(this.logsStatus == 'down'){
           this.logsStatus = 'up'
@@ -120,6 +137,10 @@
       },
       share(){
         // console.log(window.location)
+        if(this.islogout){
+          this.$router.push({name:'login',params:{topage:'user'}})
+          return;
+        }
         this.pathUrl = window.location.origin + window.location.pathname;
         wxShare(this.option,this.pathUrl)
         this.shareTo = true;
@@ -152,8 +173,10 @@
               that.$router.push({ name: 'registernext',params:{topage:'user'}})
             },1500)
           }
-        }).catch(function (error) {
-          console.log(error);
+        }).catch((error) =>{
+          if(this.islogout){
+            this.$router.push({name:'login',params:{topage:'user'}})
+          }
         });
       },
       closeWindow(bool) {

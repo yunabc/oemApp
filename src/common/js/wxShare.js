@@ -25,7 +25,7 @@ export function wxShare(option,pageUrl){
       wx.onMenuShareAppMessage({
         title: title,
         desc: desc,
-        link: pageUrl+'?userInviterId=' + option.userInviterId,
+        link: pageUrl+'?userInviterId=' + option.userInviterId + '#/register',
         imgUrl: url,
         trigger: function (res) {
           // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
@@ -40,7 +40,7 @@ export function wxShare(option,pageUrl){
       });
       wx.onMenuShareTimeline({
         title: title,
-        link: pageUrl+'?userInviterId=' + option.userInviterId,
+        link: pageUrl+'?userInviterId=' + option.userInviterId + '#/register',
         imgUrl: url,
         trigger: function (res) {
         },
@@ -54,7 +54,7 @@ export function wxShare(option,pageUrl){
       wx.onMenuShareQQ({
         title: title, // 分享标题
         desc: desc, // 分享描述
-        link: pageUrl+'?userInviterId=' + option.userInviterId,
+        link: pageUrl+'?userInviterId=' + option.userInviterId + '#/register',
         imgUrl: url, // 分享图标
         success: function () {
           // 用户确认分享后执行的回调函数
