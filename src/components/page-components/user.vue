@@ -22,6 +22,9 @@
     <li class="manage userCenterItem userItemLine">
       <p class="text" v-tap="{methods:ckeckDetail}">账户管理</p>
     </li>
+    <li class="erweicode userCenterItem userItemLine">
+      <p class="text" v-tap="{methods:toErwei}">我的二维码</p>
+    </li>
   </ul>
   <div class="logout" v-tap="{methods:logout}">退出</div>
   <div class="zhezhao" v-if="shareTo"></div>
@@ -33,12 +36,13 @@
 </template>
 
 <script>
+"barcode_2d.png"
   import footNav from 'components/common-components/footNav';
   import alert from '../common-components/alert.vue'
   import confirm from '../common-components/confirm.vue'
   import axios from 'axios';
   import qs from 'qs';
-  import {wxShare} from '../../common/js/wxShare'
+  import {wxShare} from '../../common/js/wxShare';
   export default {
     data () {
         return {
@@ -64,6 +68,7 @@
       'v-confirm': confirm,
     },
     created(){
+      this.pathUrl = window.location.origin + window.location.pathname;
       // this.signFlag = this.$cookie.get('signFlag');
       this.userId = this.$cookie.get('userId');
       // this.totalMoney = this.$cookie.get('totalMoney');
@@ -135,7 +140,7 @@
              this.option.timestamp = data.result.timestamp;
              this.option.nonceStr = data.result.nonceStr;
              this.option.signature = data.result.signature;
-             this.pathUrl = window.location.origin + window.location.pathname;
+             
              wxShare(this.option,this.pathUrl)
              this.shareTo = true;
           } else if (data.status == 1) {
@@ -151,6 +156,15 @@
           console.log(error);
         });
         
+      },
+      toErwei() {
+        if(this.islogout){
+          this.$router.push({name:'login',params:{topage:'user'}})
+          return;
+        }
+        let pathUrl = this.pathUrl+'?userInviterId=' + this.userId + '#/register'
+        
+        this.$router.push({name:'erwei',params:{shareurl:pathUrl}})
       },
       logout(){
          
@@ -338,6 +352,10 @@
          }
          &.manage{
            background: url("../../common/img/manage.png") left center no-repeat;
+           background-size: .58666667rem .58666667rem;
+         }
+         &.erweicode{
+           background: url("../../common/img/barcode_2d.jpg") left center no-repeat;
            background-size: .58666667rem .58666667rem;
          }
 

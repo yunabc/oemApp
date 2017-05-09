@@ -14,6 +14,7 @@ import register from 'components/page-components/register'
 import registernext from 'components/page-components/registernext'
 import account from 'components/page-components/account'
 import changePassword from 'components/page-components/changePassword'
+import erwei from 'components/page-components/erwei'
 
 
 Vue.use(Router)
@@ -152,6 +153,14 @@ const router = new Router({
         title: '修改密码'
       },
       component: changePassword
+    }
+    ,{
+      path: '/erwei',
+      name: 'erwei',
+      meta: {
+        title: '修改密码'
+      },
+      component: erwei
     }
   ],
   linkActiveClass: 'active'
