@@ -82,22 +82,7 @@
              this.vip=true;
            }
            this.option.userInviterId = this.userId;
-          axios.post('/x-service/user/share.htm',qs.stringify({
-            signUrl: location.href.split('#')[0]
-          })).then((res) => {
-            let data = res.data;
-            if (data.status == 0) {
-               this.option.appId = data.result.appId
-               this.option.timestamp = data.result.timestamp
-               this.option.nonceStr = data.result.nonceStr
-               this.option.signature = data.result.signature
-            } else {
-              console.log(data.errorMsg)
-            }
 
-          }).catch(function (error) {
-            console.log(error);
-          });
         }
       }).catch((error) => {
         this.islogout = true;
@@ -141,9 +126,31 @@
           this.$router.push({name:'login',params:{topage:'user'}})
           return;
         }
-        this.pathUrl = window.location.origin + window.location.pathname;
-        wxShare(this.option,this.pathUrl)
-        this.shareTo = true;
+        axios.post('/x-service/user/share.htm',qs.stringify({
+          signUrl: location.href.split('#')[0]
+        })).then((res) => {
+          let data = res.data;
+          if (data.status == 0) {
+             this.option.appId = data.result.appId;
+             this.option.timestamp = data.result.timestamp;
+             this.option.nonceStr = data.result.nonceStr;
+             this.option.signature = data.result.signature;
+             this.pathUrl = window.location.origin + window.location.pathname;
+             wxShare(this.option,this.pathUrl)
+             this.shareTo = true;
+          } else if (data.status == 1) {
+            // 失败
+            this.msg = data.errorMsg
+            this.openWindow = true;
+          }else if (data.status == -1) {
+            // 失败未登录
+            this.islogout=true;
+          }
+
+        }).catch(function (error) {
+          console.log(error);
+        });
+        
       },
       logout(){
          
@@ -182,7 +189,6 @@
       closeWindow(bool) {
         this.openWindow = bool;
         this.openConfirm = bool; 
-        console.log(2);
 
       },
       confirmSure() {
