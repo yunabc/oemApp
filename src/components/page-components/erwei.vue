@@ -3,7 +3,7 @@
   <div class="erweibox">
     <div class="inner-erwei">
       
-      <vue-q-art :config="config" :downloadButton="downloadButton"></vue-q-art>
+      <qrcanvas :options="options"></qrcanvas>
     </div>
   </div>
   <foot-nav :active="active"></foot-nav>
@@ -12,40 +12,51 @@
 
 <script>
   import footNav from 'components/common-components/footNav';
-  import VueQArt from '../common-components/vueQart.vue';
-  console.log(VueQArt);
+  import qrcanvas from 'qrcanvas-vue';
+  // import img from '/static/img/xinjrlogo.jpg';
   export default {
     data () {
       return {
-        config: {
-          value: '',
-          imagePath: '/static/img/xinjrlogo.jpg',
-          filter: 'threshold',
-          size: 607,
-          fillType:'scale_to_fit'
-        },
-        downloadButton: false,
-        active:"active"
+        options:{},
+        active:"active",
+
       }
     },
     props:{
       // sharelink:String;
     },
     created() {
+      let that =this;
+      let img = new Image();
+      this.options={
+         data:this.$route.params.shareurl,
+         size:this.caculateRate(),
+         typeNumber:6,
+         logo:{
+           image:'http://www.mu12.cn/app/static/xinjrlogo.jpg',
+           size:.09,
+           margin:0,
+           clearEdges:1
+         }
 
-     this.config.value = this.$route.params.shareurl;
-     console.log( this.config.value );
+      }
+      
+      // img.src = 'http://www.mu12.cn/app/static/xinjrlogo.jpg'
+      // console.log(this.$route.params.shareurl);
+     
+    },
+    mounted() {
+      console.log(1)
     },
     methods: {
       caculateRate(){
         let doc = document.body || document.documentElement;
         let docW = doc.offsetWidth;
-        return docW/10;
+        return docW/10*6;
       }
     },
     components:{
-      VueQArt,
-      footNav,
+      footNav,qrcanvas
 
     }
   }
@@ -80,6 +91,7 @@
     .inner-erwei{
       width: 7.333333rem/*550px*/;
       height: 7.333333rem;
+      // height: 6rem/* 450px */
       margin-left: 0.666667rem;
       margin: auto;
       background: url(/static/img/xinjrlogo.jpg) ;
@@ -98,10 +110,10 @@
         content: '';
 
       }
-      &>div{
+      canvas{
         position:relative;
         z-index: 10;
-        margin-top:; 
+        margin-top:.66666667rem; 
       }
     }
   }
