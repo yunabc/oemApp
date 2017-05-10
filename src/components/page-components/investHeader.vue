@@ -81,10 +81,10 @@ import qs from 'qs';
                 if (data.status == 0) {
                   location.href = data.result.allRedirectUrl;;
                 } else {
-                  console.log(data.errorMsg)
+                  this.$router.push({path:"/login",query:{topage:"user"}});
                 }
               }).catch(function (error) {
-                console.log(error);
+                this.$router.push({path:"/login",query:{topage:"user"}});
               });
             }else{
               this.$router.push({path:"/login",query:{topage:"user"}});

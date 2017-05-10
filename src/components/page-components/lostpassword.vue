@@ -1,13 +1,13 @@
 <template>
 	<div class="login">
 		<div class="inputbox">
-			<input type="text" v-model="phone" placeholder="请输入手机号">
+			<input type="text" v-model="phone" maxlength="11" placeholder="请输入手机号">
 			<div class="send-code">
-				<input type="text" v-model="code" placeholder="请输入验证码" >
+				<input type="text" v-model="code" maxlength="6" placeholder="请输入验证码" >
 				<span class="send" :class="{sended:second=='s'}" v-tap="{methods:sendCode}">{{count}}{{second}}</span>
 			</div>
-			<input type="password" v-model="password" placeholder="请输入新密码">
-			<input type="password" v-model="password2" placeholder="请确认新密码">
+			<input type="password" v-model="password" maxlength="20" placeholder="请输入新密码">
+			<input type="password" v-model="password2" maxlength="20" placeholder="请确认新密码">
 
 
 		</div>
@@ -113,7 +113,7 @@ export default {
 						this.openWindow = true;
 						break;
 					case "0":
-						// 登陆成功
+						// 登录成功
 						this.count = 0;
              this.msg = "密码修改成功";
 						this.openWindow = true;
@@ -123,7 +123,7 @@ export default {
 
 						break;
 					case "2":
-						// 登陆未绑定客户信息
+						// 登录未绑定客户信息
 						this.$router.push({ name: 'login'})
 						break;
 					case "-1":

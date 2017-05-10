@@ -17,8 +17,8 @@
         <img  :src="item.bannerUrl" :alt="item.bannerTitle"  width="100%">
       </a>
     </div>
-    <ul class="home-content" v-if="productDqViews.length || productHqViews.length">
-      <li class="currentInvest investLi" v-for="item in productHqViews" :data-id="item.proId">
+    <ul class="home-content" v-if="productDqViews || productHqViews">
+      <li class="currentInvest investLi" v-if="productHqViews" v-for="item in productHqViews" :data-id="item.proId">
         <router-link to="/invest/current">
           <div class="infoDesc">
             <img src="../../common/img/current.png" alt="">
@@ -37,7 +37,7 @@
         </router-link>
 
       </li>
-      <li class="regularInvest investLi" v-for="item in productDqViews" :data-id="item.proId">
+      <li class="regularInvest investLi" v-if="productDqViews" v-for="item in productDqViews" :data-id="item.proId">
         <router-link :to="{ path: '/invest/regular'}">
           <div class="infoDesc">
             <img src="../../common/img/regular.png" alt="">

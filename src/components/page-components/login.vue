@@ -1,8 +1,8 @@
 <template>
 	<div class="login">
 		<div class="inputbox">
-			<input type="text" v-model="phone"  placeholder="请输入手机号" >
-			<input type="password" v-model="password" placeholder="请输入密码" >
+			<input type="text" v-model="phone" maxlength="11"  placeholder="请输入手机号" >
+			<input type="password" v-model="password" maxlength="20" placeholder="请输入密码" >
 			<div v-if="loginTimes > 3" class="stage">
 				<div class="slider" ref="slider" id="slider">
 					<div class="label">向右滑动验证</div>
@@ -166,7 +166,7 @@ export default {
 						this.openWindow = true;
 						break;
 					case "0":
-						// 登陆成功
+						// 登录成功
 						for (var key in result){
 							this.$cookie.set(key,result[key]);
 						}
@@ -175,7 +175,7 @@ export default {
 
 						break;
 					case "2":
-						// 登陆未绑定客户信息
+						// 登录未绑定客户信息
 						// this.save(result);
 						for (var key in result){
 							this.$cookie.set(key,result[key]);

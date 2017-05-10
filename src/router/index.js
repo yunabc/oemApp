@@ -15,6 +15,7 @@ import registernext from 'components/page-components/registernext'
 import account from 'components/page-components/account'
 import changePassword from 'components/page-components/changePassword'
 import erwei from 'components/page-components/erwei'
+import agreement from 'components/page-components/agreement'
 
 
 Vue.use(Router)
@@ -25,7 +26,7 @@ const router = new Router({
       path: '/login',
       name: 'login',
       meta: {
-        title: '登陆'
+        title: '登录'
       },
       component: login
     },
@@ -106,7 +107,7 @@ const router = new Router({
       path:'/user',
       name:'user',
       meta: {
-        title: '我的'
+        title: '个人中心'
       },
       component:user
     },
@@ -161,6 +162,14 @@ const router = new Router({
         title: '修改密码'
       },
       component: erwei
+    },
+    {
+      path: '/agreement',
+      name: 'agreement',
+      meta: {
+        title: '平台协议'
+      },
+      component: agreement
     }
   ],
   linkActiveClass: 'active'

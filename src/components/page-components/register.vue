@@ -1,17 +1,17 @@
 <template>
 	<div class="login">
 		<div class="inputbox">
-			<input type="text" v-model="phone" placeholder="请输入手机号">
-			<input type="password" v-model="password" placeholder="请输入密码">
-			<input type="password" v-model="password2" placeholder="请确认密码">
+			<input type="text" v-model="phone" maxlength="11" placeholder="请输入手机号">
+			<input type="password" v-model="password" maxlength="20" placeholder="请输入密码，密码格式为 6-20个数字和字母的组合">
+			<input type="password" v-model="password2" maxlength="20" placeholder="请确认密码">
 			<div class="send-code">
-				<input type="text" v-model="code" placeholder="请输入验证码" >
+				<input type="text" v-model="code" maxlength="6" placeholder="请输入验证码" >
 				<span class="send" :class="{sended:second=='s'}" v-tap="{methods:sendCode}">{{count}}{{second}}</span>
 			</div>
 			<div class="read-checkbox">
 				<label for="checkread">
 					<input id="checkread" :checked="checkread"  v-model="checkread" type="checkbox">
-					<span>我已阅读并同意</span><a href="" class="xieyi">《平台协议》</a>
+					<span>我已阅读并同意</span><router-link to="/agreement" class="xieyi">《平台协议》</router-link>
 				</label>
 			</div>
 		</div>
@@ -82,7 +82,7 @@ export default {
 						this.openWindow = true;
 						return ;
 					}
-					this.msg = '密码格式不对';
+					this.msg = '密码格式为 6-20个数字和字母的组合';
 					this.openWindow = true;
 					return ;
 				}
@@ -140,8 +140,9 @@ export default {
 						this.msg = "注册成功，请完善用户信息";
 						this.count = 0;
 						this.openWindow = true;
+						this.$cookie.set('userId',data.result.userId);
 						setTimeout(function(){
-							that.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'login'}})
+							that.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'home'}})
 						},1500)
 						break;
 					case "2":
@@ -150,8 +151,9 @@ export default {
 						this.count = 0;
 						this.msg = "注册成功，请完善用户信息";
 						this.openWindow = true;
+						this.$cookie.set('userId',data.result.userId);
 						setTimeout(function(){
-							that.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'login'}})
+							that.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'home'}})
 						},1500)
 						break;
 					case "-1":

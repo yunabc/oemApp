@@ -31,18 +31,16 @@
       this.options={
          data:this.$route.params.shareurl,
          size:this.caculateRate(),
-         typeNumber:6,
+         typeNumber:4,
          logo:{
            image:'http://www.mu12.cn/app/static/xinjrlogo.jpg',
-           size:.09,
-           margin:0,
-           clearEdges:1
+           size:.1,
          }
 
       }
       
-      // img.src = 'http://www.mu12.cn/app/static/xinjrlogo.jpg'
-      // console.log(this.$route.params.shareurl);
+      img.src = 'http://www.mu12.cn/app/static/xinjrlogo.jpg'
+      console.log(this.$route.params.shareurl);
      
     },
     mounted() {
@@ -113,6 +111,7 @@
       canvas{
         position:relative;
         z-index: 10;
+        width: 6rem;
         margin-top:.66666667rem; 
       }
     }
