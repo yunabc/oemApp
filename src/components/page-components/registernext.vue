@@ -111,6 +111,9 @@ export default {
 					case "0":
 						//
 						this.$cookie.set('userId',this.userId);
+						this.$cookie.delete('signFlag');
+						this.$cookie.delete('totalMoney');
+						this.$cookie.delete('totalMoneyText');
 						this.msg ="绑定成功";
 						this.openWindow = true;
 						setTimeout(() =>{

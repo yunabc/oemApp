@@ -141,6 +141,9 @@ export default {
 						this.count = 0;
 						this.openWindow = true;
 						this.$cookie.set('userId',data.result.userId);
+						this.$cookie.delete('signFlag');
+						this.$cookie.delete('totalMoney');
+						this.$cookie.delete('totalMoneyText');
 						setTimeout(function(){
 							that.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'home'}})
 						},1500)
@@ -152,6 +155,9 @@ export default {
 						this.msg = "注册成功，请完善用户信息";
 						this.openWindow = true;
 						this.$cookie.set('userId',data.result.userId);
+						this.$cookie.delete('signFlag');
+						this.$cookie.delete('totalMoney');
+						this.$cookie.delete('totalMoneyText');
 						setTimeout(function(){
 							that.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'home'}})
 						},1500)

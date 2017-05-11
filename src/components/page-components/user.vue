@@ -211,6 +211,9 @@
            let data = res.data;
            if (data.status == 0) {
              this.$cookie.delete('userId');
+             this.$cookie.delete('signFlag');
+             this.$cookie.delete('totalMoney');
+             this.$cookie.delete('totalMoneyText');
              this.$router.push({ name: 'login',query:{topage:'user'}});
              console.log("退出")
            }

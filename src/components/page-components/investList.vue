@@ -165,7 +165,7 @@
               }
               this.$root.$emit('passObj', {
                 page:this.page,
-                _flag:this._flag,
+                flag:this._flag,
                 dataList:this.dataList2
               });
               this.$nextTick(() => {

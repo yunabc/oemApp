@@ -56,7 +56,7 @@
               this.dataHot = data.result[0];
               this.dataList = data.result.slice(1);
             }
-            if(data.result || data.result.length === 0 || data.result.length<this.singleNum){
+            if(!data.result || data.result.length === 0 || data.result.length<this.singleNum){
               this.flag = false
             }
             this.page++;
