@@ -28,7 +28,7 @@
   </ul>
   <div class="logout" v-tap="{methods:logout}">退出</div>
   <div class="zhezhao" v-if="shareTo"></div>
-  <div class="share-arrow" v-if="shareTo"><i class="fa fa-times" aria-hidden="true" v-tap="{methods:closeFn}"></i></div>
+  <div class="share-arrow" v-if="shareTo"><div class="close" v-tap="{methods:closeFn}"></div></div>
   <foot-nav :active="active"></foot-nav>
   <v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>
   <v-confirm :msg="msg" @sure="confirmSure" @cancle="closeWindow" v-if="openConfirm"></v-confirm>
@@ -265,12 +265,16 @@
       top: 0;
       background: url(../../../static/img/tip_content_01.png) 65% 18% no-repeat;
       background-size: 80%;
-      .fa-times{
-        font-size: .53333333rem;
+      .close{
+        width: 2.906667rem;
+        height: 1.453333rem;
+        background: url(../../common/img/button.png) left top no-repeat;
+        background-size: 100%;
         position: absolute;
-        right: 5%;
-        top: 4%;
-        color: #fff;
+        top: 38%;
+        left: 50%;
+        margin-left: -1.453333rem;
+
       }
     }
     .userHeader{
