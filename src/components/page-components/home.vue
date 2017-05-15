@@ -13,7 +13,7 @@
        <div class="swiper-button-next"></div>-->
     </div>
     <div class="home-banner" v-else>
-      <a v-for="item in bannerImgs" :href="item.triggerType?item.triggerUrl:noUrl" class="swiper-slide">
+      <a v-for="item in bannerImgs" :href="item.triggerType?item.tiggerUrl:noUrl" class="swiper-slide">
         <img  :src="item.bannerUrl" :alt="item.bannerTitle"  width="100%">
       </a>
     </div>
