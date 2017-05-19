@@ -53,11 +53,11 @@
                     this.upload();
                     return
                   }
-                  this.msg = '新密码和确认密码不一样';
+                  this.msg = '新密码和确认密码不一致';
                   this.openWindow = true;
                   return
                 }
-                this.msg = '新密码和旧密码一样';
+                this.msg = '新密码和旧密码不能一致';
                 this.openWindow = true;
                 return
               }

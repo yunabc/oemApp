@@ -159,7 +159,7 @@ const router = new Router({
       path: '/erwei',
       name: 'erwei',
       meta: {
-        title: '修改密码'
+        title: '我的二维码'
       },
       component: erwei
     },

@@ -25,10 +25,16 @@
     <li class="erweicode userCenterItem userItemLine">
       <p class="text" v-tap="{methods:toErwei}">我的二维码</p>
     </li>
+    <li class="erweicode userCenterItem userItemLine">
+      <p class="text" v-tap="{methods:toErwei}">添加邀请人</p>
+    </li>
+    <li v-if="notApp" class="download userCenterItem userItemLine">
+      <p class="text" v-tap="{methods:downLoadApp}">点击下载信金融APP</p>
+    </li>
   </ul>
   <div class="logout" v-tap="{methods:logout}">退出</div>
   <div class="zhezhao" v-if="shareTo"></div>
-  <div class="share-arrow" v-if="shareTo"><div class="close" v-tap="{methods:closeFn}"></div></div>
+  <div class="share-arrow" :class="{shareArrow2:toBrower}" v-if="shareTo"><div class="close" v-tap="{methods:closeFn}"></div></div>
   <foot-nav :active="active"></foot-nav>
   <v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>
   <v-confirm :msg="msg" @sure="confirmSure" @cancle="closeWindow" v-if="openConfirm"></v-confirm>
@@ -55,11 +61,13 @@
           openWindow: false,
           openConfirm: false,
           pathUrl:'',
-          shareTo:false,
+          shareTo:true,
           signFlag:null,
           userId:null,
           totalMoney:null,
           islogout:true,
+          notApp:false,
+          toBrower:true,
         }
     },
     components:{
@@ -68,6 +76,11 @@
       'v-confirm': confirm,
     },
     created(){
+      // if(!this.deviceN()){
+        // 不是app
+        this.notApp = true;
+      // }
+      console.log(this.browVersions);
       this.pathUrl = window.location.origin + window.location.pathname;
       // this.signFlag = this.$cookie.get('signFlag');
       this.userId = this.$cookie.get('userId');
@@ -111,6 +124,40 @@
       });
     },
     methods:{
+      downLoadApp() {
+        if(this.browVersions.weixin || this.browVersions.weibo){
+          this.shareTo = true;
+          this.toBrower = true;
+        }else if(this.deviceN() == 'android'){
+            // 安卓
+            clearTimeout(timer);
+            var state = null;
+            try {
+              // timer=window.location = 'jmwiki://';  
+              setTimeout(function(){  
+                window.location = "https://dn-joymeapp.qbox.me/wiki-com-1.0.2.3-joyme.apk";
+        
+              },25);
+            } catch(e) {
+
+            }
+            
+        }else if(this.deviceN() == 'android'){
+            // ios
+            // 方案一
+            clearTimeout(timer);
+            var loadDateTime = new Date();
+            timer=window.setTimeout(function() {
+              var timeOutDateTime = new Date();
+              if (timeOutDateTime - loadDateTime < 5000) {
+                window.location = "https://itunes.apple.com/cn/app/%E7%9D%80%E8%BF%B7wiki-%E6%BA%90%E8%87%AA%E4%B8%AD%E5%9B%BD%E9%A2%86%E5%85%88%E7%9A%84%E5%85%B4%E8%B6%A3wiki%E7%A4%BE%E7%BE%A4%E5%B9%B3%E5%8F%B0/id1214161152?ls=1&mt=8";
+                // window.location = 'itms-apps%3A%2F%2Fitunes.apple.com%2Fus%2Fapp%2F%E4%BF%A1%E9%87%91%E8%9E%8D-%E6%8F%90%E4%BE%9B%E5%89%8D%E6%B2%BF-%E4%B8%93%E4%B8%9A-%E9%AB%98%E6%95%88%E7%9A%84%E7%BB%BC%E5%90%88%E9%87%91%E8%9E%8D%E6%9C%8D%E5%8A%A1%E4%BF%A1%E6%81%AF%E5%B9%B3%E5%8F%B0%2Fid1238561217%3Fl%3Dzh%26ls%3D1%26mt%3D8';
+              } else {
+                window.close();
+              }
+            },25);
+        }
+      },
       closeFn() {
         this.shareTo = !this.shareTo
       },
@@ -265,13 +312,17 @@
       top: 0;
       background: url(../../../static/img/tip_content_01.png) 65% 18% no-repeat;
       background-size: 80%;
+      &.shareArrow2{
+        background: url(../../common/img/tip_content_01.png) 65% 18% no-repeat;
+        background-size: 80%;
+      }
       .close{
         width: 2.906667rem;
         height: 1.453333rem;
         background: url(../../common/img/button.png) left top no-repeat;
         background-size: 100%;
         position: absolute;
-        top: 38%;
+        top: 45%;
         left: 50%;
         margin-left: -1.453333rem;
 
@@ -363,6 +414,10 @@
          }
          &.erweicode{
            background: url("../../common/img/barcode_2d.jpg") left center no-repeat;
+           background-size: .58666667rem .58666667rem;
+         }
+         &.download{
+           background: url("../../common/img/download.png") left center no-repeat;
            background-size: .58666667rem .58666667rem;
          }
 
