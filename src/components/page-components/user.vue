@@ -232,7 +232,7 @@
                 break;
               case "0":
                 // 已绑定
-                this.msg = "您已绑定邀请人信息";
+                this.msg = "绑定成功";
                 this.openWindow = true;
                 break;
               case "-1":
