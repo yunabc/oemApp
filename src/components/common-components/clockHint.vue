@@ -1,12 +1,12 @@
 <template>
-  <div class="clockHint" >
+  <div class="clockHint" v-if="clockTip">
     <i class="clockImg"><img src="../../common/img/clock.png" alt=""></i>
     <div class="desc">
       <p>开启新产品上线提醒</p>
       <p>抢购快人一步</p>
     </div>
     <transition>
-      <div class="switchBtnArea" name="switch" :class="clockFlag?'on':'off'" @click="toggleClick()">
+      <div class="switchBtnArea" name="switch" :class="clockFlag?'on':'off'" v-tap="{methods:toggleClick}">
         <div class="switchBtn"></div>
       </div>
     </transition>
@@ -17,12 +17,29 @@
     export default {
         data () {
             return {
-                clockFlag:false
+                clockFlag:false,
+                clockTip:true,
             }
+        },
+        created(){
+          if(this.deviceN()){
+            this.clockTip = true;
+            // 调app方法
+            if(typeof openBtn !=="undefined" && typeof openBtn == 'function'){
+              if(openBtn()){
+                this.clockFlag = true;
+              }
+            }
+          }
+
         },
         methods:{
             toggleClick(){
-                this.clockFlag = !this.clockFlag
+              // 调app打开或关闭提醒
+              if(typeof openBtn !=="undefined" && typeof openBtn == 'function'){
+                openBtn();
+              }
+              this.clockFlag = !this.clockFlag
             }
         }
     }

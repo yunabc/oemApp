@@ -267,8 +267,7 @@ export default {
                   }
                  });
               })
-              // this._wxQrcode();
-            }else if(this.deviceN){
+            }else if(this.deviceN()){
              // APP中
              opencarema((url) =>{
               this.bindUserInvitedId(url);
