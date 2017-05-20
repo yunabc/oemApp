@@ -5,8 +5,9 @@
       <p>开启新产品上线提醒</p>
       <p>抢购快人一步</p>
     </div>
-    <transition>
-      <div class="switchBtnArea" name="switch" :class="clockFlag?'on':'off'" v-tap="{methods:toggleClick}">
+    <transition name="switch">
+      <div class="switchBtnArea"  :class="clockFlag?'on':'off'" v-tap="{methods:toggleClick}">
+
         <div class="switchBtn"></div>
       </div>
     </transition>
@@ -79,16 +80,34 @@
         margin: 4px;
       }
       &.on{
+        transition: all 1s;
         background-color: @color;
         .switchBtn{
+          transition: all 1s;
           transform: translateX(40px);
         }
       }
       &.off{
+        transition: all 1s;
         background-color: #f5f6f7;
+        .switchBtn{
+          transition: all 1s;
+          transform: translateX(0);
+        }
+      }
+      &.switch-enter,&.switch-leave-active{
+        .switchBtn{
+          transform: translateX(0);
+        }
+      }
+      &.switch-enter-active,&.switch-leave{
+        .switchBtn{
+          transform: translateX(40px);
+        }
+
       }
     }
-
+/*动画*/
 
   }
 
