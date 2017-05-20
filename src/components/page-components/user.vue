@@ -105,7 +105,7 @@
       }).catch((error) => {
         this.islogout = true;
       })
-     
+
       /*获取列表*/
       axios.post('/x-service/user/plate.htm',qs.stringify({userId:this.userId})).then((res) => {
         let data = res.data;
@@ -133,16 +133,16 @@
             clearTimeout(timer);
             var state = null;
             try {
-              // timer=window.location = 'jmwiki://';  
-              setTimeout(function(){  
+              // timer=window.location = 'jmwiki://';
+              setTimeout(function(){
                 window.location = "https://dn-joymeapp.qbox.me/wiki-com-1.0.2.3-joyme.apk";
-        
+
               },25);
             } catch(e) {
 
             }
-            
-        }else if(this.deviceN() == 'android'){
+
+        }else if(this.deviceN() == 'ios'){
             // ios
             // 方案一
             clearTimeout(timer);
@@ -188,7 +188,7 @@
                        var url = res.resultStr;
                        alert(1111);
                        alert(qs.stringify(res));
-                            
+
                      }
                    });
                 })
@@ -196,15 +196,15 @@
               // }else{
                // APP中
               // }
-              
+
               break;
             case "-1":
             // 未登录
               this.$router.push({name:'login',params:{topage:'user'}})
               break;
           }
-            
-          
+
+
 
         }).catch((error) =>{
           if(this.islogout){
@@ -241,7 +241,7 @@
              this.option.timestamp = data.result.timestamp;
              this.option.nonceStr = data.result.nonceStr;
              this.option.signature = data.result.signature;
-             
+
              wxShare(this.option,this.pathUrl);
              if(cb && typeof cb == 'function'){
                cb.apply(this);
@@ -259,7 +259,7 @@
         }).catch(function (error) {
           console.log(error);
         });
-        
+
       },
       toErwei() {
         if(this.islogout){
@@ -267,11 +267,11 @@
           return;
         }
         let pathUrl = this.pathUrl+'?userInviterId=' + this.userId + '#/register'
-        
+
         this.$router.push({name:'erwei',params:{shareurl:pathUrl}})
       },
       logout(){
-         
+
          this.openConfirm = true;
          this.msg = '确定要退出了吗？'
       },
@@ -306,7 +306,7 @@
       },
       closeWindow(bool) {
         this.openWindow = bool;
-        this.openConfirm = bool; 
+        this.openConfirm = bool;
 
       },
       confirmSure() {
@@ -392,7 +392,7 @@
       flex-flow: column;
       height: 5.12rem/* 384px */;
       margin-bottom: .26666667rem;
-      background-image:-webkit-linear-gradient(-64deg, #f1660f, #f19d2b); 
+      background-image:-webkit-linear-gradient(-64deg, #f1660f, #f19d2b);
       // {background-image:linear-gradient(left top, red 100px, yellow 200px);}
       color: #fff;
       font-size:.26666667rem;
