@@ -26,7 +26,7 @@
       <p class="text" v-tap="{methods:toErwei}">我的二维码</p>
     </li>
     <li class="erweicode userCenterItem userItemLine">
-      <p class="text" v-tap="{methods:toErwei}">添加邀请人</p>
+      <p class="text" v-tap="{methods:addInvited}">添加邀请人</p>
     </li>
     <li v-if="notApp" class="download userCenterItem userItemLine">
       <p class="text" v-tap="{methods:downLoadApp}">点击下载信金融APP</p>
@@ -158,6 +158,60 @@
             },25);
         }
       },
+      addInvited() {
+
+        axios.post('/x-service/user/inviter.htm').then((res) => {
+          let data = res.data;
+          switch(data.status){
+            case "1":
+              // 失败
+              this.msg = data.errorMsg;
+              this.openWindow = true;
+              break;
+            // case "0":
+            //   // 已绑定
+            //   this.msg = "您已绑定邀请人信息";
+            //   this.openWindow = true;
+            //   break;
+            case "0":
+              // 未绑邀请人信息
+              console.log(this.browVersions)
+              // if(this.browVersions.weixin){
+                // 微信中；
+                this.share(() => {
+                  console.log(12212);
+                  wx.scanQRCode({
+                     needResult: 1,
+                     desc: '清扫描二位码',
+                     success: function (res) {
+                       //扫码后获取结果参数:htpp://xxx.com/c/
+                       var url = res.resultStr;
+                       alert(1111);
+                       alert(qs.stringify(res));
+                            
+                     }
+                   });
+                })
+                // this._wxQrcode();
+              // }else{
+               // APP中
+              // }
+              
+              break;
+            case "-1":
+            // 未登录
+              this.$router.push({name:'login',params:{topage:'user'}})
+              break;
+          }
+            
+          
+
+        }).catch((error) =>{
+          if(this.islogout){
+            this.$router.push({name:'login',params:{topage:'user'}})
+          }
+        });
+      },
       closeFn() {
         this.shareTo = !this.shareTo
       },
@@ -172,7 +226,7 @@
           this.logsStatus = 'down'
         }
       },
-      share(){
+      share(cb){
         // console.log(window.location)
         if(this.islogout){
           this.$router.push({name:'login',params:{topage:'user'}})
@@ -188,7 +242,10 @@
              this.option.nonceStr = data.result.nonceStr;
              this.option.signature = data.result.signature;
              
-             wxShare(this.option,this.pathUrl)
+             wxShare(this.option,this.pathUrl);
+             if(cb && typeof cb == 'function'){
+               cb.apply(this);
+             }
              this.shareTo = true;
           } else if (data.status == 1) {
             // 失败
