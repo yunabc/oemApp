@@ -61,7 +61,7 @@
           openWindow: false,
           openConfirm: false,
           pathUrl:'',
-          shareTo:true,
+          shareTo:false,
           signFlag:null,
           userId:null,
           totalMoney:null,
@@ -168,34 +168,39 @@
               this.msg = data.errorMsg;
               this.openWindow = true;
               break;
-            // case "0":
-            //   // 已绑定
-            //   this.msg = "您已绑定邀请人信息";
-            //   this.openWindow = true;
-            //   break;
             case "0":
+              // 已绑定
+              this.msg = "您已绑定邀请人信息";
+              this.openWindow = true;
+              break;
+            case "3":
               // 未绑邀请人信息
               console.log(this.browVersions)
-              // if(this.browVersions.weixin){
+              if(this.browVersions.weixin){
                 // 微信中；
                 this.share(() => {
                   console.log(12212);
+                  if(wx.scanQRCode){
+                    // alert('you');
+                  }
                   wx.scanQRCode({
                      needResult: 1,
-                     desc: '清扫描二位码',
+                     scanType: ["qrCode"],
+                     // desc: '清扫描二位码',
                      success: function (res) {
                        //扫码后获取结果参数:htpp://xxx.com/c/
-                       var url = res.resultStr;
-                       alert(1111);
-                       alert(qs.stringify(res));
-                            
-                     }
+                      var url = res.resultStr;
+                      this.bindUserInvitedId(url);
+                    }
                    });
                 })
                 // this._wxQrcode();
-              // }else{
+              }else{
                // APP中
-              // }
+               opencarema((url) =>{
+                this.bindUserInvitedId(url);
+               })
+              }
               
               break;
             case "-1":
@@ -211,6 +216,35 @@
             this.$router.push({name:'login',params:{topage:'user'}})
           }
         });
+      },
+      bindUserInvitedId(url) {
+        let userInviterId = url.split('?')[1].split('#')[0].split('=')[1];
+        if(userInviterId != ''){
+          axios.post('/x-service/user/bind.htm',qs.stringify({
+            userInviterId: userInviterId
+          })).then((res) => {
+            let data = res.data;
+            switch(data.status){
+              case "1":
+                // 失败
+                this.msg = data.errorMsg;
+                this.openWindow = true;
+                break;
+              case "0":
+                // 已绑定
+                this.msg = "您已绑定邀请人信息";
+                this.openWindow = true;
+                break;
+              case "-1":
+                // 未登录
+                this.$router.push({name:'login',params:{topage:'user'}})
+                break;
+            }  
+          })
+        }else{
+          this.msg = "二维码错误，未找到邀请人信息";
+          this.openWindow = true;
+        }
       },
       closeFn() {
         this.shareTo = !this.shareTo
@@ -244,7 +278,8 @@
              
              wxShare(this.option,this.pathUrl);
              if(cb && typeof cb == 'function'){
-               cb.apply(this);
+               wx.ready(cb.apply(this));
+               return;
              }
              this.shareTo = true;
           } else if (data.status == 1) {

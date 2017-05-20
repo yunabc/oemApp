@@ -90,7 +90,7 @@
   #product {
     .clockHint {
       display: flex;
-      display: none;
+      // display: none;
       background-color: #fff;
       padding: .29333333rem .66666667rem;
       img {
