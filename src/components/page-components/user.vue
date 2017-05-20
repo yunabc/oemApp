@@ -76,10 +76,10 @@
       'v-confirm': confirm,
     },
     created(){
-      // if(!this.deviceN()){
+      if(!this.deviceN()){
         // 不是app
         this.notApp = true;
-      // }
+      }
       console.log(this.browVersions);
       this.pathUrl = window.location.origin + window.location.pathname;
       // this.signFlag = this.$cookie.get('signFlag');
@@ -194,7 +194,6 @@
                     }
                    });
                 })
-                // this._wxQrcode();
               }else{
                // APP中
                opencarema((url) =>{

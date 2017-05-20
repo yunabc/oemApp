@@ -24,6 +24,7 @@
 import alert from '../common-components/alert.vue';
 import axios from 'axios';
 import qs from 'qs';
+import {wxShare} from '../../common/js/wxShare';
 
 export default {
 	name: 'lostpassword',
@@ -118,8 +119,66 @@ export default {
 			this.openWindow = bool;
 
 		},
-		upload() {
+		 bindUserInvitedId(url) {
+        let userInviterId = url.split('?')[1].split('#')[0].split('=')[1];
+        if(userInviterId != ''){
+          axios.post('/x-service/user/bind.htm',qs.stringify({
+            userInviterId: userInviterId
+          })).then((res) => {
+            let data = res.data;
+            switch(data.status){
+              case "1":
+                // 失败
+                this.msg = data.errorMsg;
+                this.openWindow = true;
+                break;
+              case "0":
+                // 已绑定
+                this.msg = "绑定成功";
+                this.openWindow = true;
+                break;
+              case "-1":
+                // 未登录
+                this.$router.push({name:'login',params:{topage:'user'}})
+                break;
+            }  
+          })
+        }else{
+          this.msg = "二维码错误，未找到邀请人信息";
+          this.openWindow = true;
+        }
+      },
+		share() {
+			axios.post('/x-service/user/share.htm',qs.stringify({
+			  signUrl: location.href.split('#')[0]
+			})).then((res) => {
+			  let data = res.data;
+			  if (data.status == 0) {
+			     this.option.appId = data.result.appId;
+			     this.option.timestamp = data.result.timestamp;
+			     this.option.nonceStr = data.result.nonceStr;
+			     this.option.signature = data.result.signature;
+			     
+			     wxShare(this.option,this.pathUrl);
+			     if(cb && typeof cb == 'function'){
+			       wx.ready(cb.apply(this));
+			       return;
+			     }
+			  } else if (data.status == 1) {
+			    // 失败
+			    this.msg = data.errorMsg
+			    this.openWindow = true;
+			  }else if (data.status == -1) {
+			    // 失败未登录
+					console.log('未登录')			    
+			  }
 
+			}).catch(function (error) {
+			  console.log(error);
+			});
+		},
+		upload() {
+			// this.qrcode();
 			axios.post("/x-service/user/reg.htm",qs.stringify({
 				userInviterId:this.userInviterId,
 				mobile:this.phone,
@@ -137,30 +196,32 @@ export default {
 					case "0":
 						// 注册成功
 						var that =this;
-						this.msg = "注册成功，请完善用户信息";
+						// this.msg = "注册成功，请完善用户信息";
 						this.count = 0;
-						this.openWindow = true;
+						// this.openWindow = true;
 						this.$cookie.set('userId',data.result.userId);
 						this.$cookie.delete('signFlag');
 						this.$cookie.delete('totalMoney');
 						this.$cookie.delete('totalMoneyText');
-						setTimeout(function(){
-							that.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'home'}})
-						},1500)
+						// setTimeout(function(){
+						// 	that.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'home'}})
+						// },1500)
+						this.addInvited()
 						break;
 					case "2":
 						// 注册未绑定客户信息
 						var that =this;
 						this.count = 0;
-						this.msg = "注册成功，请完善用户信息";
-						this.openWindow = true;
+						// this.msg = "注册成功，请完善用户信息";
+						// this.openWindow = true;
 						this.$cookie.set('userId',data.result.userId);
 						this.$cookie.delete('signFlag');
 						this.$cookie.delete('totalMoney');
 						this.$cookie.delete('totalMoneyText');
-						setTimeout(function(){
-							that.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'home'}})
-						},1500)
+						// setTimeout(function(){
+						// 	that.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'home'}})
+						// },1500)
+						this.addInvited()
 						break;
 					case "-1":
 					// 未登录
@@ -171,6 +232,71 @@ export default {
 
 			})
 		},
+		addInvited() {
+      axios.post('/x-service/user/inviter.htm').then((res) => {
+        let data = res.data;
+        switch(data.status){
+          case "1":
+            // 失败
+            this.msg = data.errorMsg;
+            this.openWindow = true;
+            break;
+          case "0":
+            // 已绑定
+            this.msg = "注册成功";
+            this.openWindow = true;
+            setTimeout(() =>{
+							this.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'home'}})
+						},1500)
+            break;
+          case "3":
+            // 未绑邀请人信息
+            console.log(this.browVersions)
+            if(this.browVersions.weixin){
+              // 微信中；
+              this.share(() => {
+                console.log(12212);
+                wx.scanQRCode({
+                   needResult: 1,
+                   scanType: ["qrCode"],
+                   // desc: '清扫描二位码',
+                   success: function (res) {
+                     //扫码后获取结果参数:htpp://xxx.com/c/
+                    var url = res.resultStr;
+                    this.bindUserInvitedId(url);
+                  }
+                 });
+              })
+              // this._wxQrcode();
+            }else if(this.deviceN){
+             // APP中
+             opencarema((url) =>{
+              this.bindUserInvitedId(url);
+             })
+            }else{
+            	// 其他非微信的web端
+	            this.msg = "注册成功";
+	            this.openWindow = true;
+	            setTimeout(() =>{
+								this.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'home'}})
+							},1500)
+            }
+            
+            break;
+          case "-1":
+          // 未登录
+            this.$router.push({name:'login',params:{topage:'home'}})
+            break;
+        }
+          
+        
+
+      }).catch((error) =>{
+        if(this.islogout){
+          this.$router.push({name:'login',params:{topage:'user'}})
+        }
+      });
+    },
 		sendCode() {
 			let reg = /^1(3[0-9]|4[57]|5[0-35-9]|8[0-9]|7[780])\d{8}$/;
 			console.log(reg.test(this.phone));
