@@ -39,7 +39,8 @@ export default {
 			openWindow: false,
 			count:'发送验证码',
 			second:"",
-			userInviterId:null
+			userInviterId:null,
+			userId:'',
 
 
 		}
@@ -199,10 +200,12 @@ export default {
 						// this.msg = "注册成功，请完善用户信息";
 						this.count = 0;
 						// this.openWindow = true;
-						this.$cookie.set('userId',data.result.userId);
+						this.userId = data.result.userId
+						this.$cookie.set('userId',this.userId);
 						this.$cookie.delete('signFlag');
 						this.$cookie.delete('totalMoney');
 						this.$cookie.delete('totalMoneyText');
+
 						// setTimeout(function(){
 						// 	that.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'home'}})
 						// },1500)
@@ -214,7 +217,8 @@ export default {
 						this.count = 0;
 						// this.msg = "注册成功，请完善用户信息";
 						// this.openWindow = true;
-						this.$cookie.set('userId',data.result.userId);
+						this.userId = data.result.userId
+						this.$cookie.set('userId',this.userId);
 						this.$cookie.delete('signFlag');
 						this.$cookie.delete('totalMoney');
 						this.$cookie.delete('totalMoneyText');
@@ -246,7 +250,7 @@ export default {
             this.msg = "注册成功";
             this.openWindow = true;
             setTimeout(() =>{
-							this.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'home'}})
+							this.$router.push({ name: 'registernext',params:{userId:this.userId,topage:'home'}})
 						},1500)
             break;
           case "3":
@@ -277,7 +281,7 @@ export default {
 	            this.msg = "注册成功";
 	            this.openWindow = true;
 	            setTimeout(() =>{
-								this.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'home'}})
+								this.$router.push({ name: 'registernext',params:{userId:this.userId,topage:'home'}})
 							},1500)
             }
             
