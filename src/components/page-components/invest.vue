@@ -1,11 +1,13 @@
 <template>
   <div id="invest" class="stageScreen">
-    <div ref="tabNav" class="tabNav">
-      <router-link to="/invest/regular" class="regularProduct navItem">定期</router-link>
-      <div class="verticalLine"></div>
-      <router-link to="/invest/current" class="currentProduct navItem">活期</router-link>
+    <div class="container">
+      <div ref="tabNav" class="tabNav">
+        <router-link to="/invest/regular" class="regularProduct navItem">定期</router-link>
+        <div class="verticalLine"></div>
+        <router-link to="/invest/current" class="currentProduct navItem">活期</router-link>
+      </div>
+      <router-view ></router-view>
     </div>
-    <router-view ></router-view>
     <foot-nav></foot-nav>
   </div>
 
