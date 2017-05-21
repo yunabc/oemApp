@@ -149,7 +149,7 @@ export default {
           this.openWindow = true;
         }
       },
-		share() {
+		share(cb) {
 			axios.post('/x-service/user/share.htm',qs.stringify({
 			  signUrl: location.href.split('#')[0]
 			})).then((res) => {

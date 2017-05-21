@@ -19,10 +19,11 @@
         data () {
             return {
                 clockFlag:false,
-                clockTip:true,
+                clockTip:false,
             }
         },
         created(){
+          console.log(this.deviceN());
           if(this.deviceN()){
             this.clockTip = true;
             // 调app方法

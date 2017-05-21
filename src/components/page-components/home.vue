@@ -189,6 +189,7 @@
       padding-left: .4rem;
       background-color: #fff;
       line-height: .8rem;
+      text-align: center;
     }
     .home-content {
       padding: .3rem .4rem 0;
