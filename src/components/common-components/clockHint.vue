@@ -26,8 +26,9 @@
           if(this.deviceN()){
             this.clockTip = true;
             // 调app方法
-            if(typeof openBtn !=="undefined" && typeof openBtn == 'function'){
-              if(openBtn()){
+            if(typeof isPushStopped !=="undefined" && typeof isPushStopped == 'function'){
+              alert('调用isPushStoppedi')
+              if(isPushStopped()){
                 this.clockFlag = true;
               }
             }
@@ -37,10 +38,11 @@
         methods:{
             toggleClick(){
               // 调app打开或关闭提醒
-              if(typeof openBtn !=="undefined" && typeof openBtn == 'function'){
-                openBtn();
+              if(typeof opentOrCloseMessage !=="undefined" && typeof opentOrCloseMessage == 'function'){
+                alert('调用opentOrCloseMessage')
+                this.clockFlag = !this.clockFlag;
+                opentOrCloseMessage(this.clockFlag);
               }
-              this.clockFlag = !this.clockFlag
             }
         }
     }

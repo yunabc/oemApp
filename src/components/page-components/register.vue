@@ -162,7 +162,9 @@ export default {
 			     
 			     wxShare(this.option,this.pathUrl);
 			     if(cb && typeof cb == 'function'){
-			       wx.ready(cb.apply(this));
+			       wx.ready(() => {
+			       	cb.apply(this)
+			       });
 			       return;
 			     }
 			  } else if (data.status == 1) {
@@ -237,6 +239,7 @@ export default {
 			})
 		},
 		addInvited() {
+			var that =this;
       axios.post('/x-service/user/inviter.htm').then((res) => {
         let data = res.data;
         switch(data.status){
@@ -267,7 +270,7 @@ export default {
                    success: function (res) {
                      //扫码后获取结果参数:htpp://xxx.com/c/
                     var url = res.resultStr;
-                    this.bindUserInvitedId(url);
+                    that.bindUserInvitedId(url);
                   }
                  });
               })

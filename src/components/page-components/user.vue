@@ -47,7 +47,7 @@
 <script>
 "barcode_2d.png"
   import footNav from 'components/common-components/footNav';
-  import alert from '../common-components/alert.vue'
+  import alert2 from '../common-components/alert.vue'
   import confirm from '../common-components/confirm.vue'
   import axios from 'axios';
   import qs from 'qs';
@@ -76,7 +76,7 @@
     },
     components:{
       footNav,
-      'v-alert': alert,
+      'v-alert': alert2,
       'v-confirm': confirm,
     },
     created(){
@@ -105,6 +105,7 @@
         userId: this.userId
       })).then((res) => {
         let data = res.data;
+        let that =this;
         if (data.status == 0) {
           this.islogout=false;
           this.signFlag = data.result.signFlag
@@ -115,7 +116,9 @@
              this.vip=true;
            }
            this.option.userInviterId = this.userId;
-
+          window.toShareUrl=function(url){
+            return that.pathUrl+'?userInviterId=' + that.userId + '#/register'
+          }
         }
       }).catch((error) => {
         this.islogout = true;
@@ -184,7 +187,7 @@
         }
       },
       addInvited() {
-
+        var that =this;
         axios.post('/x-service/user/inviter.htm').then((res) => {
           let data = res.data;
           switch(data.status){
@@ -215,13 +218,14 @@
                      success: function (res) {
                        //扫码后获取结果参数:htpp://xxx.com/c/
                       var url = res.resultStr;
-                      this.bindUserInvitedId(url);
+                      that.bindUserInvitedId(url);
                     }
                    });
                 })
               }else{
                // APP中
                opencarema((url) =>{
+
                 this.bindUserInvitedId(url);
                })
               }
@@ -303,7 +307,9 @@
              
              wxShare(this.option,this.pathUrl);
              if(cb && typeof cb == 'function'){
-               wx.ready(cb.apply(this));
+               wx.ready(() =>{
+                cb.apply(this);
+               });
                return;
              }
              this.shareTo = true;
@@ -551,7 +557,7 @@
              background-size: .58666667rem .58666667rem;
            }
            &.addInviter{
-             background: url("../../common/img/sao.jpg") .05333333rem center no-repeat;
+             background: url("../../common/img/sao.png") .05333333rem center no-repeat;
              background-size: .49rem .49rem;
            }
 
