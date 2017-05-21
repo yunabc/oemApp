@@ -17,8 +17,8 @@
         <img  :src="item.bannerUrl" :alt="item.bannerTitle"  width="100%">
       </a>
     </div>
-    <ul class="home-content" v-if="productDqViews || productHqViews">
-      <li class="currentInvest investLi" v-if="productHqViews" v-for="item in productHqViews" :data-id="item.proId">
+    <div class="home-content" v-if="productDqViews || productHqViews">
+      <div class="currentInvest investLi" v-if="productHqViews" v-for="item in productHqViews" :data-id="item.proId">
         <router-link to="/invest/current">
           <div class="infoDesc">
             <img src="../../common/img/current.png" alt="">
@@ -28,16 +28,20 @@
             </div>
             <div class="nextIcon"></div>
           </div>
-          <div class="deviLine"></div>
-          <div class="infoCharge">
-            <div class="name">{{item.proName}}</div>
-            <div class="profit">{{item.proRate}}%</div>
-            <div  class="buyBtn">购买</div>
-          </div>
+          <ul>
+            <li>
+              <div class="deviLine"></div>
+              <div class="infoCharge">
+                <div class="name">{{item.proName}}</div>
+                <div class="profit">{{item.proRate}}%</div>
+                <div  class="buyBtn">购买</div>
+              </div>
+            </li>
+          </ul>
         </router-link>
 
-      </li>
-      <li class="regularInvest investLi" v-if="productDqViews" v-for="item in productDqViews" :data-id="item.proId">
+      </div>
+      <div class="regularInvest investLi" v-if="productDqViews" >
         <router-link :to="{ path: '/invest/regular'}">
           <div class="infoDesc">
             <img src="../../common/img/regular.png" alt="">
@@ -47,16 +51,20 @@
             </div>
             <div class="nextIcon"></div>
           </div>
-          <div class="deviLine"></div>
-          <div class="infoCharge">
-            <div class="name">{{item.proName}}</div>
-            <div class="profit">{{item.proRate}}</div>
-            <div  class="buyBtn">购买</div>
-          </div>
+          <ul>
+            <li v-for="item in productDqViews" :data-id="item.proId">
+              <div class="deviLine"></div>
+              <div class="infoCharge">
+                <div class="name">{{item.proName}}</div>
+                <div class="profit">{{item.proRate}}</div>
+                <div  class="buyBtn">购买</div>
+              </div>
+            </li>
+          </ul>
         </router-link>
 
-      </li>
-    </ul>
+      </div>
+    </div>
     <div class="noContent" v-else>暂无数据</div>
     <foot-nav ></foot-nav>
   </div>
