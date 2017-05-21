@@ -39,7 +39,8 @@ export default {
 			openWindow: false,
 			count:'发送验证码',
 			second:"",
-			userInviterId:null
+			userInviterId:null,
+			userId:'',
 
 
 		}
@@ -161,7 +162,9 @@ export default {
 			     
 			     wxShare(this.option,this.pathUrl);
 			     if(cb && typeof cb == 'function'){
-			       wx.ready(cb.apply(this));
+			       wx.ready(() => {
+			       	cb.apply(this)
+			       });
 			       return;
 			     }
 			  } else if (data.status == 1) {
@@ -199,10 +202,12 @@ export default {
 						// this.msg = "注册成功，请完善用户信息";
 						this.count = 0;
 						// this.openWindow = true;
-						this.$cookie.set('userId',data.result.userId);
+						this.userId = data.result.userId
+						this.$cookie.set('userId',this.userId);
 						this.$cookie.delete('signFlag');
 						this.$cookie.delete('totalMoney');
 						this.$cookie.delete('totalMoneyText');
+
 						// setTimeout(function(){
 						// 	that.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'home'}})
 						// },1500)
@@ -214,7 +219,8 @@ export default {
 						this.count = 0;
 						// this.msg = "注册成功，请完善用户信息";
 						// this.openWindow = true;
-						this.$cookie.set('userId',data.result.userId);
+						this.userId = data.result.userId
+						this.$cookie.set('userId',this.userId);
 						this.$cookie.delete('signFlag');
 						this.$cookie.delete('totalMoney');
 						this.$cookie.delete('totalMoneyText');
@@ -233,6 +239,7 @@ export default {
 			})
 		},
 		addInvited() {
+			var that =this;
       axios.post('/x-service/user/inviter.htm').then((res) => {
         let data = res.data;
         switch(data.status){
@@ -246,7 +253,7 @@ export default {
             this.msg = "注册成功";
             this.openWindow = true;
             setTimeout(() =>{
-							this.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'home'}})
+							this.$router.push({ name: 'registernext',params:{userId:this.userId,topage:'home'}})
 						},1500)
             break;
           case "3":
@@ -263,12 +270,11 @@ export default {
                    success: function (res) {
                      //扫码后获取结果参数:htpp://xxx.com/c/
                     var url = res.resultStr;
-                    this.bindUserInvitedId(url);
+                    that.bindUserInvitedId(url);
                   }
                  });
               })
-              // this._wxQrcode();
-            }else if(this.deviceN){
+            }else if(this.deviceN()){
              // APP中
              opencarema((url) =>{
               this.bindUserInvitedId(url);
@@ -278,7 +284,7 @@ export default {
 	            this.msg = "注册成功";
 	            this.openWindow = true;
 	            setTimeout(() =>{
-								this.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'home'}})
+								this.$router.push({ name: 'registernext',params:{userId:this.userId,topage:'home'}})
 							},1500)
             }
             
