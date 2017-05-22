@@ -189,10 +189,10 @@
               console.log(data.result.allRedirectUrl);
               location.href = data.result.allRedirectUrl;
             } else {
-              this.$router.push({path:"/login",query:{topage:"user"}});
+              this.$router.push({path:"/login",query:{topage:this.$route.name}});
             }
           }).catch(function (error) {
-            this.$router.push({path:"/login",query:{topage:"user"}});
+            this.$router.push({path:"/login",query:{topage:this.$route.name}});
           });
         }else{
           this.$router.push({path:"/login",query:{topage:this.$route.name}});

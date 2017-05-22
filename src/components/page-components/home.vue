@@ -56,7 +56,7 @@
               <li v-for="item in productDqViews" :data-id="item.proId">
                 <div class="deviLine"></div>
                 <div class="infoCharge">
-                  <div class="name">{{item.proName}}</div>
+                  <div class="name " :class="item.proName.indexOf('360')>-1 ? 'qhicon':''" >{{item.proName}}</div>
                   <div class="profit">{{item.proRate}}</div>
                   <div class="buyBtn">购买</div>
                 </div>
@@ -239,9 +239,10 @@
       font-size: .32rem;
       color: #333333;
       padding-left: .4rem;
-      background-color: #fff;
+      background-color: rgba(240, 123, 85, 0.2);
       line-height: .8rem;
       text-align: center;
+      font-weight: normal;
     }
     .home-content {
       padding: .3rem .4rem 0;
@@ -325,6 +326,11 @@
           .name {
             font-size: .32rem;
             color: #333333;
+            &.qhicon{
+              padding-left: 50px;
+              background:url(../../common/img/360.jpg) left center no-repeat;
+              background-size: 40px;
+            }
           }
 
           .profit {

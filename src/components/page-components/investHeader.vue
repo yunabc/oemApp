@@ -72,6 +72,8 @@ import qs from 'qs';
         },
         created() {
           this.userId = this.$cookie.get('userId');
+          console.log(this.$route)
+
         },
         methods: {
           checkInfo(params) {
@@ -82,13 +84,13 @@ import qs from 'qs';
                 if (data.status == 0) {
                   location.href = data.result.allRedirectUrl;;
                 } else {
-                  this.$router.push({path:"/login",query:{topage:"user"}});
+                  this.$router.push({path:"/login",query:{topage:this.$route.name}});
                 }
               }).catch(function (error) {
-                this.$router.push({path:"/login",query:{topage:"user"}});
+                this.$router.push({path:"/login",query:{topage:this.$route.name}});
               });
             }else{
-              this.$router.push({path:"/login",query:{topage:"user"}});
+              this.$router.push({path:"/login",query:{topage:this.$route.name}});
             }
           }
         }

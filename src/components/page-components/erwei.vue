@@ -92,7 +92,7 @@
       // height: 6rem/* 450px */
       margin-left: 0.666667rem;
       margin: auto;
-      background: url(/static/img/xinjrlogo.jpg) ;
+      background: url(/app/static/img/xinjrlogo.jpg) ;
       background-size: 100%;
       position: relative;
       margin-top: 0.666667rem;
