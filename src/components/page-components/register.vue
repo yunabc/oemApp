@@ -18,10 +18,12 @@
 
 		<button class="btn submit-btn" v-tap="{methods:checkinput}">注册</button>
 		<v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>
+		<v-confirm :rightMsg="rightMsg" :msg="msg" @sure="confirmSure" @cancle="closeWindow2" v-if="openConfirm"></v-confirm>
 	</div>
 </template>
 <script>
-import alert from '../common-components/alert.vue';
+import alert2 from '../common-components/alert.vue';
+import confirm from '../common-components/confirm.vue'
 import axios from 'axios';
 import qs from 'qs';
 import {wxShare} from '../../common/js/wxShare';
@@ -39,8 +41,12 @@ export default {
 			openWindow: false,
 			count:'发送验证码',
 			second:"",
+			openConfirm: false,
 			userInviterId:null,
 			userId:'',
+			pathUrl:'',
+			option:{},
+			rightMsg:'跳过',
 
 
 		}
@@ -48,8 +54,12 @@ export default {
 	porps:{
 	},
 	created(){
-		console.log(this.checkread)
+		let that = this;
+		this.pathUrl = window.location.origin + window.location.pathname;
 		this.userInviterId = location.search.substring(0).split('=')[1];
+		window.appGiveUrl=function(url){
+      that.bindUserInvitedId(url);
+    }
 	},
 	methods: {
 		checkval() {
@@ -117,9 +127,18 @@ export default {
 			}
 		},
 		closeWindow(bool) {
-			this.openWindow = bool;
+      this.openWindow = bool;
+    },
+    closeWindow2(bool) {
+      this.openWindow = bool;
+      this.openConfirm = bool;
+      this.$router.push({name:'registernext',params:{topage:'home'}})
+    },
+		confirmSure() {
+      this.openConfirm=false;
+      this.addInvited()
 
-		},
+    },
 		 bindUserInvitedId(url) {
         let userInviterId = url.split('?')[1].split('#')[0].split('=')[1];
         if(userInviterId != ''){
@@ -135,8 +154,12 @@ export default {
                 break;
               case "0":
                 // 已绑定
-                this.msg = "绑定成功";
+                this.msg = "绑定成功,请完善个人信息";
                 this.openWindow = true;
+                setTimeout(()=>{
+
+                	this.$router.push({name:'registernext',params:{topage:'home'}})
+                },1500)
                 break;
               case "-1":
                 // 未登录
@@ -199,8 +222,8 @@ export default {
 					case "0":
 						// 注册成功
 						var that =this;
-						// this.msg = "注册成功，请完善用户信息";
 						this.count = 0;
+						this.msg = "您是否要通过扫码绑定上级邀请人？";
 						// this.openWindow = true;
 						this.userId = data.result.userId
 						this.$cookie.set('userId',this.userId);
@@ -211,13 +234,13 @@ export default {
 						// setTimeout(function(){
 						// 	that.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'home'}})
 						// },1500)
-						this.addInvited()
+						this.openConfirm = true;
 						break;
 					case "2":
 						// 注册未绑定客户信息
 						var that =this;
 						this.count = 0;
-						// this.msg = "注册成功，请完善用户信息";
+						this.msg = "您是否要通过扫码绑定上级邀请人？";
 						// this.openWindow = true;
 						this.userId = data.result.userId
 						this.$cookie.set('userId',this.userId);
@@ -227,7 +250,8 @@ export default {
 						// setTimeout(function(){
 						// 	that.$router.push({ name: 'registernext',params:{userId:data.result.userId,topage:'home'}})
 						// },1500)
-						this.addInvited()
+						this.openConfirm = true;
+						// this.addInvited()
 						break;
 					case "-1":
 					// 未登录
@@ -258,7 +282,7 @@ export default {
             break;
           case "3":
             // 未绑邀请人信息
-            console.log(this.browVersions)
+            // console.log(this.browVersions)
             if(this.browVersions.weixin){
               // 微信中；
               this.share(() => {
@@ -274,11 +298,9 @@ export default {
                   }
                  });
               })
-            }else if(this.deviceN()){
+            }else if(this.deviceN()=="android"){
              // APP中
-             opencarema((url) =>{
-              this.bindUserInvitedId(url);
-             })
+              android4js.opencarema();
             }else{
             	// 其他非微信的web端
 	            this.msg = "注册成功";
@@ -366,7 +388,8 @@ export default {
 		}
 	},
 	components: {
-		'v-alert': alert
+		'v-alert': alert2,
+		'v-confirm': confirm,
 	}
 }
 </script>

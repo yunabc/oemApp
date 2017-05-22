@@ -6,7 +6,7 @@
       <p>{{totalMoneyText}}</p>
     </div>
     <ul class="userCenterList">
-      <li class="invite userCenterItem userItemLine" v-tap="{methods:invitNew}">
+      <li class="invite userCenterItem userItemLine" v-if="wxApp" v-tap="{methods:invitNew}">
         <p class="text">邀请新用户</p>
       </li>
       <router-link to="/user/performance" v-if="vip" class="performance userCenterItem userItemLine">
@@ -72,6 +72,7 @@
           notApp:false,
           toBrower:false,
           wxApp:false,
+          wx:false,
         }
     },
     components:{
@@ -81,10 +82,21 @@
     },
     created(){
       var that = this
-      window.shareByApp = function(str){
-        that.msg = str;
+      window.shareByApp = function(bool){
         that.openWindow = true;
+        if(bool){
+          that.msg = '分享成功';
+          
+        }else{
+          that.msg = '分享失败，请重新登录';
+          setTimeout(() => {
+            that.$router.push({name:'login',params:{topage:'user'}})
+          },1500)
+        }
         // return that;
+      }
+      if(this.browVersions.weixin){
+        this.wx=true;
       }
       if(!this.deviceN()){
         // 不是app
@@ -101,29 +113,24 @@
       this.userId = this.$cookie.get('userId');
       // this.totalMoney = this.$cookie.get('totalMoney');
       // this.totalMoneyText = this.$cookie.get('totalMoneyText');
-      axios.get('/x-service/user/person.htm',qs.stringify({
-        userId: this.userId
-      })).then((res) => {
-        let data = res.data;
-        let that =this;
-        if (data.status == 0) {
-          this.islogout=false;
-          this.signFlag = data.result.signFlag
-          this.totalMoney = data.result.totalMoney
-          this.totalMoneyText = data.result.totalMoneyText
-           /*微信分享*/
-           if(this.signFlag == '00'){
-             this.vip=true;
-           }
-           this.option.userInviterId = this.userId;
-          window.toShareUrl=function(url){
-            return that.pathUrl+'?userInviterId=' + that.userId + '#/register'
+      this._person()
+      window.toShareUrl=function(){
+        // that._person(() => {
+          if(that.userId){
+            // console.log(that.$router)
+            // that.$router.push({name:'login',params:{topage:'user'}});
+            return that.pathUrl+'?userInviterId=' + that.userId + '#/register';
           }
-        }
-      }).catch((error) => {
-        this.islogout = true;
-      })
-     
+            // that.$router.push({name:'login',params:{topage:'user'}});
+            location.href = window.location.origin + window.location.pathname+'#/login';
+            // return null;
+          
+        // })
+      }
+      window.appGiveUrl=function(url){
+        that.bindUserInvitedId(url);
+      }
+     // toShareUrl()
       /*获取列表*/
       axios.post('/x-service/user/plate.htm',qs.stringify({userId:this.userId})).then((res) => {
         let data = res.data;
@@ -145,6 +152,34 @@
     //   console.log(window.shareByApp());
     // },
     methods:{
+      _person(cb) {
+        axios.get('/x-service/user/person.htm',qs.stringify({
+          userId: this.userId
+        })).then((res) => {
+          let data = res.data;
+          let that =this;
+          if (data.status == 0) {
+            this.islogout=false;
+            this.signFlag = data.result.signFlag
+            this.totalMoney = data.result.totalMoney
+            this.totalMoneyText = data.result.totalMoneyText
+             /*微信分享*/
+             if(this.signFlag == '00'){
+               this.vip=true;
+             }
+             this.option.userInviterId = this.userId;
+             if(cb&& typeof cb =="function"){
+              cb.apply(this);
+             }
+            
+          }else{
+            this.$router.push({name:'login',params:{topage:'user'}})
+          }
+        }).catch((error) => {
+          this.islogout = true;
+          this.$router.push({name:'login',params:{topage:'user'}});
+        })
+      },
       downLoadApp() {
         if(this.browVersions.weixin || this.browVersions.weibo){
           this.shareTo = true;
@@ -156,7 +191,7 @@
             try {
               // timer=window.location = 'jmwiki://';  
               setTimeout(function(){  
-                window.location = "https://dn-joymeapp.qbox.me/wiki-com-1.0.2.3-joyme.apk";
+                window.location = "/file/app/android/xinjinrong.apk";
         
               },25);
             } catch(e) {
@@ -224,10 +259,10 @@
                 })
               }else{
                // APP中
-               opencarema((url) =>{
+               if(typeof android4js !=='undefined'){
 
-                this.bindUserInvitedId(url);
-               })
+                 android4js.opencarema();
+               }
               }
               
               break;

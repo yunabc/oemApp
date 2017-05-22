@@ -27,22 +27,19 @@
           if(this.deviceN()){
             this.clockTip = true;
             // 调app方法
-            if(typeof isPushStopped !=="undefined" && typeof isPushStopped == 'function'){
-              alert('调用isPushStoppedi')
-              if(isPushStopped()){
+            if(typeof android4js !=="undefined" && typeof android4js.isPushStopped == 'function'){
+              if(android4js.isPushStopped()){
                 this.clockFlag = true;
               }
             }
           }
-
         },
         methods:{
             toggleClick(){
               // 调app打开或关闭提醒
-              if(typeof opentOrCloseMessage !=="undefined" && typeof opentOrCloseMessage == 'function'){
-                alert('调用opentOrCloseMessage')
+              if(typeof android4js !=="undefined" && typeof android4js.opentOrCloseMessage == 'function'){
                 this.clockFlag = !this.clockFlag;
-                opentOrCloseMessage(this.clockFlag);
+                android4js.opentOrCloseMessage(this.clockFlag);
               }
             }
         }
@@ -56,7 +53,7 @@
     display: flex;
      //display: none;
     background-color: #fff;
-    padding: .29333333rem .66666667rem;
+    padding: .15333333rem .66666667rem;
     img {
       margin-top: .05333333rem;
       margin-right: .4rem;

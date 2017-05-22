@@ -27,19 +27,19 @@
     },
     created() {
       let that =this;
-      let img = new Image();
+      // let img = new Image();
       this.options={
          data:this.$route.params.shareurl,
          size:this.caculateRate(),
          typeNumber:4,
          logo:{
-           image:'http://www.mu12.cn/app/static/xinjrlogo.jpg',
+           image:'http://www.mu12.cn/app/static/img/xinjrlogo.jpg',
            size:.1,
          }
 
       }
       
-      img.src = 'http://www.mu12.cn/app/static/xinjrlogo.jpg'
+      // img.src = 'http://www.mu12.cn/app/static/img/xinjrlogo.jpg'
       console.log(this.$route.params.shareurl);
      
     },

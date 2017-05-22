@@ -27,10 +27,10 @@ Vue.prototype.browVersions=function(){
 }(); 
   
 Vue.prototype.deviceN = function(){
-	if(typeof deviceName == 'undefined' || typeof deviceName !== 'function'){
+	if(typeof android4js == 'undefined' || typeof android4js.deviceName !== 'function'){
 		return false;
-	}else if(typeof deviceName == 'function'){
-		return deviceName();
+	}else if(typeof android4js.deviceName == 'function'){
+		return android4js.deviceName();
 	}
 }
 Vue.use(vueTap);

@@ -18,7 +18,7 @@
           <img :src="item.bannerUrl" :alt="item.bannerTitle" width="100%">
         </a>
       </div>
-      <div class="download-txt" v-tap="{methods:downLoadApp}">点击下载信金融APP</div>
+      <div class="download-txt" v-if="notApp" v-tap="{methods:downLoadApp}">点击下载信金融APP</div>
       <div class="home-content" v-if="productDqViews || productHqViews">
         <div class="currentInvest investLi" v-if="productHqViews" >
           <router-link to="/invest/current">
@@ -68,6 +68,8 @@
       </div>
       <div class="noContent" v-else>暂无数据</div>
     </div>
+    <div class="zhezhao" v-if="shareTo"></div>
+    <div class="share-arrow shareArrow2" v-if="shareTo"><div class="close" v-tap="{methods:closeFn}"></div></div>
     <foot-nav></foot-nav>
   </div>
 </template>
@@ -84,6 +86,9 @@
         noUrl: "javascript:void(0)",
         productDqViews: [],
         productHqViews: [],
+        shareTo:false,
+        notApp:false,
+
       }
 
     },
@@ -91,6 +96,10 @@
       footNav
     },
     created(){
+      if(!this.deviceN()){
+        // 不是app
+        this.notApp = true;
+      }
       axios.post('/x-service/pro/index.htm').then((res) => {
         let data = res.data;
         if (data.status == 0) {
@@ -133,10 +142,12 @@
           prevButton: '.swiper-button-prev'
         })
       },
+      closeFn() {
+        this.shareTo = !this.shareTo;
+      },
       downLoadApp() {
         if (this.browVersions.weixin || this.browVersions.weibo) {
           this.shareTo = true;
-          this.toBrower = true;
         } else if (this.browVersions.android) {
           // 安卓
           clearTimeout(timer);
@@ -144,7 +155,7 @@
           try {
             // timer=window.location = 'jmwiki://';
             setTimeout(function () {
-              window.location = "https://dn-joymeapp.qbox.me/wiki-com-1.0.2.3-joyme.apk";
+              window.location = "/file/app/android/xinjinrong.apk";
 
             }, 25);
           } catch (e) {
@@ -178,6 +189,40 @@
   @import '../../../static/css/swiper-3.4.2.min.css';
 
   #home {
+    .zhezhao{
+      position: fixed;
+      z-index: 100;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.8)
+    }
+    .share-arrow{
+      position: fixed;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 101;
+      top: 0;
+      background: url(../../../static/img/tip_content_01.png) 65% 18% no-repeat;
+      background-size: 80%;
+      &.shareArrow2{
+        background: url(../../common/img/tip_content_01.png) 65% 18% no-repeat;
+        background-size: 80%;
+      }
+      .close{
+        width: 2.906667rem;
+        height: 1.453333rem;
+        background: url(../../common/img/button.png) left top no-repeat;
+        background-size: 100%;
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        margin-left: -1.453333rem;
+
+      }
+    }
     .home-banner {
       width: 100%;
       height: 4.8rem;
