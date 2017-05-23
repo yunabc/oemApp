@@ -22,6 +22,7 @@
 			<router-link class="fl" to="/lostpassword">忘记密码</router-link>
 			<router-link class="fr" to="/register">注册账号</router-link>
 		</div>
+		<router-link class="gohome" to="/home">返回首页<i class="fa fa-angle-right" aria-hidden="true"></i></router-link>
 		<v-alert :msg="msg" @close="closeWindow" v-if="openWindow"></v-alert>
 	</div>
 

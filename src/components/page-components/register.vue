@@ -223,7 +223,7 @@ export default {
 						// 注册成功
 						var that =this;
 						this.count = 0;
-						this.msg = "您是否要通过扫码绑定上级邀请人？";
+						this.msg = "您是否要通过扫码绑定邀请好友？";
 						// this.openWindow = true;
 						this.userId = data.result.userId
 						this.$cookie.set('userId',this.userId);
@@ -240,7 +240,7 @@ export default {
 						// 注册未绑定客户信息
 						var that =this;
 						this.count = 0;
-						this.msg = "您是否要通过扫码绑定上级邀请人？";
+						this.msg = "您是否要通过扫码绑定邀请好友？";
 						// this.openWindow = true;
 						this.userId = data.result.userId
 						this.$cookie.set('userId',this.userId);
