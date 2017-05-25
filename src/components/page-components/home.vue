@@ -34,7 +34,7 @@
               <li v-for="item in productHqViews" :data-id="item.proId">
                 <div class="deviLine"></div>
                 <div class="infoCharge">
-                  <div class="name">{{item.proName}}</div>
+                  <div class="name qhicon" >{{item.proName}}</div>
                   <div class="profit">{{item.proRate}}%</div>
                   <div class="buyBtn">购买</div>
                 </div>
@@ -96,7 +96,7 @@
       footNav
     },
     created(){
-      
+
       if(!this.deviceN()){
         // 不是app
         if(this.browVersions.android){
