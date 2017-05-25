@@ -335,14 +335,15 @@
         axios.post('/x-service/user/share.htm',qs.stringify({
           signUrl: location.href.split('#')[0]
         })).then((res) => {
-          let data = res.data;
+          let data = res.data,url;
           if (data.status == 0) {
              this.option.appId = data.result.appId;
              this.option.timestamp = data.result.timestamp;
              this.option.nonceStr = data.result.nonceStr;
              this.option.signature = data.result.signature;
-             
-             wxShare(this.option,this.pathUrl);
+             url = this.pathUrl+'?userInviterId=' + this.userId + '#/register';
+             this.option.desc="点击邀请注册"
+             wxShare(this.option,url);
              if(cb && typeof cb == 'function'){
                wx.ready(() =>{
                 cb.apply(this);
