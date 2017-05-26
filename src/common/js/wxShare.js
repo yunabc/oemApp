@@ -28,8 +28,8 @@ export function wxShare(option,pageUrl){
       // }
       wx.onMenuShareAppMessage({
         title: title,
-        desc: location.href.indexOf('/user')>-1?option.desc:document.title,
-        link: location.href.indexOf('/user')>-1?pageUrl:location.href,
+        desc: option.desc||document.title,
+        link: pageUrl||location.href,
         imgUrl: url,
         trigger: function (res) {
           // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
@@ -44,7 +44,7 @@ export function wxShare(option,pageUrl){
       });
       wx.onMenuShareTimeline({
         title: title,
-        link: location.href.indexOf('/user')>-1?pageUrl:location.href,
+        link: pageUrl||location.href,
         imgUrl: url,
         trigger: function (res) {
         },
@@ -57,8 +57,8 @@ export function wxShare(option,pageUrl){
       });
       wx.onMenuShareQQ({
         title: title, // 分享标题
-        desc: location.href.indexOf('/user')>-1?option.desc:document.title, // 分享描述
-        link: location.href.indexOf('/user')>-1?pageUrl:location.href,
+        desc: option.desc||document.title, // 分享描述
+        link: pageUrl||location.href,
         imgUrl: url, // 分享图标
         success: function () {
           // 用户确认分享后执行的回调函数

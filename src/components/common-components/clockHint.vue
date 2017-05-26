@@ -11,18 +11,25 @@
         <div class="switchBtn"></div>
       </div>
     </transition>
+    <v-confirm :leftmsg="leftmsg" :msg="msg" @sure="confirmSure" @cancle="closeWindow" v-if="openConfirm"></v-confirm>
   </div>
 </template>
 
 <script>
+  import confirm from '../common-components/confirm.vue'
+
     export default {
         data () {
             return {
                 clockFlag:false,
                 clockTip:false,
+                openConfirm: false,
+                msg:'',
+                leftmsg:'去设置'
             }
         },
         created(){
+          var that = this;
           console.log(this.deviceN());
           if(this.deviceN()){
             this.clockTip = true;
@@ -31,7 +38,15 @@
               if(android4js.isPushStopped()){
                 this.clockFlag = true;
               }
+            }else{
+              window.webkit.messageHandlers.ViewController.postMessage({methodName:' isPushStopped '});
             }
+          }
+          window.toMessageStatus=function(status){
+            if(status){
+              that.clockFlag = true;
+            }
+
           }
         },
         methods:{
@@ -40,8 +55,25 @@
               if(typeof android4js !=="undefined" && typeof android4js.opentOrCloseMessage == 'function'){
                 this.clockFlag = !this.clockFlag;
                 android4js.opentOrCloseMessage(this.clockFlag);
+              }else{
+               
+                this.openConfirm = true,
+                this.msg='ios系统设置[通知]中信金融项未打开，无法收到推送，请先去设置。'
+                // window.webkit.messageHandlers.ViewController.postMessage({methodName:'openMessage'});
               }
-            }
+            },
+            confirmSure() {
+              this.openConfirm=false;
+              this.clockFlag = !this.clockFlag;
+              window.webkit.messageHandlers.ViewController.postMessage({methodName:'openMessage'});
+            },
+            closeWindow(bool) {
+              this.openConfirm = bool; 
+
+            },
+        },
+        components:{
+          'v-confirm':confirm,
         }
     }
 </script>

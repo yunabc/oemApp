@@ -264,6 +264,8 @@
                if(typeof android4js !=='undefined'){
 
                  android4js.opencarema();
+               }else{
+                window.webkit.messageHandlers.ViewController.postMessage({methodName:'openCarema'});
                }
               }
               

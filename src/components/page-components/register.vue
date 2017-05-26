@@ -298,9 +298,13 @@ export default {
                   }
                  });
               })
-            }else if(this.deviceN()=="android"){
+            }else if(this.deviceN()){
              // APP中
+             if(this.deviceN()=="android"){
               android4js.opencarema();
+             }else{
+             	window.webkit.messageHandlers.ViewController.postMessage({methodName:'openCarema'});
+             }
             }else{
             	// 其他非微信的web端
 	            this.msg = "注册成功";
