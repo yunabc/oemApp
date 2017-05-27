@@ -30,8 +30,13 @@ Vue.prototype.deviceN = function(){
 	if(typeof android4js !== 'undefined' && typeof android4js.deviceName == 'function'){
 		return android4js.deviceName();
 	}else if(typeof window.webkit !== 'undefined' && window.webkit.messageHandlers !== 'undefined' ){
-		return 'ios';
+		if(navigator.userAgent.indexOf('MicroMessenger') > -1){
+      return false;
+
+    }
+    return 'ios';
 	}
+  return false;
 }
 Vue.use(vueTap);
 Vue.use(VueCookie);

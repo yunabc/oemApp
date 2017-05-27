@@ -30,7 +30,6 @@
         },
         created(){
           var that = this;
-          console.log(this.deviceN());
           if(this.deviceN()){
             this.clockTip = true;
             // 调app方法
@@ -39,15 +38,17 @@
                 this.clockFlag = true;
               }
             }else{
-              window.webkit.messageHandlers.ViewController.postMessage({methodName:' isPushStopped '});
+              window.webkit.messageHandlers.ViewController.postMessage({methodName:'isPushStopped'});
             }
           }
           window.toMessageStatus=function(status){
-            if(status){
+            
+            if(status=="true"){
               that.clockFlag = true;
             }
 
-          }
+          };
+          // window.toMessageStatus('aaa');
         },
         methods:{
             toggleClick(){
@@ -56,10 +57,9 @@
                 this.clockFlag = !this.clockFlag;
                 android4js.opentOrCloseMessage(this.clockFlag);
               }else{
-               
-                this.openConfirm = true,
-                this.msg='ios系统设置[通知]中信金融项未打开，无法收到推送，请先去设置。'
-                // window.webkit.messageHandlers.ViewController.postMessage({methodName:'openMessage'});
+                  // 关闭状态打开
+                  this.openConfirm = true,
+                  this.msg='请到设置-通知-信金融中设置消息通知'
               }
             },
             confirmSure() {

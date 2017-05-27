@@ -179,7 +179,7 @@ const router = new Router({
 // 路由导航钩子，beforeEach，在路由进入前调用
 router.beforeEach((to, from, next) => {
   let titleStr = ''
-  console.log(to)
+  console.log(to.name)
   // 倒序遍历数组获取匹配到的路由节点，拼接各部分title
   for (let i = to.matched.length - 1; i >= 0; i--) {
     titleStr += `${to.matched[i].meta.title}`
@@ -198,7 +198,7 @@ router.beforeEach((to, from, next) => {
          option.nonceStr = data.result.nonceStr;
          option.signature = data.result.signature;
          
-         wxShare(option);
+         wxShare(option,window.location.origin + window.location.pathname+'?userInviterId=uuiouio#' + to.path);
          
       }else{
        

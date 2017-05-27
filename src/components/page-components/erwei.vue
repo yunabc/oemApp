@@ -33,7 +33,7 @@
          size:this.caculateRate(),
          typeNumber:4,
          logo:{
-           image:'http://www.mu12.cn/app/static/img/xinjrlogo.jpg',
+           image:'/app/static/img/xinjrlogo.jpg',
            size:.1,
          }
 
