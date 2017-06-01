@@ -96,10 +96,10 @@
       footNav
     },
     created(){
-
+      console.log(this.browVersions)
       if(!this.deviceN()){
         // 不是app
-        if(this.browVersions.android){
+        if(!this.browVersions.ios){
           this.notApp = true;
         }
       }
@@ -263,8 +263,8 @@
           padding: .50666667rem .66666667rem .4rem;
 
           img {
-            width: .78666667rem;
-            height: .77333333rem;
+            width: 0.786667rem;
+            height: 100%;
             margin-top: .17rem;
           }
 
@@ -275,7 +275,7 @@
               font-size: .42666667rem;
               line-height: .48rem;
               font-weight: bold;
-              margin-top: .32rem;
+              margin-top: .26rem;
             }
             .subtitle {
               font-size: .32rem;
