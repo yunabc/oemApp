@@ -151,7 +151,7 @@
       downLoadApp() {
         if (this.browVersions.weixin || this.browVersions.weibo) {
           this.shareTo = true;
-        } else if (this.browVersions.android) {
+        } else if (!this.browVersions.ios) {
           // 安卓
           clearTimeout(timer);
           var state = null;
@@ -246,6 +246,7 @@
       line-height: .8rem;
       text-align: center;
       font-weight: normal;
+      cursor: pointer;
     }
     .home-content {
       padding: .3rem .4rem 0;
