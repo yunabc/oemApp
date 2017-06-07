@@ -1,76 +1,79 @@
 <template>
-  <div id="home" class="stageScreen">
-    <div class="container">
-      <div class="swiper-container home-banner" v-if="bannerImgs.length>1">
-        <div class="swiper-wrapper">
-          <a v-for="item in bannerImgs" :href="item.triggerType==1?item.tiggerUrl:noUrl" class="swiper-slide"><img
-            :src="item.bannerUrl" :alt="item.bannerTitle" width="100%"></a>
-        </div>
-        <!-- 如果需要分页器 -->
-        <div class="swiper-pagination"></div>
+  <div class="wrapper-box">
+    <div id="home" class="stageScreen">
+      <div class="container">
+        <div class="swiper-container home-banner" v-if="bannerImgs.length>1">
+          <div class="swiper-wrapper">
+            <a v-for="item in bannerImgs" :href="item.triggerType==1?item.tiggerUrl:noUrl" class="swiper-slide"><img
+              :src="item.bannerUrl" :alt="item.bannerTitle" width="100%"></a>
+          </div>
+          <!-- 如果需要分页器 -->
+          <div class="swiper-pagination"></div>
 
-        <!-- 如果需要导航按钮 -->
-        <!-- <div class="swiper-button-prev"></div>
-         <div class="swiper-button-next"></div>-->
-      </div>
-      <div class="home-banner" v-else>
-        <a v-for="item in bannerImgs" :href="item.triggerType?item.tiggerUrl:noUrl" class="swiper-slide">
-          <img :src="item.bannerUrl" :alt="item.bannerTitle" width="100%">
-        </a>
-      </div>
-      <div class="download-txt" v-if="notApp" v-tap="{methods:downLoadApp}">点击下载信金融APP</div>
-      <div class="home-content" v-if="productDqViews || productHqViews">
-        <div class="currentInvest investLi" v-if="productHqViews" >
-          <router-link to="/invest/current">
-            <div class="infoDesc">
-              <img src="../../common/img/current.png" alt="">
-              <div class="desc">
-                <a href="" class="title">活期理财</a>
-                <!-- <div class="subtitle">随存随取 复利计息</div> -->
-              </div>
-              <div class="nextIcon"></div>
-            </div>
-            <ul>
-              <li v-for="item in productHqViews" :data-id="item.proId">
-                <div class="deviLine"></div>
-                <div class="infoCharge">
-                  <div class="name qhicon" >{{item.proName}}</div>
-                  <div class="profit">{{item.proRate}}%</div>
-                  <div class="buyBtn">购买</div>
-                </div>
-              </li>
-            </ul>
-          </router-link>
+          <!-- 如果需要导航按钮 -->
+          <!-- <div class="swiper-button-prev"></div>
+           <div class="swiper-button-next"></div>-->
         </div>
-        <div class="regularInvest investLi" v-if="productDqViews">
-          <router-link :to="{ path: '/invest/regular'}">
-            <div class="infoDesc">
-              <img src="../../common/img/regular.png" alt="">
-              <div class="desc">
-                <a href="" class="title">定期理财</a>
-                <!-- <div class="subtitle">限期丰富 还可转让变活</div> -->
-              </div>
-              <div class="nextIcon"></div>
-            </div>
-            <ul>
-              <li v-for="item in productDqViews" :data-id="item.proId">
-                <div class="deviLine"></div>
-                <div class="infoCharge">
-                  <div class="name " :class="item.proName.indexOf('360')>-1 ? 'qhicon':''" >{{item.proName}}</div>
-                  <div class="profit">{{item.proRate}}</div>
-                  <div class="buyBtn">购买</div>
+        <div class="home-banner" v-else>
+          <a v-for="item in bannerImgs" :href="item.triggerType?item.tiggerUrl:noUrl" class="swiper-slide">
+            <img :src="item.bannerUrl" :alt="item.bannerTitle" width="100%">
+          </a>
+        </div>
+        <div class="download-txt" v-if="notApp" v-tap="{methods:downLoadApp}">点击下载信金融APP</div>
+        <div class="home-content" v-if="productDqViews || productHqViews">
+          <div class="currentInvest investLi" v-if="productHqViews" >
+            <router-link to="/invest/current">
+              <div class="infoDesc">
+                <img src="../../common/img/current.png" alt="">
+                <div class="desc">
+                  <a href="" class="title">活期理财</a>
+                  <!-- <div class="subtitle">随存随取 复利计息</div> -->
                 </div>
-              </li>
-            </ul>
-          </router-link>
+                <div class="nextIcon"></div>
+              </div>
+              <ul>
+                <li v-for="item in productHqViews" :data-id="item.proId">
+                  <div class="deviLine"></div>
+                  <div class="infoCharge">
+                    <div class="name qhicon" >{{item.proName}}</div>
+                    <div class="profit">{{item.proRate}}%</div>
+                    <div class="buyBtn">购买</div>
+                  </div>
+                </li>
+              </ul>
+            </router-link>
+          </div>
+          <div class="regularInvest investLi" v-if="productDqViews">
+            <router-link :to="{ path: '/invest/regular'}">
+              <div class="infoDesc">
+                <img src="../../common/img/regular.png" alt="">
+                <div class="desc">
+                  <a href="" class="title">定期理财</a>
+                  <!-- <div class="subtitle">限期丰富 还可转让变活</div> -->
+                </div>
+                <div class="nextIcon"></div>
+              </div>
+              <ul>
+                <li v-for="item in productDqViews" :data-id="item.proId">
+                  <div class="deviLine"></div>
+                  <div class="infoCharge">
+                    <div class="name " :class="item.proName.indexOf('360')>-1 ? 'qhicon':''" >{{item.proName}}</div>
+                    <div class="profit">{{item.proRate}}</div>
+                    <div class="buyBtn">购买</div>
+                  </div>
+                </li>
+              </ul>
+            </router-link>
 
+          </div>
         </div>
+        <div class="noContent" v-else>暂无数据</div>
       </div>
-      <div class="noContent" v-else>暂无数据</div>
+      <div class="zhezhao" v-if="shareTo"></div>
+      <div class="share-arrow shareArrow2" v-if="shareTo"><div class="close" v-tap="{methods:closeFn}"></div></div>
     </div>
-    <div class="zhezhao" v-if="shareTo"></div>
-    <div class="share-arrow shareArrow2" v-if="shareTo"><div class="close" v-tap="{methods:closeFn}"></div></div>
     <foot-nav></foot-nav>
+    
   </div>
 </template>
 
@@ -260,23 +263,23 @@
         }
 
         .infoDesc {
-          display: flex;
+          // display: flex;
           padding: .50666667rem .66666667rem .4rem;
 
           img {
             width: 0.786667rem;
-            height: 100%;
-            margin-top: .17rem;
+            vertical-align: middle;
           }
 
           .desc {
             margin-left: .64rem;
-            width: 100%;
+            // width: 100%;
+            display: inline-block;
+            vertical-align: middle;
             .title {
               font-size: .42666667rem;
               line-height: .48rem;
               font-weight: bold;
-              margin-top: .26rem;
             }
             .subtitle {
               font-size: .32rem;
@@ -286,7 +289,8 @@
           }
           .nextIcon {
             float: right;
-            margin: auto;
+            // display: inline-block;
+            margin-top: .22rem ;
             height: 0.25rem;
             width: 0.25rem;
             border-top: 0.03rem solid #d4d4d4;
