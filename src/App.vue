@@ -1,5 +1,5 @@
 <template>
-  <div @click.self='changeDatePicker' id="app">
+  <div @click.self='changeDatePicker'>
     <router-view></router-view>
   </div>
 </template>
