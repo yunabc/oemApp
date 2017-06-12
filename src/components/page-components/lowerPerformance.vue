@@ -1,6 +1,6 @@
 <template>
 <div id="lowerPerformance" >
-  <div class="chooseCondition">
+  <div class="chooseCondition clearfix">
     <date-picker @chooseMonth="getChooseMonth"></date-picker>
     <div class="btnWrap">
       <button class="refresh performanceBtn" v-tap="{methods:getData,item:'刷新成功'}">刷新</button>
@@ -8,7 +8,7 @@
     </div>
   </div>
   <div v-if="dataReturnFlag">
-    <table  class="performanceDetail" v-if="dataList && dataList.length">
+    <table  class="performanceDetail performanceDetail2" v-if="dataList && dataList.length">
       <thead>
       <tr>
         <td>推广人ID</td>

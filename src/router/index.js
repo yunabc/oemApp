@@ -14,7 +14,11 @@ import register from 'components/page-components/register'
 import registernext from 'components/page-components/registernext'
 import account from 'components/page-components/account'
 import changePassword from 'components/page-components/changePassword'
-
+import erwei from 'components/page-components/erwei'
+import agreement from 'components/page-components/agreement'
+import axios from 'axios';
+import qs from 'qs';
+import {wxShare} from '../common/js/wxShare';
 
 Vue.use(Router)
 
@@ -24,7 +28,7 @@ const router = new Router({
       path: '/login',
       name: 'login',
       meta: {
-        title: '登陆'
+        title: '登录'
       },
       component: login
     },
@@ -105,7 +109,7 @@ const router = new Router({
       path:'/user',
       name:'user',
       meta: {
-        title: '我的'
+        title: '个人中心'
       },
       component:user
     },
@@ -153,19 +157,58 @@ const router = new Router({
       },
       component: changePassword
     }
+    ,{
+      path: '/erwei',
+      name: 'erwei',
+      meta: {
+        title: '我的二维码'
+      },
+      component: erwei
+    },
+    {
+      path: '/agreement',
+      name: 'agreement',
+      meta: {
+        title: '平台协议'
+      },
+      component: agreement
+    }
   ],
   linkActiveClass: 'active'
 });
 // 路由导航钩子，beforeEach，在路由进入前调用
 router.beforeEach((to, from, next) => {
   let titleStr = ''
-  console.log(to.matched)
+  console.log(to.name)
   // 倒序遍历数组获取匹配到的路由节点，拼接各部分title
   for (let i = to.matched.length - 1; i >= 0; i--) {
     titleStr += `${to.matched[i].meta.title}`
   }
   // 更新title
-  document.title = titleStr
+  document.title = titleStr;
+  
+
+    axios.post('/x-service/user/share.htm',qs.stringify({
+      signUrl: location.href.split('#')[0]
+    })).then((res) => {
+      let data = res.data,option={};
+      if (data.status == 0) {
+         option.appId = data.result.appId;
+         option.timestamp = data.result.timestamp;
+         option.nonceStr = data.result.nonceStr;
+         option.signature = data.result.signature;
+         
+         wxShare(option,window.location.origin + window.location.pathname+'?userInviterId=uuiouio#' + to.path);
+         
+      }else{
+       
+        
+      }
+    }).catch(function (error) {
+     
+      
+    });
+  
   // 继续路由导航
   next()
 })

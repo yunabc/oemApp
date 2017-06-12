@@ -20,11 +20,11 @@
     display: flex;
     flex-flow: column;
     align-items: center;
-    padding: .53333333rem 0;
+    padding: .33333333rem 0;
     background-color: #fff;
     margin-bottom: .26666667rem;
     div {
-      margin-bottom: .53333333rem;
+      margin-bottom: .15rem;
     }
     .title {
       font-size: .37333333rem;
@@ -33,10 +33,11 @@
     .profit {
       font-size: .64rem;
       line-height: .64rem;
-      margin-bottom: .26666667rem;
+      margin-bottom: .13rem;
     }
     .times {
       font-size: .26666667rem;
+      text-align: center;
       .days {
         font-size: .32rem;
         color: red;
@@ -71,6 +72,8 @@ import qs from 'qs';
         },
         created() {
           this.userId = this.$cookie.get('userId');
+          console.log(this.$route)
+
         },
         methods: {
           checkInfo(params) {
@@ -81,13 +84,13 @@ import qs from 'qs';
                 if (data.status == 0) {
                   location.href = data.result.allRedirectUrl;;
                 } else {
-                  console.log(data.errorMsg)
+                  this.$router.push({path:"/login",query:{topage:this.$route.name}});
                 }
               }).catch(function (error) {
-                console.log(error);
+                this.$router.push({path:"/login",query:{topage:this.$route.name}});
               });
             }else{
-              this.$router.push({path:"/login",query:{topage:"user"}});
+              this.$router.push({path:"/login",query:{topage:this.$route.name}});
             }
           }
         }

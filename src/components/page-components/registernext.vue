@@ -1,10 +1,10 @@
 <template>
 	<div class="login">
 		<div class="inputbox">
-			<input type="text" v-model="name" placeholder="请输入真实姓名">
-			<input type="text" v-model="idcard" placeholder="请输入身份证号">
-			<input type="text" v-model="bankcard" placeholder="请输入银行卡号">
-			<input type="text" v-model="bankcardphone" placeholder="请输入银行预留手机号">
+			<input type="text" v-model="name" maxlength="8" placeholder="请输入真实姓名">
+			<input type="text" v-model="idcard" maxlength="18" placeholder="请输入身份证号">
+			<input type="text" v-model="bankcard" maxlength="32" placeholder="请输入银行卡号">
+			<input type="text" v-model="bankcardphone" maxlength="11" placeholder="请输入银行预留手机号">
 		</div>
 		<div class="twobtns">
 			
@@ -110,11 +110,11 @@ export default {
 						break;
 					case "0":
 						//
-						let msg2 = null; 
-						if(this.topage == 'login'){
-							msg2 = "，请登录";
-						}
-						this.msg ="绑定成功" + msg2;
+						this.$cookie.set('userId',this.userId);
+						this.$cookie.delete('signFlag');
+						this.$cookie.delete('totalMoney');
+						this.$cookie.delete('totalMoneyText');
+						this.msg ="绑定成功";
 						this.openWindow = true;
 						setTimeout(() =>{
 							this.$router.push({ name: this.topage})

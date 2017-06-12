@@ -7,8 +7,8 @@
 			</div>
 			<div class="btn-box">
 				
-				<span class="sure" v-tap="{methods:surefn}">确定</span>
-				<span class="sure" v-tap="{methods:canclefn}">取消</span>
+				<span class="sure" v-tap="{methods:surefn}">{{sureMsg}}</span>
+				<span class="sure" v-tap="{methods:canclefn}">{{cancleMsg}}</span>
 			</div>
 		</div>
 	</div>
@@ -16,9 +16,25 @@
 <script>
 export default {
 	name:"alert",
+	data(){
+		return {
+			cancleMsg:"取消",
+			sureMsg:"确定"
+		}
+	},
 	props:{
 		msg:String,
+		rightMsg:String,
 		openWindow: Boolean,
+		leftmsg:String,
+	},
+	created(){
+		if(this.rightMsg){
+			this.cancleMsg = this.rightMsg;
+		}
+		if(this.leftmsg){
+			this.sureMsg = this.leftmsg;
+		}
 	},
 	methods: {
 		surefn() {

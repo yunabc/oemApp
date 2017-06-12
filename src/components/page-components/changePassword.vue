@@ -1,9 +1,9 @@
 <template>
 <div class="account">
   <ul class="account-list">
-    <li class="account-li"><span class="key">旧密码:</span><input type="password" v-model="oldpassword"></li>
-    <li class="account-li"><span class="key">新密码:</span><input type="password" v-model="newpassword"></li>
-    <li class="account-li"><span class="key">确认密码:</span><input type="password" v-model="newpassword2"></li>
+    <li class="account-li"><span class="key">旧密码:</span><input maxlength="20" type="password" v-model="oldpassword"></li>
+    <li class="account-li"><span class="key">新密码:</span><input maxlength="20" type="password" v-model="newpassword"></li>
+    <li class="account-li"><span class="key">确认密码:</span><input maxlength="20" type="password" v-model="newpassword2"></li>
 
   </ul>
   <button class="change-btn" v-tap="{methods:checkinput}">保存</button>
@@ -47,7 +47,18 @@
           if(regp.test(this.oldpassword)){
             if(regp.test(this.newpassword)){
               if(regp.test(this.newpassword2)){
-                this.upload();
+                if(this.newpassword !== this.oldpassword){
+                  if(this.newpassword == this.newpassword2){
+
+                    this.upload();
+                    return
+                  }
+                  this.msg = '新密码和确认密码不一致';
+                  this.openWindow = true;
+                  return
+                }
+                this.msg = '新密码和旧密码不能一致';
+                this.openWindow = true;
                 return
               }
               this.msg = '确认新密码格式不对';
@@ -101,7 +112,7 @@
             case "0":
               // 修改密码成功
               var that =this;
-              this.msg = "密码修改成功，请重新登陆";
+              this.msg = "密码修改成功，请重新登录";
               this.openWindow = true;
               setTimeout(function(){
 
@@ -110,7 +121,7 @@
 
               break;
             case "2":
-              // 登陆未绑定客户信息
+              // 登录未绑定客户信息
               this.$router.push({ name: 'login',query:{topage:"user"}})
               break;
             case "-1":

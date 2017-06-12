@@ -165,7 +165,7 @@
               }
               this.$root.$emit('passObj', {
                 page:this.page,
-                _flag:this._flag,
+                flag:this._flag,
                 dataList:this.dataList2
               });
               this.$nextTick(() => {
@@ -189,10 +189,10 @@
               console.log(data.result.allRedirectUrl);
               location.href = data.result.allRedirectUrl;
             } else {
-              console.log(data.errorMsg)
+              this.$router.push({path:"/login",query:{topage:this.$route.name}});
             }
           }).catch(function (error) {
-            console.log(error);
+            this.$router.push({path:"/login",query:{topage:this.$route.name}});
           });
         }else{
           this.$router.push({path:"/login",query:{topage:this.$route.name}});

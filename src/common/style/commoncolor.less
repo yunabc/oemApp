@@ -50,6 +50,17 @@ a{
 .performanceDetail{
   width: 100%;
   border: .01333333rem solid @lineGrayColor;
+  &.performanceDetail2{
+    thead,tbody{
+      tr{
+        td{
+          &:first-child{
+            display: none;
+          }
+        }
+      }
+    }
+  }
   thead,tbody{
     tr{
       display: flex;
@@ -59,9 +70,6 @@ a{
         border-bottom: .01333333rem solid @lineGrayColor;
         border-right: .01333333rem solid @lineGrayColor;
         text-align: center;
-        &:first-child{
-          display: none;
-        }
       }
     }
   }
@@ -113,6 +121,13 @@ a{
 #product{
   position: relative;
 }
-
+.clearfix:before,.clearfix:after{
+    content:"";
+    display:table;
+}
+.clearfix:after{clear:both;}
+.clearfix{
+    *zoom:1;/*IE/7/6*/
+}
 
 

@@ -4,8 +4,7 @@
 
 export function wxShare(option,pageUrl){
   let title= "信金融";
-  let desc = "点击邀请注册";
-  let url = location.origin+'/app/static/xinjrlogo.jpg'
+  let url = location.origin+'/app/static/img/xinjrlogo.jpg'
   console.log(option)
     wx.config({
       debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -16,16 +15,21 @@ export function wxShare(option,pageUrl){
       jsApiList: [
         'onMenuShareTimeline',
         'onMenuShareAppMessage',
-        'onMenuShareQQ'
+        'onMenuShareQQ',
+        'scanQRCode'
       ] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
     });
 
     wx.ready(function () {
-      console.log('ready')
+      // if(location.href.indexOf('/user')>-1){
+      //   pageUrl=pageUrl;
+      // }else{
+      //   pageUrl = location.href;
+      // }
       wx.onMenuShareAppMessage({
         title: title,
-        desc: desc,
-        link: pageUrl+'?userInviterId=' + option.userInviterId + '#/register',
+        desc: option.desc||document.title,
+        link: pageUrl,
         imgUrl: url,
         trigger: function (res) {
           // 不要尝试在trigger中使用ajax异步请求修改本次分享的内容，因为客户端分享操作是一个同步操作，这时候使用ajax的回包会还没有返回
@@ -40,7 +44,7 @@ export function wxShare(option,pageUrl){
       });
       wx.onMenuShareTimeline({
         title: title,
-        link: pageUrl+'?userInviterId=' + option.userInviterId + '#/register',
+        link: pageUrl,
         imgUrl: url,
         trigger: function (res) {
         },
@@ -53,8 +57,8 @@ export function wxShare(option,pageUrl){
       });
       wx.onMenuShareQQ({
         title: title, // 分享标题
-        desc: desc, // 分享描述
-        link: pageUrl+'?userInviterId=' + option.userInviterId + '#/register',
+        desc: option.desc||document.title, // 分享描述
+        link: pageUrl,
         imgUrl: url, // 分享图标
         success: function () {
           // 用户确认分享后执行的回调函数

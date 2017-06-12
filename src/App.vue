@@ -9,7 +9,7 @@ export default {
   name: 'app',
   data() {
     return {
-      datePicker:true
+      datePicker:true,
     }
   },
   created() {
@@ -17,8 +17,9 @@ export default {
   methods: {
     changeDatePicker() {
       this.$store.dispatch('saveDP',true);
-    }
-  }
+    },
+    
+  },
 }
 </script>
 
@@ -31,6 +32,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
+  -webkit-overflow-scrolling: touch;
 
 }
 </style>
