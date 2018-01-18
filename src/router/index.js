@@ -18,6 +18,7 @@ import changePassword from 'components/page-components/changePassword'
 
 Vue.use(Router)
 
+const aaa = 1;
 export default new Router({
   routes: [
     /*{
